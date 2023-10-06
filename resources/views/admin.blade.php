@@ -1,6 +1,4 @@
 @extends('layouts.app')
-
-@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,8 +9,6 @@
     @vite('resources/css/app.css','resources/js/app.js')
 </head>
 <body>
-    <h1 class="text-gray-700 text-3xl text-center font-bold uppercase my-4">Bienvenido a Turjoy</h1>
+    <h3>Ha entrado el admin</h3>
 </body>
 </html>
-@endsection
-
