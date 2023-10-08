@@ -9,6 +9,7 @@ class Route extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
         'origin',
         'destination',
@@ -20,4 +21,5 @@ class Route extends Model
     {
         return $this->hasMany(Reservation::class);
     }
+
 }
