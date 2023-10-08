@@ -1,3 +1,4 @@
+login.blade.php
 @extends('layouts.app')
 
 @section('title')
@@ -35,6 +36,7 @@
                 <input type="submit" value="Iniciar Sesión"
                 class="text-white bg-green-500 hover:cursor-pointer hover:bg-green-700 font-medium rounded-lg text-sm w-full p-3 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
                 style="background-color: #0A74DA;">
+
             </form>
         </div>
     </div>

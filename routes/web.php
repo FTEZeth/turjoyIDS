@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +20,10 @@ Route::get('/', function () {
 Route::get('login', function () {
     return view('auth.login');
 })->name('login');
+
+Route::get('upload', function () {
+    return view('auth.upload');
+})->name('upload');
 
 Route::post('login', [AuthController::class, 'login'])->name('auth.login');
 
