@@ -14,4 +14,9 @@ class Reservation extends Model
         'seat_amount',
         'id_route',
     ];
+
+    public function route()
+    {
+        return $this->belongsTo(Route::class, 'id_route');
+    }
 }
