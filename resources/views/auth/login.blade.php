@@ -32,8 +32,14 @@
                         <p class="bg-red-400 font-semibold text-lg text-red-800 p-2 my-2 rounded-lg">{{ $message }}</p>
                     @enderror
                 </div>
-                <input type="submit" value="Iniciar Sesión"
+                @if (session('message'))
+                    <p class="bg-red-400 font-semibold text-lg text-red-800 p-2 my-2 rounded-lg">{{ session('message') }}</p>
+                @endif
+
+                <div>
+                    <input type="submit" value="Iniciar Sesión"
                     class="text-white bg-emerald-700 hover:cursor-pointer hover:bg-emerald-800 font-medium rounded-lg text-sm w-full p-3 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
+                </div>
             </form>
         </div>
     </div>
