@@ -10,8 +10,14 @@ class Reservation extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_route',
         'date',
-        'seat_amount'
+        'seat_amount',
+        'id_route',
     ];
+
+    public function route()
+    {
+        return $this->belongsTo(Route::class, 'id_route');
+    }
+
 }
