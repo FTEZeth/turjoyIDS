@@ -9,6 +9,9 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
+
+        $messages = makeMessages();
+
         // Validar los campos ingresados
         $this->validate($request, [
             'email' => ['required', 'email'],
