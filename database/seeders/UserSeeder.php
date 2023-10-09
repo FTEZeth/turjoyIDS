@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
@@ -17,7 +18,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Italo Donoso',
                 'email' => 'italo.donoso@ucn.cl',
-                'password' => 'Turjoy91',
+                'password' => bcrypt('Turjoy91'),
                 'role' => 1,
             ]
             ]);
