@@ -23,6 +23,7 @@ class AuthController extends Controller
             return back()->with('message', 'usuario no registrado o contraseña incorrecta');
         }
 
+
         return redirect()->route('upload');
     }
 
