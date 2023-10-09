@@ -1,3 +1,4 @@
+login.blade.php
 @extends('layouts.app')
 
 @section('title')
@@ -7,11 +8,11 @@
 @section('content')
     <div class="flex items-center justify-center h-screen">
         <div class="bg-gray-200 p-6 mx-auto rounded-lg lg:w-1/4">
-            <h3 class="font-bold text-2xl text-center text-black uppercase mb-4">Inicia sesión en Turjoy</h3>
+            <h3 class="font-bold text-2xl text-center text-blue-500 uppercase mb-4">Inicia sesión en Turjoy</h3>
             <form class="w-full" action="{{ route('auth.login') }}" method="POST" novalidate>
                 @csrf
                 <div class="mb-6">
-                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-500 dark:text-white" style="color: #333333;">
                         Correo electrónico
                     </label>
                     <input type="email" id="email" name="email"
@@ -22,7 +23,7 @@
                     @enderror
                 </div>
                 <div class="mb-6">
-                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    <label for="password" class="block mb-2 text-sm font-medium text-gray-500 dark:text-white" style="color: #333333;">
                         Contraseña
                     </label>
                     <input type="password" id="password" name="password"
@@ -44,3 +45,4 @@
         </div>
     </div>
 @endsection
+
