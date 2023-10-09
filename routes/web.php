@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\auth\AuthController;
-
+use App\Http\Controllers\model_controllers\RouteController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,7 +24,7 @@ Route::get('login', function () {
 
 
 Route::middleware('auth')->group(function () {
-
+    Route::get('/upload-files', [RouteController::class, 'index'])->name('upload');
 });
 
 Route::post('login', [AuthController::class, 'login'])->name('auth.login');
@@ -34,6 +34,4 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 //ruta para el botón de subir archivo
 Route::post('/upload',[RouteController::class,'routeCheck'])->name('routes.check');
-Route::get('upload-files', function () {
-    return view('admin_routes.index');
-})->name('upload');
+

@@ -20,7 +20,15 @@ class User extends Authenticable
 
     protected $hidden = [
         'password',
+        'remember_token'
     ];
+
+    protected $casts = [
+
+        'password' => 'hashed',
+
+    ];
+
 
     public function role()
     {

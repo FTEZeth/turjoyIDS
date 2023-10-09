@@ -82,11 +82,11 @@ class RouteController extends Controller
             return $invalidrow['origen'] !== null || $invalidrow['destino'] !== null || $invalidrow['cantidad_de_asientos'] !== null || $invalidrow['tarifa_base'] !== null;
         });
 
-            session()->put('validRows', $validRows);
-            session()->put('invalidRows', $invalidRows);
-            session()->put('duplicatedRows', $duplicatedRows);
+        session()->put('validRows', $validRows);
+        session()->put('invalidRows', $invalidRows);
+        session()->put('duplicatedRows', $duplicatedRows);
 
-            return redirect()->route('routesAdd.index');
+        return redirect()->route('routesAdd.index');
     }
 }
     /**
@@ -135,5 +135,12 @@ class RouteController extends Controller
     public function destroy(Route $route)
     {
         //
+    }
+
+    public function index()
+    {
+
+        return view('admin_routes.index');
+
     }
 }
