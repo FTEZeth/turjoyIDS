@@ -3,11 +3,10 @@
 namespace App\Imports;
 
 use App\Models\Route;
-use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class RoutesImport implements ToModel, ToCollection, WithHeadingRow {
+class RoutesImport implements ToCollection, WithHeadingRow {
 
     protected $validRows = [];
     protected $invalidRows = [];
