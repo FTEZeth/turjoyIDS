@@ -19,5 +19,4 @@ class Reservation extends Model
     {
         return $this->belongsTo(Route::class, 'id_route');
     }
-
 }

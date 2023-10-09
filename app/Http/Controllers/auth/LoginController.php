@@ -22,4 +22,3 @@ use Illuminate\Http\Request;
             return redirect()->route('upload');
         }
     }
-}
