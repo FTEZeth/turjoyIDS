@@ -7,11 +7,12 @@
 @section('content')
 
 @if ($validRows || $invalidRows || $duplicatedRows)
-        <div class="flex flex-1 flex-col gap-2">
-            <div class="my-8 mx-auto">
-                <a class="px-6 py-3 bg-green-500 hover:bg-green-700 transition-all text-white font-semibold rounded-lg"
-                    href="{{ route('dashboard') }}">Finalizar</a>
-            </div>
+
+    <div class="flex flex-1 flex-col gap-2">
+        <div class="my-8 mx-auto">
+            <a class="px-6 py-3 bg-green-500 hover:bg-green-700 transition-all text-white font-semibold rounded-lg"
+                href="{{ route('home') }}">Finalizar</a>
+        </div>
 
             @if (count($validRows) > 0)
                 <h3 class="text-2xl text-black font-semibold uppercase text-center">Listado de viajes agregados
@@ -149,7 +150,13 @@
         </div>
 @else
 
-        <form class ="flex flex-col items-center w-1/2" action="#" method="POST" enctype="multipart/form-data">
+    <div class="flex flex-col flex-1 justify-center items-center my-6">
+        <div class="mb-12 mx-auto">
+            <a class="px-6 py-3 bg-red-500 hover:bg-red-700 transition-all text-white font-semibold rounded-lg"
+                href="{{ route('upload') }}">Volver</a>
+        </div>
+
+        <form class ="flex flex-col items-center w-1/2" action = "{{route('routes.check')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div>
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>

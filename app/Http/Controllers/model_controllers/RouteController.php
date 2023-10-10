@@ -65,7 +65,9 @@ class RouteController extends Controller
                     ->where('destination', $destination) //si el destino es igual al que se entregó por excel
                     ->first();
 
-                if($route) {
+                var_dump($route);
+
+                if(isset($route)) {
                     $route->update([
                         'seat_count' => $row['cantidad_de_asientos'],
                         'base_rate' => $row['tarifa_base'],
@@ -80,17 +82,27 @@ class RouteController extends Controller
                 }
             }
 
-        $invalidRows = array_filter($invalidRows, function ($invalidrow) {
-            return $invalidrow['origen'] !== null || $invalidrow['destino'] !== null || $invalidrow['cantidad_de_asientos'] !== null || $invalidrow['tarifa_base'] !== null;
-        });
-
+            $invalidRows = array_filter($invalidRows, function ($invalidrow) {
+                return $invalidrow['origen'] !== null || $invalidrow['destino'] !== null || $invalidrow['cantidad_de_asientos'] !== null || $invalidrow['tarifa_base'] !== null;
+            });
+        }
         session()->put('validRows', $validRows);
         session()->put('invalidRows', $invalidRows);
         session()->put('duplicatedRows', $duplicatedRows);
 
         return redirect()->route('routesAdd.index');
     }
-}
+
+    public function indexRoutes(request $request){
+
+        return view('admin_routes.index', [
+            'validRows' => session('validRows'),
+            'invalidRows' => session('invalidRows'),
+            'duplicatedRows' => session('duplicatedRows')
+        ]);
+
+    }
+
     /**
      * Show the form for creating a new resource.
      */
