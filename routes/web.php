@@ -24,7 +24,7 @@ Route::get('login', function () {
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/upload-files', [RouteController::class, 'index'])->name('upload');
+    Route::get('/upload-files', [RouteController::class, 'indexAddRoutes'])->name('upload');
 });
 
 Route::post('login', [AuthController::class, 'login'])->name('auth.login');

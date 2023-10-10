@@ -6,7 +6,6 @@ use App\Imports\RoutesImport;
 use App\Models\Route;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use Maatwebsite\Excel\Validators\ValidationException;
 use App\Http\Controllers\Controller;
 
 class RouteController extends Controller
@@ -23,13 +22,16 @@ class RouteController extends Controller
             session()->put('duplicatedRows', []);
         } else {
             //si no existen, las creo
-            session()('validRows', []);
-            session()('invalidRows', []);
-            session()('duplicatedRows', []);
+            session(['validRows' => []]);
+            session(['invalidRows' => []]);
+            session(['duplicatedRows' => []]);
         }
-        //return view('auth.upload' [
 
-        //])
+        return view('admin_routes.index', [
+            'validRows' => session('validRows'),
+            'invalidRows' => session('invalidRows'),
+            'duplicatedRows' => session('duplicatedRows')
+        ]);
 
     }
 
@@ -139,8 +141,7 @@ class RouteController extends Controller
 
     public function index()
     {
-
-        return view('admin_routes.index');
+        $this->indexAddRoutes();
 
     }
 }
