@@ -9,18 +9,22 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
+
+        $messages = makeMessages();
+
         // Validar los campos ingresados
         $this->validate($request, [
             'email' => ['required', 'email'],
             'password' => ['required']
-        ]);
+        ], $messages);
 
         // Intentar autenticar al usuario
         if (!auth()->attempt($request->only('email', 'password'), $request->remember)) {
             return back()->with('message', 'usuario no registrado o contraseña incorrecta');
         }
 
-        return redirect()->route('dashboard');
+
+        return redirect()->route('upload');
     }
 
     public function logout()
