@@ -37,3 +37,4 @@ Route::post('/upload',[RouteController::class,'routeCheck'])->name('routes.check
 Route::get('upload-files', function () {
     return view('admin_routes.index');
 })->name('upload');
+
