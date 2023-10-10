@@ -3,11 +3,11 @@
 namespace App\Imports;
 
 use App\Models\Route;
-use Maatwebsite\Excel\Concerns\ToModel;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class RoutesImport implements ToModel, ToCollection, WithHeadingRow {
+class RoutesImport implements ToCollection, WithHeadingRow {
 
     protected $validRows = [];
     protected $invalidRows = [];
@@ -31,10 +31,17 @@ class RoutesImport implements ToModel, ToCollection, WithHeadingRow {
                     $tarifaBase = $row['tarifa_base'];
 
                     // Utilizar una expresión regular para eliminar todos los caracteres que no sean dígitos
-                    $tarifaBase = preg_replace("/[^0-9]/", "", $tarifaBase);
+                    $tarifaBase = str_replace(['$', ',', '.'], '', $tarifaBase);
 
                     // Convertir la cadena resultante a un número entero
-                    $tarifaBase = (int)$tarifaBase;
+                    try {
+
+                        $tarifaBase = (int)$tarifaBase;
+
+                    } catch (Exception $e) {
+                        $this->invalidRows[] = $row;
+                        continue;
+                    }
 
                     // Asignar el valor limpio de tarifa base de nuevo a la fila
                     $row['tarifa_base'] = $tarifaBase;
