@@ -1,5 +1,7 @@
 
 @extends('layouts.app')
+
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,9 +18,9 @@
     <div style="height: 100vh; display: flex; align-items: center; justify-content: center; background-color: #F4F4F4;">
         <img src="{{ asset('images/FondoInterfazProximamente.png') }}" alt="Fondo Interfaz" style="width: 100%; height: 100%;">
     </div>
-@endsection
-
-
+    @endsection
 
 </body>
 </html>
+@endsection
+
