@@ -24,12 +24,12 @@ Route::get('login', function () {
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/upload-files', [RouteController::class, 'index'])->name('upload');
+    Route::get('/upload-files', [RouteController::class, 'indexAddRoutes'])->name('upload');
+    Route::post('/upload', [RouteController::class,'routeCheck'])->name('routes.check');
+    Route::get('/result/route', [RouteController::class, 'indexRoutes'])->name('routesAdd.index');
 });
 
 Route::post('login', [AuthController::class, 'login'])->name('auth.login');
 
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-//ruta para el botón de subir archivo
-Route::post('/upload',[RouteController::class,'routeCheck'])->name('routes.check');

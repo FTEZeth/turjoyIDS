@@ -6,7 +6,6 @@ use App\Imports\RoutesImport;
 use App\Models\Route;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use Maatwebsite\Excel\Validators\ValidationException;
 use App\Http\Controllers\Controller;
 
 class RouteController extends Controller
@@ -23,13 +22,16 @@ class RouteController extends Controller
             session()->put('duplicatedRows', []);
         } else {
             //si no existen, las creo
-            session()('validRows', []);
-            session()('invalidRows', []);
-            session()('duplicatedRows', []);
+            session(['validRows' => []]);
+            session(['invalidRows' => []]);
+            session(['duplicatedRows' => []]);
         }
-        //return view('auth.upload' [
 
-        //])
+        return view('admin_routes.index', [
+            'validRows' => session('validRows'),
+            'invalidRows' => session('invalidRows'),
+            'duplicatedRows' => session('duplicatedRows')
+        ]);
 
     }
 
@@ -63,7 +65,9 @@ class RouteController extends Controller
                     ->where('destination', $destination) //si el destino es igual al que se entregó por excel
                     ->first();
 
-                if($route) {
+                var_dump($route);
+
+                if(isset($route)) {
                     $route->update([
                         'seat_count' => $row['cantidad_de_asientos'],
                         'base_rate' => $row['tarifa_base'],
@@ -78,17 +82,27 @@ class RouteController extends Controller
                 }
             }
 
-        $invalidRows = array_filter($invalidRows, function ($invalidrow) {
-            return $invalidrow['origen'] !== null || $invalidrow['destino'] !== null || $invalidrow['cantidad_de_asientos'] !== null || $invalidrow['tarifa_base'] !== null;
-        });
-
+            $invalidRows = array_filter($invalidRows, function ($invalidrow) {
+                return $invalidrow['origen'] !== null || $invalidrow['destino'] !== null || $invalidrow['cantidad_de_asientos'] !== null || $invalidrow['tarifa_base'] !== null;
+            });
+        }
         session()->put('validRows', $validRows);
         session()->put('invalidRows', $invalidRows);
         session()->put('duplicatedRows', $duplicatedRows);
 
         return redirect()->route('routesAdd.index');
     }
-}
+
+    public function indexRoutes(request $request){
+
+        return view('admin_routes.index', [
+            'validRows' => session('validRows'),
+            'invalidRows' => session('invalidRows'),
+            'duplicatedRows' => session('duplicatedRows')
+        ]);
+
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -139,8 +153,7 @@ class RouteController extends Controller
 
     public function index()
     {
-
-        return view('admin_routes.index');
+        $this->indexAddRoutes();
 
     }
 }

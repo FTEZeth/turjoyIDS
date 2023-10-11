@@ -47,7 +47,7 @@ class RoutesImport implements ToCollection, WithHeadingRow {
                     $row['tarifa_base'] = $tarifaBase;
                 }
                 //validar nombres de campos y que sean numéricos y requeridos
-                if (isset($row['origen']) && isset($row['destino']) && isset($row['cantidad_de_asientos']) && isset ($row['tarifa_base']) && is_numeric($row['cantidad_de_asientos']) && is_numeric($row)['tarifa_base']) {
+                if (isset($row['origen']) && isset($row['destino']) && isset($row['cantidad_de_asientos']) && isset ($row['tarifa_base']) && is_numeric($row['cantidad_de_asientos']) && is_numeric($row['tarifa_base'])) {
                     $this->validRows[] = $row;
                     //registra la combinación de origen y destino
                     $this->existingOriginsDestinations[] = $origin . '-' . $destination;
