@@ -85,16 +85,16 @@
                                 <tr class="bg-red-400 border-b dark:bg-gray-900 dark:border-gray-700">
                                     <th scope="row"
                                         class="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white">
-                                        {{ $invalidRow['origen'] ? $invalidRow['origen'] : '---' }}
+                                        {{ isset($invalidRow['origen']) ? $invalidRow['origen'] : '---' }}
                                     </th>
                                     <td class="px-6 py-4 text-white font-medium">
-                                        {{ $invalidRow['destino'] ? $invalidRow['destino'] : '---' }}
+                                        {{ isset($invalidRow['destino']) ? $invalidRow['destino'] : '---' }}
                                     </td>
                                     <td class="px-6 py-4 text-white font-medium">
-                                        {{ $invalidRow['cantidad_de_asientos'] ? $invalidRow['cantidad_de_asientos'] : '---' }}
+                                        {{ isset($invalidRow['cantidad_de_asientos']) ? $invalidRow['cantidad_de_asientos'] : '---' }}
                                     </td>
                                     <td class="px-6 py-4 text-white font-medium">
-                                        {{ $invalidRow['tarifa_base'] ? $invalidRow['tarifa_base'] : '---' }}
+                                        {{ isset($invalidRow['tarifa_base']) ? $invalidRow['tarifa_base'] : '---' }}
                                     </td>
                                 </tr>
                             @endforeach
@@ -159,11 +159,10 @@
         <form class ="flex flex-col items-center w-1/2" action = "{{route('routes.check')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
                 <input name="document" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help"> Tipo de archivo soportado: .xlsx (max 5mb).</p>
                 @error('document')
-                    <p class="bg-red-400 font-semibold my-4 text-lg text-center text-red-800 px-4 py-3 rounded-lg">
+                    <p class="bg-red-400 text-gray-200 font-semibold my-4 text-lg text-center text-red-800 px-4 py-3 rounded-lg">
                         {{$message}}
                     </p>
                 @enderror
@@ -173,5 +172,6 @@
                 Importar rutas
             </button>
         </form>
+    </div>
 @endif
 @endsection
