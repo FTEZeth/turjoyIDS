@@ -161,6 +161,12 @@
             <div>
                 <input name="document" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-200 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help"> Tipo de archivo soportado: .xlsx (max 5mb).</p>
+                
+                @if (session('message'))
+                    <p class="bg-red-400 text-gray-200 font-semibold my-4 text-lg text-center text-red-800 px-4 py-3 rounded-lg">
+                        {{session('message')}}
+                @endif
+                
                 @error('document')
                     <p class="bg-red-500 font-semibold my-4 text-lg text-center text-white px-4 py-3 rounded-lg", style="background-color: #FF6B6B">
                         {{$message}}
