@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\Route;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class RoutesImport implements ToCollection, WithHeadingRow {
@@ -23,8 +24,16 @@ class RoutesImport implements ToCollection, WithHeadingRow {
 
 
             //importante que tengan el mismo nombre que en el archivo 'origen' y 'destino'
-            $origin = $row['origen'];
-            $destination = $row['destino'];
+            try{
+                $origin = $row['origen'];
+                $destination = $row['destino'];
+                $tarifaBase = $row['tarifa_base'];
+                $cantidadDeAsientos = $row['cantidad_de_asientos'];
+            }
+            catch (\Exception $e)
+            {
+                return back()->with('message', 'El archivo no tiene el formato correcto.');
+            }
 
             if ($this->hasDuplicateOriginDestination($origin, $destination)) {
 
@@ -51,7 +60,7 @@ class RoutesImport implements ToCollection, WithHeadingRow {
                     $row['tarifa_base'] = $tarifaBase;
                 }
                 //validar nombres de campos y que sean numéricos y requeridos
-                if (isset($row['origen']) && isset($row['destino']) && isset($row['cantidad_de_asientos']) && isset ($row['tarifa_base']) && is_numeric($row['cantidad_de_asientos']) && is_numeric($row['tarifa_base'])) {
+                if (isset($row['origen']) && isset($row['destino']) && isset($row['cantidad_de_asientos']) && isset ($row['tarifa_base']) && is_numeric($row['cantidad_de_asientos']) && is_numeric($row['tarifa_base']) &&$row['cantidad_de_asientos'] > 0 && $row['tarifa_base'] > 0) {
                     $this->validRows[] = $row;
                     //registra la combinación de origen y destino
                     $this->existingOriginsDestinations[] = $origin . '-' . $destination;

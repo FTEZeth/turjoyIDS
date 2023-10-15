@@ -5,6 +5,7 @@ namespace App\Http\Controllers\model_controllers;
 use App\Imports\RoutesImport;
 use App\Models\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 
@@ -58,6 +59,7 @@ class RouteController extends Controller
 
             //agregar o reemplazad filaz validas en la bdd
             foreach ($validRows as $row) {
+
                 $origin = $row['origen'];
                 $destination = $row['destino'];
 
