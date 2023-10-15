@@ -1,7 +1,6 @@
 <?php
 
-function makeMessages()
-{
+function makeMessages(){
 
     $messages = [
 
@@ -17,5 +16,4 @@ function makeMessages()
     ];
 
     return $messages;
-
 }

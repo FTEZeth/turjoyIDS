@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 
-class RouteController extends Controller
-{
+class RouteController extends Controller{
     /**
      * Display a listing of the resource.
      */
+
     public function indexAddRoutes() {
 
         //si las variables ya existen, las actualizo
@@ -67,7 +67,6 @@ class RouteController extends Controller
                     ->where('destination', $destination) //si el destino es igual al que se entregó por excel
                     ->first();
 
-
                 if(isset($route)) {
                     $route->update([
                         'seat_count' => $row['cantidad_de_asientos'],
@@ -87,11 +86,12 @@ class RouteController extends Controller
                 return $invalidrow['origen'] !== null || $invalidrow['destino'] !== null || $invalidrow['cantidad_de_asientos'] !== null || $invalidrow['tarifa_base'] !== null;
             });
         }
+
         session()->put('validRows', $validRows);
         session()->put('invalidRows', $invalidRows);
         session()->put('duplicatedRows', $duplicatedRows);
 
-        return redirect()->route('routesAdd.index');
+        return redirect()->route('indexRoutes');
     }
 
     public function indexRoutes(request $request){
@@ -101,60 +101,52 @@ class RouteController extends Controller
             'invalidRows' => session('invalidRows'),
             'duplicatedRows' => session('duplicatedRows')
         ]);
-
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
+    public function create(){
         //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Route $route)
-    {
+    public function show(Route $route){
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Route $route)
-    {
+    public function edit(Route $route){
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Route $route)
-    {
+    public function update(Request $request, Route $route){
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Route $route)
-    {
+    public function destroy(Route $route){
         //
     }
 
-    public function index()
-    {
-        $this->indexAddRoutes();
+    public function index(){
 
+        $this->indexAddRoutes();
     }
 }

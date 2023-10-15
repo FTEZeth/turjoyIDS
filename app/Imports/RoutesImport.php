@@ -17,26 +17,21 @@ class RoutesImport implements ToCollection, WithHeadingRow {
 
 
     public function collection(Collection $rows) {
+
         foreach ($rows as $row) {
-
-
             //verificar los nombres de las columnas
 
-
-            //importante que tengan el mismo nombre que en el archivo 'origen' y 'destino'
             try{
                 $origin = $row['origen'];
                 $destination = $row['destino'];
                 $tarifaBase = $row['tarifa_base'];
                 $cantidadDeAsientos = $row['cantidad_de_asientos'];
             }
-            catch (\Exception $e)
-            {
+            catch (\Exception $e){
                 return back()->with('message', 'El archivo no tiene el formato correcto.');
             }
 
             if ($this->hasDuplicateOriginDestination($origin, $destination)) {
-
                 $this->duplicatedRows[] = $row;
             } else {
                 //limpiar campo de tarifa base
@@ -72,25 +67,29 @@ class RoutesImport implements ToCollection, WithHeadingRow {
     }
 
     private function hasDuplicateOriginDestination($origin, $destination) {
+
         $key = $origin . '-' . $destination;
         return in_array($key, $this->existingOriginsDestinations);
     }
 
     public function getValidRows() {
+
         return $this->validRows;
     }
 
     public function getInvalidRows() {
+
         return $this->invalidRows;
     }
 
     public function getDuplicatedRows() {
+
         return $this->duplicatedRows;
     }
 
 
-    public function model(array $row)
-    {
+    public function model(array $row){
+
         return new Route([
             //
         ]);
