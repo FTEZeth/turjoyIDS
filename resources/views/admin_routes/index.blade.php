@@ -10,8 +10,8 @@
 
     <div class="flex flex-1 flex-col gap-2">
         <div class="my-8 mx-auto">
-            <a class="px-6 py-3 bg-green-500 hover:bg-green-700 transition-all text-white font-semibold rounded-lg"
-                href="{{ route('home') }}">Finalizar</a>
+            <a class="px-6 py-3 bg-green-500 hover:bg-green-700 transition-all text-white font-semibold rounded-lg",  style="background-color: #2ECC71;"
+                href="{{ route('upload') }}">Finalizar</a>
         </div>
 
             @if (count($validRows) > 0)
@@ -152,23 +152,23 @@
 
     <div class="flex flex-col flex-1 justify-center items-center my-6">
         <div class="mb-12 mx-auto">
-            <a class="px-6 py-3 bg-red-500 hover:bg-red-700 transition-all text-white font-semibold rounded-lg"
+            <a class="px-6 py-3 bg-red-500 hover:bg-red-400 transition-all text-white font-semibold rounded-lg", style="background-color: #FF6B6B"
                 href="{{ route('home') }}">Volver</a>
         </div>
 
         <form class ="flex flex-col items-center w-1/2" action = "{{route('routes.check')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div>
-                <input name="document" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
+                <input name="document" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-200 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help"> Tipo de archivo soportado: .xlsx (max 5mb).</p>
                 @error('document')
-                    <p class="bg-red-400 text-gray-200 font-semibold my-4 text-lg text-center text-red-800 px-4 py-3 rounded-lg">
+                    <p class="bg-red-500 font-semibold my-4 text-lg text-center text-white px-4 py-3 rounded-lg", style="background-color: #FF6B6B">
                         {{$message}}
                     </p>
                 @enderror
             </div>
 
-            <button class="lg:w-1/4 my-4 p-2 bg-green-400 rounded-sm text-white font-semibold" type="submit">
+            <button class="lg:w-1/4 my-4 p-2 bg-green-400 rounded-sm text-white font-semibold",  style="background-color: #2ECC71;" type="submit">
                 Importar rutas
             </button>
         </form>
