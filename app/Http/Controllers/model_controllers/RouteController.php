@@ -42,7 +42,7 @@ class RouteController extends Controller
 
         //validar características del archivo a subir
         $this->validate($request, [
-            'document' => ['required', 'mimes:xlsx', 'max:5120'],
+            'document' => ['required','mimes:xlsx' ,'min:6', 'max:5120'],
         ], $messages);
 
         //validar el archivo una vez subido

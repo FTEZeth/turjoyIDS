@@ -11,6 +11,7 @@ function makeMessages()
 
         'document.required' => 'el campo archivo es requerido',
         'document.mimes' => 'el archivo seleccionado no es Excel con extensión xlsx',
+        'document.min' => 'el archivo excel esta vacio',
         'document.max' => 'el tamaño máximo del archivo a cargar no puede superar los 5 megabytes'
 
     ];
