@@ -33,6 +33,7 @@
                         <p class="bg-red-400 font-semibold text-lg text-red-800 p-2 my-2 rounded-lg">{{ $message }}</p>
                     @enderror
                 </div>
+
                 @if (session('message'))
                     <p class="bg-red-400 font-semibold text-lg text-red-800 p-2 my-2 rounded-lg">{{ session('message') }}</p>
                 @endif
