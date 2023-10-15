@@ -18,6 +18,10 @@ class RoutesImport implements ToCollection, WithHeadingRow {
     public function collection(Collection $rows) {
         foreach ($rows as $row) {
 
+
+            //verificar los nombres de las columnas
+
+
             //importante que tengan el mismo nombre que en el archivo 'origen' y 'destino'
             $origin = $row['origen'];
             $destination = $row['destino'];
@@ -38,7 +42,7 @@ class RoutesImport implements ToCollection, WithHeadingRow {
 
                         $tarifaBase = (int)$tarifaBase;
 
-                    } catch (Exception $e) {
+                    } catch (\Exception $e) {
                         $this->invalidRows[] = $row;
                         continue;
                     }

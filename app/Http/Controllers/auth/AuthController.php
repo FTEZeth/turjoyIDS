@@ -18,6 +18,7 @@ class AuthController extends Controller
             'password' => ['required']
         ], $messages);
 
+
         // Intentar autenticar al usuario
         if (!auth()->attempt($request->only('email', 'password'), $request->remember)) {
             return back()->with('message', 'usuario no registrado o contraseña incorrecta');
