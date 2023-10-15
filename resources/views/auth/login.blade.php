@@ -19,7 +19,7 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required>
                     @error('email')
-                        <p class="bg-red-400 font-semibold text-lg text-red-800 p-2 my-2 rounded-lg">{{ $message }}</p>
+                        <p class="bg-red-400 font-semibold text-lg text-red-800 p-2 my-2 rounded-lg text-center">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="mb-6">
@@ -30,11 +30,11 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required>
                     @error('password')
-                        <p class="bg-red-400 font-semibold text-lg text-red-800 p-2 my-2 rounded-lg">{{ $message }}</p>
+                        <p class="bg-red-400 font-semibold text-lg text-red-800 p-2 my-2 rounded-lg text-center">{{ $message }}</p>
                     @enderror
                 </div>
                 @if (session('message'))
-                    <p class="bg-red-400 font-semibold text-lg text-red-800 p-2 my-2 rounded-lg">{{ session('message') }}</p>
+                    <p class="bg-red-400 font-semibold text-lg text-red-800 p-2 my-2 rounded-lg text-center">{{ session('message') }}</p>
                 @endif
 
                 <div>
