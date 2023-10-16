@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+input[name="document"]::file-selector-button {
+    background-color: #0474DA;
+    transition: 1s;
+  }
