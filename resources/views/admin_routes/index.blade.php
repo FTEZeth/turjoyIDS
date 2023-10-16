@@ -15,41 +15,41 @@
         </div>
 
             @if (count($validRows) > 0)
-                <h3 class="text-2xl text-black font-semibold uppercase text-center">Listado de viajes agregados
+                <h3 class="text-2xl text-black font-semibold uppercase text-center" style="color: #333333">Listado de viajes agregados
                     correctamente
                 </h3>
                 <div class="relative overflow-x-auto sm:rounded-lg mb-2">
                     <table class="w-1/2 mx-auto text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-green-600 dark:bg-gray-700 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-green-600 dark:bg-gray-700 dark:text-gray-400"style="background-color: #a8e6cf">
                             <tr>
-                                <th scope="col" class="px-6 py-3 text-white font-bold">
+                                <th scope="col" class="px-6 py-3 text-white font-bold" style="color: #333333">
                                     Origen
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-white font-bold">
+                                <th scope="col" class="px-6 py-3 text-white font-bold" style="color: #333333">
                                     Destino
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-white font-bold">
+                                <th scope="col" class="px-6 py-3 text-white font-bold" style="color: #333333">
                                     Cantidad de asientos
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-white font-bold">
+                                <th scope="col" class="px-6 py-3 text-white font-bold" style="color: #333333">
                                     Tarifa base
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($validRows as $validRow)
-                                <tr class="bg-green-400 border-b dark:bg-gray-900 dark:border-gray-700">
+                                <tr class="bg-green-400 border-b dark:bg-gray-900 dark:border-gray-700" style="background-color: #a8e6cf">
                                     <th scope="row"
-                                        class="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white">
+                                        class="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white" style="color: #333333" >
                                         {{ $validRow['origen'] }}
                                     </th>
-                                    <td class="px-6 py-4 text-white font-medium">
+                                    <td class="px-6 py-4 text-white font-medium" style="color: #333333">
                                         {{ $validRow['destino'] }}
                                     </td>
-                                    <td class="px-6 py-4 text-white font-medium">
+                                    <td class="px-6 py-4 text-white font-medium" style="color: #333333">
                                         {{ $validRow['cantidad_de_asientos'] }}
                                     </td>
-                                    <td class="px-6 py-4 text-white font-medium">
+                                    <td class="px-6 py-4 text-white font-medium" style="color: #333333">
                                         {{ $validRow['tarifa_base'] }}
                                     </td>
                                 </tr>
@@ -59,41 +59,41 @@
                 </div>
             @endif
             @if (count($invalidRows))
-                <h3 class="text-2xl text-black font-semibold uppercase text-center">
+                <h3 class="text-2xl text-black font-semibold uppercase text-center" style="color: #333333">
                     Listado de viajes que presentaron errores
                 </h3>
-                <div class="relative overflow-x-auto sm:rounded-lg">
-                    <table class="w-1/2 mx-auto text-sm text-left text-gray-500 dark:text-gray-400 mb-2">
-                        <thead class="text-xs text-gray-700 uppercase bg-red-600 dark:bg-gray-700 dark:text-gray-400">
+                <div class="relative overflow-x-auto sm:rounded-lg" >
+                    <table class="w-1/2 mx-auto text-sm text-left text-gray-500 dark:text-gray-400 mb-2" >
+                        <thead class="text-xs text-gray-700 uppercase bg-red-600 dark:bg-gray-700 dark:text-gray-400" style="background-color: #ff8a80">
                             <tr>
-                                <th scope="col" class="px-6 py-3 text-white font-bold">
+                                <th scope="col" class="px-6 py-3 text-white font-bold" style="color: #333333">
                                     Origen
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-white font-bold">
+                                <th scope="col" class="px-6 py-3 text-white font-bold" style="color: #333333">
                                     Destino
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-white font-bold">
+                                <th scope="col" class="px-6 py-3 text-white font-bold" style="color: #333333">
                                     Cantidad de asientos
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-white font-bold">
+                                <th scope="col" class="px-6 py-3 text-white font-bold" style="color: #333333">
                                     Tarifa base
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($invalidRows as $invalidRow)
-                                <tr class="bg-red-400 border-b dark:bg-gray-900 dark:border-gray-700">
+                                <tr class="bg-red-400 border-b dark:bg-gray-900 dark:border-gray-700" style="background-color: #ff8a80">
                                     <th scope="row"
-                                        class="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white">
+                                        class="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white" style="color: #333333">
                                         {{ isset($invalidRow['origen']) ? $invalidRow['origen'] : '---' }}
                                     </th>
-                                    <td class="px-6 py-4 text-white font-medium">
+                                    <td class="px-6 py-4 text-white font-medium" style="color: #333333">
                                         {{ isset($invalidRow['destino']) ? $invalidRow['destino'] : '---' }}
                                     </td>
-                                    <td class="px-6 py-4 text-white font-medium">
+                                    <td class="px-6 py-4 text-white font-medium" style="color: #333333">
                                         {{ isset($invalidRow['cantidad_de_asientos']) ? $invalidRow['cantidad_de_asientos'] : '---' }}
                                     </td>
-                                    <td class="px-6 py-4 text-white font-medium">
+                                    <td class="px-6 py-4 text-white font-medium" style="color: #333333">
                                         {{ isset($invalidRow['tarifa_base']) ? $invalidRow['tarifa_base'] : '---' }}
                                     </td>
                                 </tr>
@@ -104,41 +104,41 @@
             @endif
 
             @if (count($duplicatedRows))
-                <h3 class="text-2xl text-black font-semibold uppercase text-center">
+                <h3 class="text-2xl text-black font-semibold uppercase text-center" style="color: #333333">
                     Listado de viajes que se encuentran duplicados
                 </h3>
-                <div class="relative overflow-x-auto sm:rounded-lg">
-                    <table class="w-1/2 mx-auto text-sm text-left text-gray-500 dark:text-gray-400 mb-2">
-                        <thead class="text-xs text-gray-700 uppercase bg-amber-600 dark:bg-gray-700 dark:text-gray-400">
+                <div class="relative overflow-x-auto sm:rounded-lg" >
+                    <table class="w-1/2 mx-auto text-sm text-left text-gray-500 dark:text-gray-400 mb-2"  >
+                        <thead class="text-xs text-gray-700 uppercase bg-amber-600 dark:bg-gray-700 dark:text-gray-400" style="background-color: #e4e6a8">
                             <tr>
-                                <th scope="col" class="px-6 py-3 text-white font-bold">
+                                <th scope="col" class="px-6 py-3 text-white font-bold" style="color: #333333">
                                     Origen
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-white font-bold">
+                                <th scope="col" class="px-6 py-3 text-white font-bold" style="color: #333333">
                                     Destino
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-white font-bold">
+                                <th scope="col" class="px-6 py-3 text-white font-bold" style="color: #333333">
                                     Cantidad de asientos
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-white font-bold">
+                                <th scope="col" class="px-6 py-3 text-white font-bold" style="color: #333333">
                                     Tarifa base
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($duplicatedRows as $duplicatedRow)
-                                <tr class="bg-yellow-400 border-b dark:bg-gray-900 dark:border-gray-700">
+                                <tr class="bg-yellow-400 border-b dark:bg-gray-900 dark:border-gray-700" style="background-color: #e4e6a8">
                                     <th scope="row"
-                                        class="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white">
+                                        class="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white" style="color: #333333">
                                         {{ $duplicatedRow['origen'] }}
                                     </th>
-                                    <td class="px-6 py-4 text-white font-medium">
+                                    <td class="px-6 py-4 text-white font-medium" style="color: #333333">
                                         {{ $duplicatedRow['destino'] }}
                                     </td>
-                                    <td class="px-6 py-4 text-white font-medium">
+                                    <td class="px-6 py-4 text-white font-medium" style="color: #333333">
                                         {{ $duplicatedRow['cantidad_de_asientos'] }}
                                     </td>
-                                    <td class="px-6 py-4 text-white font-medium">
+                                    <td class="px-6 py-4 text-white font-medium" style="color: #333333">
                                         {{ $duplicatedRow['tarifa_base'] }}
                                     </td>
                                 </tr>
