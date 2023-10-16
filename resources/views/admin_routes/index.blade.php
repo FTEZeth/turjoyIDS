@@ -6,6 +6,7 @@
 
 @section('content')
 
+
 @if ($validRows || $invalidRows || $duplicatedRows)
 
     <div class="flex flex-1 flex-col gap-2">
@@ -147,6 +148,7 @@
                     </table>
                 </div>
             @endif
+
         </div>
 @else
 
