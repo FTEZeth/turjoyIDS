@@ -5,15 +5,15 @@ namespace App\Http\Controllers\model_controllers;
 use App\Imports\RoutesImport;
 use App\Models\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
-use Maatwebsite\Excel\Validators\ValidationException;
 use App\Http\Controllers\Controller;
 
-class RouteController extends Controller
-{
+class RouteController extends Controller{
     /**
      * Display a listing of the resource.
      */
+
     public function indexAddRoutes() {
 
         //si las variables ya existen, las actualizo
@@ -23,13 +23,16 @@ class RouteController extends Controller
             session()->put('duplicatedRows', []);
         } else {
             //si no existen, las creo
-            session()('validRows', []);
-            session()('invalidRows', []);
-            session()('duplicatedRows', []);
+            session(['validRows' => []]);
+            session(['invalidRows' => []]);
+            session(['duplicatedRows' => []]);
         }
-        //return view('auth.upload' [
 
-        //])
+        return view('admin_routes.index', [
+            'validRows' => session('validRows'),
+            'invalidRows' => session('invalidRows'),
+            'duplicatedRows' => session('duplicatedRows')
+        ]);
 
     }
 
@@ -39,7 +42,7 @@ class RouteController extends Controller
 
         //validar características del archivo a subir
         $this->validate($request, [
-            'document' => ['required', 'max:5120', 'mimes:xlsx'],
+            'document' => ['required','mimes:xlsx' ,'min:6', 'max:5120'],
         ], $messages);
 
         //validar el archivo una vez subido
@@ -56,6 +59,7 @@ class RouteController extends Controller
 
             //agregar o reemplazad filaz validas en la bdd
             foreach ($validRows as $row) {
+
                 $origin = $row['origen'];
                 $destination = $row['destino'];
 
@@ -63,7 +67,7 @@ class RouteController extends Controller
                     ->where('destination', $destination) //si el destino es igual al que se entregó por excel
                     ->first();
 
-                if($route) {
+                if(isset($route)) {
                     $route->update([
                         'seat_count' => $row['cantidad_de_asientos'],
                         'base_rate' => $row['tarifa_base'],
@@ -78,69 +82,71 @@ class RouteController extends Controller
                 }
             }
 
-        $invalidRows = array_filter($invalidRows, function ($invalidrow) {
-            return $invalidrow['origen'] !== null || $invalidrow['destino'] !== null || $invalidrow['cantidad_de_asientos'] !== null || $invalidrow['tarifa_base'] !== null;
-        });
+            $invalidRows = array_filter($invalidRows, function ($invalidrow) {
+                return $invalidrow['origen'] !== null || $invalidrow['destino'] !== null || $invalidrow['cantidad_de_asientos'] !== null || $invalidrow['tarifa_base'] !== null;
+            });
+        }
 
         session()->put('validRows', $validRows);
         session()->put('invalidRows', $invalidRows);
         session()->put('duplicatedRows', $duplicatedRows);
 
-        return redirect()->route('routesAdd.index');
+        return redirect()->route('indexRoutes');
     }
-}
+
+    public function indexRoutes(request $request){
+
+        return view('admin_routes.index', [
+            'validRows' => session('validRows'),
+            'invalidRows' => session('invalidRows'),
+            'duplicatedRows' => session('duplicatedRows')
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
+    public function create(){
         //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Route $route)
-    {
+    public function show(Route $route){
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Route $route)
-    {
+    public function edit(Route $route){
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Route $route)
-    {
+    public function update(Request $request, Route $route){
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Route $route)
-    {
+    public function destroy(Route $route){
         //
     }
 
-    public function index()
-    {
+    public function index(){
 
-        return view('admin_routes.index');
-
+        $this->indexAddRoutes();
     }
 }
