@@ -15,21 +15,22 @@ use App\Http\Controllers\model_controllers\RouteController;
 */
 
 Route::get('/', function () {
+
     return view('welcome');
 })->name('home');
 
 Route::get('login', function () {
+
     return view('auth.login');
 })->name('login');
 
-
 Route::middleware(['auth'])->group(function () {
+
     Route::get('/upload-files', [RouteController::class, 'indexAddRoutes'])->name('upload');
-    Route::post('/upload', [RouteController::class,'routeCheck'])->name('routes.check');
-    Route::get('/result/route', [RouteController::class, 'indexRoutes'])->name('routesAdd.index');
+    Route::post('/upload', [RouteController::class,'routeCheck'])->name('routeCheck');
+    Route::get('/result/route', [RouteController::class, 'indexRoutes'])->name('indexRoutes');
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-Route::post('login', [AuthController::class, 'login'])->name('auth.login');
-
-Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('login', [AuthController::class, 'login'])->name('authLogin');
 
