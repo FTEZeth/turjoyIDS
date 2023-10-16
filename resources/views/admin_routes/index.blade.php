@@ -6,7 +6,6 @@
 
 @section('content')
 
-
 @if ($validRows || $invalidRows || $duplicatedRows)
 
     <div class="flex flex-1 flex-col gap-2">
@@ -148,7 +147,6 @@
                     </table>
                 </div>
             @endif
-
         </div>
 @else
 
@@ -158,7 +156,9 @@
                 href="{{ route('home') }}">Volver</a>
         </div>
 
-        <form class ="flex flex-col items-center w-1/2" action = "{{route('routes.check')}}" method="POST" enctype="multipart/form-data">
+        <form class ="flex flex-col items-center w-1/2" action = "{{route('routeCheck')}}" method="POST" enctype="multipart/form-data">
+
+
             @csrf
             <div>
                 <input name="document" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-200 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">

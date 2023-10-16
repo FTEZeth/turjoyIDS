@@ -12,6 +12,7 @@ class Reservation extends Model{
         'date',
         'seat_amount',
         'id_route',
+
     ];
 
     public function route(){
