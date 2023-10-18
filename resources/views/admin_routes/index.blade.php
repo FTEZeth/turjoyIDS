@@ -169,6 +169,12 @@
                 @enderror
             </div>
 
+            @if (session('error'))
+            <div class="bg-red-400 text-gray-200 font-semibold my-4 text-lg text-center text-white px-4 py-3 rounded-lg" style="background-color: #ff8a80">
+                {{ session('error') }}
+            </div>
+        @endif
+
             <button class="lg:w-1/4 my-4 p-2 bg-green-400 rounded-sm text-white font-semibold" type="submit", style="background-color: #2ECC71">
                 Importar rutas
             </button>
