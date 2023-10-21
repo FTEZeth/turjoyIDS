@@ -57,7 +57,7 @@ class RouteController extends Controller{
             $invalidRows = $import->getInvalidRows();
             $duplicatedRows = $import->getDuplicatedRows();
 
-            //agregar o reemplazad filaz validas en la bdd
+            //agregar o reemplazar filas validas en la bdd
             foreach ($validRows as $row) {
 
                 $origin = $row['origen'];

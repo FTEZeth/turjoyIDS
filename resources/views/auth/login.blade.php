@@ -7,35 +7,35 @@
 
 @section('content')
     <div class="flex items-center justify-center h-screen">
-        <div class="bg-gray-200 p-6 mx-auto rounded-lg lg:w-1/4">
-            <h3 class="font-bold text-2xl text-center text-blue-500 uppercase mb-4">Inicia sesión en Turjoy</h3>
+        <div class="bg-gray-200 p-6 mx-auto rounded-lg lg:w-1/4" style="background-color: #eaeaea">
+            <h3 class="font-bold text-2xl text-center text-blue-500 uppercase mb-4" style="color: #0474DA;">Inicia sesión en Turjoy</h3>
             <form class="w-full" action="{{ route('authLogin') }}" method="POST" novalidate>
                 @csrf
                 <div class="mb-6">
-                    <label for="email" class="block mb-2 text-sm font-medium text-gray-500 dark:text-white" style="color: #333333;">
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-500 dark:text-white" style="color: #333333">
                         Correo electrónico
-                    </label>
+                    </label >
                     <input type="email" id="email" name="email"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        required>
+                        required style="background-color: #FFFFFF">
                     @error('email')
-                        <p class="bg-red-400 font-semibold text-lg text-red-800 p-2 my-2 rounded-lg text-center">{{ $message }}</p>
+                        <p class="bg-red-400 font-semibold text-lg text-white p-2 my-2 rounded-lg text-center" style="background-color: #ff8a80" style="color: #ffffff">{{ $message }}  </p>
                     @enderror
                 </div>
                 <div class="mb-6">
-                    <label for="password" class="block mb-2 text-sm font-medium text-gray-500 dark:text-white" style="color: #333333;">
+                    <label for="password" class="block mb-2 text-sm font-medium text-gray-500 dark:text-white" style="color: #333333">
                         Contraseña
                     </label>
                     <input type="password" id="password" name="password"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        required>
+                        required style="background-color: #FFFFFF">
                     @error('password')
-                        <p class="bg-red-400 font-semibold text-lg text-red-800 p-2 my-2 rounded-lg text-center">{{ $message }}</p>
+                        <p class="bg-red-400 font-semibold text-lg text-white p-2 my-2 rounded-lg text-center" style="background-color: #ff8a80" style="color: #ffffff">{{ $message }}</p>
                     @enderror
                 </div>
 
                 @if (session('message'))
-                    <p class="bg-red-400 font-semibold text-lg text-red-800 p-2 my-2 rounded-lg text-center">{{ session('message') }}</p>
+                    <p class="bg-red-400 font-semibold text-lg text-white p-2 my-2 rounded-lg text-center" style="background-color: #ff8a80">{{ session('message') }}</p>
                 @endif
 
                 <div>

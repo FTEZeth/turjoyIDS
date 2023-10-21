@@ -11,7 +11,7 @@
     <div class="flex flex-1 flex-col gap-2">
         <div class="my-8 mx-auto">
             <a class="px-6 py-3 bg-green-500 hover:bg-green-700 transition-all text-white font-semibold rounded-lg",  style="background-color: #2ECC71;"
-                href="{{ route('upload') }}">Finalizar</a>
+                href="{{ route('upload') }}">Volver a cargar rutas</a>
         </div>
 
             @if (count($validRows) > 0)
@@ -160,14 +160,20 @@
         <form class ="flex flex-col items-center w-1/2" action = "{{route('routeCheck')}}" method="POST" enctype="multipart/form-data" >
             @csrf
             <div>
-                <input name="document" class="block w-full text-sm text-green-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file" style="color:#333333">
+                <input name="document" class="block w-full text-sm text-green-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file" style="background-color: #FFFFFF" style="color:#333333">
                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help" style="color: #333333"> Tipo de archivo soportado: .xlsx (max 5mb).</p>
                 @error('document')
-                    <p class="bg-red-400 text-gray-200 font-semibold my-4 text-lg text-center text-red-800 px-4 py-3 rounded-lg">
+                    <p class="bg-red-400 text-gray-200 font-semibold my-4 text-lg text-center text-white px-4 py-3 rounded-lg" style="background-color: #ff8a80">
                         {{$message}}
                     </p>
                 @enderror
             </div>
+
+            @if (session('error'))
+            <div class="bg-red-400 text-gray-200 font-semibold my-4 text-lg text-center text-white px-4 py-3 rounded-lg" style="background-color: #ff8a80">
+                {{ session('error') }}
+            </div>
+        @endif
 
             <button class="lg:w-1/4 my-4 p-2 bg-green-400 rounded-sm text-white font-semibold" type="submit", style="background-color: #2ECC71">
                 Importar rutas
