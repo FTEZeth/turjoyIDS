@@ -10,6 +10,7 @@ class UserController extends Controller{
     /**
      * Display a listing of the resource.
      */
+
     public function index(){
         //
     }
@@ -57,6 +58,7 @@ class UserController extends Controller{
     }
 
     public function __construct(){
+        
         $this->middleware('auth');
     }
 

@@ -6,6 +6,8 @@ use App\Models\Route;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
+
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class RoutesImport implements ToCollection, WithHeadingRow {
@@ -28,7 +30,8 @@ class RoutesImport implements ToCollection, WithHeadingRow {
                 $cantidadDeAsientos = $row['cantidad_de_asientos'];
             }
             catch (\Exception $e){
-                return back()->with('message', 'El archivo no tiene el formato correcto.');
+
+                return back()->with('error', 'El archivo excel no tiene el formato correcto.');
             }
 
             if ($this->hasDuplicateOriginDestination($origin, $destination)) {
