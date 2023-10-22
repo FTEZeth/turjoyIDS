@@ -12,7 +12,7 @@ class AuthController extends Controller{
 
         // Validar los campos ingresados
         $this->validate($request, [
-            'email' => ['required', 'email'],
+            'email' => ['required'],
             'password' => ['required']
         ], $messages);
 
