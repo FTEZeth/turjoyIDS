@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\model_controllers\RouteController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,13 +15,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
     return view('welcome');
 })->name('home');
 
 Route::get('login', function () {
+
     return view('auth.login');
 })->name('login');
 
-Route::post('login', [AuthController::class, 'login'])->name('auth.login');
+Route::middleware(['auth'])->group(function () {
 
-Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/upload-files', [RouteController::class, 'indexAddRoutes'])->name('upload');
+    Route::post('/upload', [RouteController::class,'routeCheck'])->name('routeCheck');
+    Route::get('/result/route', [RouteController::class, 'indexRoutes'])->name('indexRoutes');
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+});
+
+Route::post('login', [AuthController::class, 'login'])->name('authLogin');
+
