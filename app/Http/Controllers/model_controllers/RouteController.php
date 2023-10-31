@@ -70,14 +70,14 @@ class RouteController extends Controller
 
                 if(isset($route)) {
                     $route->update([
-                        'seat_count' => $row['cantidad_de_asientos'],
+                        'seat_quantity' => $row['cantidad_de_asientos'],
                         'base_rate' => $row['tarifa_base'],
                     ]);
                 } else {
                     Route::create ([
                         'origin' => $origin,
                         'destination' => $destination,
-                        'seat_count' => $row['cantidad_de_asientos'],
+                        'seat_quantity' => $row['cantidad_de_asientos'],
                         'base_rate' => $row['tarifa_base'],
                     ]);
                 }

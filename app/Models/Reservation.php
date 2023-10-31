@@ -10,9 +10,11 @@ class Reservation extends Model
     use HasFactory;
 
     protected $fillable = [
-        'date',
+        'code',
         'seat_amount',
-        'id_route',
+        'total',
+        'date',
+        'route_id',
     ];
 
     public function route()
