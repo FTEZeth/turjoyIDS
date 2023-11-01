@@ -1,17 +1,29 @@
 @extends('layouts.app')
 
-<body class="bg-gray-200 p-6">
-    <div class="bg-white rounded-lg shadow-lg p-4 max-w-xs mx-auto">
-        <h1 class="text-xl font-semibold text-center mb-4">Bienvenidx administratorx</h1>
-        <div class="space-y-4">
-            <a class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-200", href="{{ route('upload') }}">Cargar Rutas</a>
-            <button class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition duration-200">Realizar Reserva</button>
-            <button class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-yellow-600 transition duration-200">Buscar Reserva</button>
-            <button class="w-full bg-blue-500 text-white py-2 px-4 py-2 px-4 rounded-md hover:bg-red-600 transition duration-200">Ver reporte de reserva</button>
-            <a class="w-full bg-blue-500 text-white py-2 px-4 py-2 px-4 rounded-md hover:bg-red-600 transition duration-200", style="background-color: #FF6B6B"
-                href="{{ route('home') }}">Volver </a>        </div>
+@section('title')
+    Menu del administrador
+@endsection
 
+@section('content')
+    <div class="flex items-center justify-center h-screen">
+        <h1 style="color: #0474DA;">>Bienvenido(a) nuevamente Administrador</h1>
+        <div class="bg-gray-200 p-6 mx-auto rounded-lg lg:w-1/4" style="background-color: #eaeaea">
+            <a class="font-bold text-2xl text-center text-blue-500 uppercase mb-4" style="color: #0474DA;"
+                href="#">Cargar Rutas</a>
+            <a class="font-bold text-2xl text-center text-blue-500 uppercase mb-4" style="color: #0474DA;"
+                href="#">Realizar Reserva
+            </a>
+            <a class="font-bold text-2xl text-center text-blue-500 uppercase mb-4" style="color: #0474DA;"
+                href="#">Buscar Reserva
+            </a>
+            <a class="font-bold text-2xl text-center text-blue-500 uppercase mb-4" style="color: #0474DA;"
+                href="#">Ver Reporte de Reserva
+            </a>
+        </div>
+
+        <div class="mb-12 mx-auto">
+            <a class="px-6 py-3 bg-red-500 hover:bg-red-700 transition-all text-white font-semibold rounded-lg",
+                style="background-color: #FF6B6B" href="{{ route('logout') }}">Cerrar sesion </a>
+        </div>
     </div>
-
-</body>
-</html>
+@endsection
