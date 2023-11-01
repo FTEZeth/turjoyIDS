@@ -6,7 +6,8 @@
 
 @section('content')
     <div class="flex flex-col items-center justify-center h-screen">
-        <h1 class="text-lg; text-100xl; font-bold" style="color: #0474DA; margin-bottom: 60px; font-size: 60px;">Bienvenido(a)
+        <h1 class="text-lg; text-100xl; font-bold"
+            style="color: #0474DA; margin-top: -23rem ;margin-bottom: 5rem; font-size: 60px;">Bienvenido(a)
             nuevamente Administrador
         </h1>
         <div class="bg-gray-200 p-6 mx-auto rounded-lg lg:w-1/4" style="background-color: #eaeaea">
@@ -20,7 +21,7 @@
                 style="background-color: #0474DA;" href="#">Ver Reporte de Reserva</div>
         </div>
 
-        <div class="mt-12 mx-auto">
+        <div class="mt-8 mx-auto">
             <a class="px-6 py-3 bg-red-500 hover:bg-red-700 transition-all text-white font-semibold rounded-lg"
                 style="background-color: #FF6B6B" href="{{ route('home') }}">Volver</a>
         </div>
