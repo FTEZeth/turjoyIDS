@@ -14,23 +14,33 @@ use App\Http\Controllers\model_controllers\RouteController;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function () { //vista de menú principal e inicio de la página
 
     return view('welcome');
 })->name('home');
 
-Route::get('login', function () {
+Route::get('login', function () { //Vista de iniciar sesión
 
     return view('auth.login');
 })->name('login');
 
-Route::middleware(['auth'])->group(function () {
 
-    Route::get('/upload-files', [RouteController::class, 'indexAddRoutes'])->name('upload');
-    Route::post('/upload', [RouteController::class,'routeCheck'])->name('routeCheck');
-    Route::get('/result/route', [RouteController::class, 'indexRoutes'])->name('indexRoutes');
-    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+
+
+
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('menu', function () { //Vista de menú de administrador
+
+        return view('admin_routes.menu');
+    })->name('menu');
+    Route::get('/upload-files', [RouteController::class, 'indexAddRoutes'])->name('upload'); //vista de subir archivo
+    Route::post('/upload', [RouteController::class,'routeCheck'])->name('routeCheck'); //botón de subir archivo
+    Route::get('/result/route', [RouteController::class, 'indexRoutes'])->name('indexRoutes'); //Resultados de rutas
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout'); //Botón de cerrar sesión y dirigir al menú principal
 });
 
-Route::post('login', [AuthController::class, 'login'])->name('authLogin');
+Route::post('login', [AuthController::class, 'login'])->name('authLogin'); //Botón de iniciar sesión
 

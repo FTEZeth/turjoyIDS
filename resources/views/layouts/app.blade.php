@@ -10,6 +10,7 @@
 
 <body>
 
+
     <nav class="border-gray-200 bg-blue-500 dark:bg-gray-800 dark:border-gray-700" style="background-color: #0A74DA; color: white;">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <a href="{{ route('home') }}" class="flex items-center">
@@ -24,7 +25,9 @@
           </li>
 
           <li>
-            <a href="{{ route('upload') }}" class="block py-2 pl-3 pr-4 text-white hover:text-gray-200 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Subir rutas</a>
+            @if(Route::currentRouteName() !== 'menu')
+            <a href="{{ route('menu') }}" class="block py-2 pl-3 pr-4 text-white hover:text-gray-200 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Menú Administrador</a>
+            @endif
           </li>
         @endauth
 
