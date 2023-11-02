@@ -1,8 +1,10 @@
+
 @extends('layouts.app')
 
 @section('title')
     Iniciar Sesión
 @endsection
+
 
 @section('content')
     <div class="flex items-center justify-center h-screen">
@@ -45,4 +47,3 @@
         </div>
     </div>
 @endsection
-
