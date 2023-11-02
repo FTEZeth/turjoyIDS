@@ -1,7 +1,6 @@
 <?php
 
-function makeMessages()
-{
+function makeMessages(){
 
     $messages = [
 
@@ -9,6 +8,7 @@ function makeMessages()
         'email.email' => 'usuario no registrado o contraseña incorrecta',
         'password.required' => 'debe ingresar su contraseña para iniciar sesion',
 
+        'document.format' => 'el formato del archivo es incorrecto',
         'document.required' => 'el campo archivo es requerido',
         'document.mimes' => 'el archivo seleccionado no es Excel con extensión xlsx',
         'document.min' => 'el archivo excel esta vacio',
@@ -17,5 +17,4 @@ function makeMessages()
     ];
 
     return $messages;
-
 }
