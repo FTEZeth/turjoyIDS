@@ -11,14 +11,17 @@
             nuevamente Administrador
         </h1>
         <div class="bg-gray-200 p-6 mx-auto rounded-lg lg:w-1/4" style="background-color: #eaeaea">
-            <div class="text-white hover:cursor-pointer hover:bg-emerald-800 font-medium rounded-lg text-sm w-full p-3 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
-                style="background-color: #0474DA; margin-bottom: 20px;" href="#">Cargar Rutas</div>
-            <div class="text-white hover:cursor-pointer hover:bg-emerald-800 font-medium rounded-lg text-sm w-full p-3 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
-                style="background-color: #0474DA; margin-bottom: 20px;" href="#">Realizar Reserva</div>
-            <div class="text-white hover:cursor-pointer hover:bg-emerald-800 font-medium rounded-lg text-sm w-full p-3 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
-                style="background-color: #0474DA; margin-bottom: 20px;" href="#">Buscar Reserva</div>
-            <div class="text-white hover:cursor-pointer hover:bg-emerald-800 font-medium rounded-lg text-sm w-full p-3 text-center dark.bg-emerald-600 dark.hover:bg-emerald-700 dark.focus:ring-emerald-800"
-                style="background-color: #0474DA;" href="#">Ver Reporte de Reserva</div>
+            <a class="text-white hover:cursor-pointer hover:bg-emerald-800 font-medium rounded-lg text-sm w-full p-3 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
+            style="background-color: #0474DA; margin-bottom: 20px; display: block;" href="{{ route('upload') }}">Cargar Rutas</a>
+
+            <a class="text-white hover:cursor-pointer hover:bg-emerald-800 font-medium rounded-lg text-sm w-full p-3 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
+                style="background-color: #0474DA; margin-bottom: 20px; display: block;" href="#">Realizar Reserva</a>
+
+            <a class="text-white hover:cursor-pointer hover:bg-emerald-800 font-medium rounded-lg text-sm w-full p-3 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
+                style="background-color: #0474DA; margin-bottom: 20px; display: block;" href="#">Buscar Reserva</a>
+
+            <a class="text-white hover:cursor-pointer hover:bg-emerald-800 font-medium rounded-lg text-sm w-full p-3 text-center dark.bg-emerald-600 dark.hover:bg-emerald-700 dark.focus:ring-emerald-800"
+                style="background-color: #0474DA; display: block;" href="#">Ver Reporte de Reserva</a>
         </div>
 
         <div class="mt-8 mx-auto">
