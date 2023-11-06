@@ -14,15 +14,15 @@ use App\Http\Controllers\model_controllers\RouteController;
 |
 */
 
-Route::get('/', function () {
-
-    return view('welcome');
-})->name('home');
+Route::get('/', [RouteController::class, 'welcomeIndex'])->name('home'); #Cambiar ruta para que funcione con el nuevo men
 
 Route::get('login', function () {
 
     return view('auth.login');
 })->name('login');
+
+Route::get('/get/origins ', [RouteController::class, 'getOrigins']);
+Route::get('get/destinations/{origin}', [RouteController::class, 'searchDestinations']);
 
 Route::middleware(['auth'])->group(function () {
 

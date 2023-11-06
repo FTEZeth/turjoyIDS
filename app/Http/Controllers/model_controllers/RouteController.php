@@ -4,6 +4,7 @@ namespace App\Http\Controllers\model_controllers;
 
 use App\Imports\RoutesImport;
 use App\Models\Route;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
@@ -149,4 +150,57 @@ class RouteController extends Controller{
 
         $this->indexAddRoutes();
     }
+
+    public function welcomeIndex(){
+
+        $countRoutes = Route::get()->count();
+
+        return view('welcome',
+            [
+                'countRoutes' => $countRoutes
+            ]);
+    }
+
+
+    public function getOrigins(){
+
+        $origins = Route::orderBy('origin', 'asc')->pluck('origin')->unique();
+
+        return response()->json([
+            'origins' => $origins
+        ]);
+    }
+
+    public function searchDestinations($origin){
+
+        $destinations = Route::where('origin', $origin)->orderBy('destination', 'asc')->pluck('destination');
+
+        return response()->json([
+            'destinations' => $destinations
+        ]);
+    }
+
+    public function getAvailableSeats($origin, $destination, $date){
+
+    // Get the route ID
+    $routeId = Route::where('origin', $origin)
+                    ->where('destination', $destination)
+                    ->pluck('id');
+
+    // Get the number of seats for the given route
+    $seatCount = Route::where('origin', $origin)
+                    ->where('destination', $destination)
+                    ->pluck('seat_quantity');
+
+    // Get the sum of seats reserved on the given date for the given route
+    $reservedSeats = Reservation::where('route_id', $routeId)
+                                ->whereDate('reservation_date', $date)
+                                ->sum('seats');
+
+    // Calculate the number of available seats
+    $availableSeats = $seatCount - $reservedSeats;
+
+    return $availableSeats;
+}
+
 }
