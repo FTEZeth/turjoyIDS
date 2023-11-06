@@ -4,6 +4,7 @@
     Iniciar Sesión
 @endsection
 
+
 @section('content')
     <div class="flex items-center justify-center h-screen">
         <div class="bg-gray-200 p-6 mx-auto rounded-lg lg:w-1/4" style="background-color: #eaeaea">
