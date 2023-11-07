@@ -1,7 +1,7 @@
 
 @extends('layouts.app')
-
 @section('content')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,13 +13,12 @@
 </head>
 <body>
 
-    @section('content')
-    <div style="height: 100vh; display: flex; align-items: center; justify-content: center; background-color: #F4F4F4;">
-        <img src="{{ asset('images/FondoInterfazProximamente.png') }}" alt="Fondo Interfaz" style="width: 100%; height: 100%;">
+<div class="bg-white py-20 text-center", style="background-color: #EAEAEA">
+    <h2 class="text-blue-500 text-4xl" style="color: #0A74DA">¿Hiciste una reserva?</h2>
+    <div class="flex justify-center mt-8 space-x-4">
+        <input type="text" placeholder="ej. ABCD01" class="border border-gray-400 p-2">
+        <button class="bg-orange-500 text-white px-4 py-2 rounded" style="background-color: #FF6B6B  ">Botón</button>
     </div>
-    @endsection
-
-</body>
-</html>
+</div>
 @endsection
 
