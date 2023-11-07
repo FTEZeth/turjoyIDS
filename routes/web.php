@@ -19,7 +19,7 @@ use App\Http\Controllers\model_controllers\RouteController;
 Route::get('/',[RouteController::class, 'homeIndex'])->name('home');
 Route::get('/get/origins', [RouteController::class, 'obtainOrigins']);
 Route::get('/get/destinations/{origin}', [RouteController::class, 'searchDestinations']);
-Route::get('/seating/{origin}/{destination}', [RouteController::class, 'seatings']);
+Route::get('/get/seats/{origin}/{destination}/{date}', [RouteController::class, 'seats']);
 Route::get('/check', [RouteController::class, 'checkRoute'])->name ('travels.check');
 Route::get('login', function () {return view('auth.login');} )->name('login');
 

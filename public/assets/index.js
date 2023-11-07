@@ -2,15 +2,25 @@
 //Selectors
 const selectOrigin = document.getElementById('origins');
 const selectDestination = document.getElementById('destinations');
+const selectDate = document.getElementById('date');
+const selectSeats = document.getElementById('seats');
+const createReservation = document.getElementById('createReservation');
 
-const clearSelect = () => {
+
+const clearSelectDestination = () => {
     while (selectDestination.firstChild) {
         selectDestination.removeChild(selectDestination.firstChild);
     }
 }
 
+const clearSelectSeats = () => {
+    while (selectSeats.firstChild) {
+        selectSeats.removeChild(selectSeats.firstChild);
+    }
+}
+
 const addDestinationsToSelect = (destinations) => {
-    clearSelect();
+    clearSelectDestination();
     const option = document.createElement('option');
     option.value = ''; //value vacio
     option.text = 'Selecciona un destino';
@@ -23,6 +33,40 @@ const addDestinationsToSelect = (destinations) => {
         selectDestination.appendChild(option);
     });
 }
+
+const addSeatsToSelect = (seats) => {
+    if(seats === 0){
+        //Poner mensaje de que no hay asientos disponibles. Lo que sigue es la sugerencia de copilot de como hacerlo, la cual utiliza sweetalert2
+        /*
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // User clicked 'Yes', proceed with your action
+            }
+          })
+          */
+        }
+    clearSelectSeats();
+    const option = document.createElement('option');
+    option.value = ''; //value vacio
+    option.text = 'Seleccione asientos';
+    option.selected = true;
+    selectSeats.appendChild(option);
+    for (let i = 1; i <= seats; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.text = i;
+        selectSeats.appendChild(option);
+    }
+}
+
 
 const loadedDestinations = (e) => {
     const currentValue = selectOrigin.value;
@@ -48,7 +92,11 @@ const addOriginsToSelect = (origins) => {
         selectOrigin.appendChild(option);
     });
 }
+
+
 const loadedOrigins = (e) => {
+    selectSeats.disabled = true;
+    createReservation.disabled = true;
     fetch('/get/origins')
         .then(response=>response.json())
         .then(data=>{
@@ -62,7 +110,47 @@ const loadedOrigins = (e) => {
         })
 }
 
+const loadedSeats = (origin, destination, date) => {
+    if(origin && destination && date){
+        fetch(`/get/seats/${origin}/${destination}/${date}`)
+            .then(response=>response.json())
+            .then(data=>{
+                console.log(data);
+                console.log('funciona');
+                const seats = data.availableSeats;
+                addSeatsToSelect(seats);
+            })
+            .catch(error=>{
+                console.error('Hubo un error: ', error);
+            })
+    }
+}
+
+
+const checkInputs = () => {
+    const originValue = selectOrigin.value;
+    const destinationValue = selectDestination.value;
+    const dateValue = selectDate.value;
+    const seatsValue = selectSeats.value;
+
+    if (originValue !== '' && destinationValue !== '' && dateValue !== '' && seatsValue !== '')  {
+        createReservation.disabled = false;
+        selectSeats.disabled = false;
+    } else if (originValue !== '' && destinationValue !== '' && dateValue !== '') {
+        selectSeats.disabled = false;
+        createReservation.disabled = true;
+        loadedSeats(originValue, destinationValue, dateValue);
+    } else {
+        selectSeats.disabled = true;
+        createReservation.disabled = true;
+    }
+}
+
+
 document.addEventListener('DOMContentLoaded', loadedOrigins);
 selectOrigin.addEventListener('change', loadedDestinations);
-//selectDestination.addEventListener('change', verifySeating);
 
+selectOrigin.addEventListener('change', checkInputs);
+selectDestination.addEventListener('change', checkInputs);
+selectDate.addEventListener('change', checkInputs);
+selectSeats.addEventListener('change', checkInputs);

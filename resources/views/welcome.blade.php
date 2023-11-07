@@ -4,7 +4,7 @@
 @section('content')
 
 <div class="mx-auto p-10 text-center" style="background-color: #FFFFFF;">
-    @if (True)
+    @if ($countRoutes)
         <h1 class="text-4xl font-semibold mb-4 text-blue-600">Haga su reserva ahora!</h1>
 
         <!-- Dropdowns -->
@@ -28,13 +28,13 @@
             <!-- Dropdown for Date - might need to change to another form type -->
             <div class="flex items-center space-x-2 flex-1">
                 <img src="images/calendar-days.png" alt="Date icon" class="w-6 h-6 self-center">
-                <input type="date" id="dateSelector" min="2023-01-01" max="2023-12-31" class="block w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                <input type="date" id="date" min="2023-01-01" max="2023-12-31" class="block w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
             </div>
 
             <!-- Dropdown for Seats -->
             <div class="flex items-center space-x-2 flex-1">
                 <img src="images/asiento.png" alt="Seat icon" class="w-6 h-6 self-center">
-                <select id="seatSelector" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                <select id="seats" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                     <option selected value="">Seleccione Asientos</option>
                 </select>
             </div>
