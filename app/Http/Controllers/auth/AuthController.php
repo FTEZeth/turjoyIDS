@@ -21,7 +21,7 @@ class AuthController extends Controller{
             return back()->with('message', 'usuario no registrado o contraseña incorrecta');
         }
 
-        return redirect()->route('upload');
+        return redirect()->route('menu');
     }
 
     public function logout(){

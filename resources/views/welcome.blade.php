@@ -1,6 +1,5 @@
 
 @extends('layouts.app')
-
 @section('content')
 
 <div class="mx-auto p-10 text-center" style="background-color: #FFFFFF;">

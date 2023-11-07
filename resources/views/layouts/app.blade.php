@@ -9,32 +9,43 @@
     <title>Turjoy</title>
 </head>
 
-<body class="bg-white text-gray-800 antialiased">
-    <nav class="bg-blue-500 text-white border-b border-gray-200 dark:border-gray-700">
-        <div class="max-w-screen-xl mx-auto flex justify-between items-center p-4 md:space-x-4 lg:space-x-8 xl:space-x-16">
-            <a href="{{ route('home') }}" class="flex items-center">
-                <img src="{{ asset('images/logoTurjoyCambioCliente.png') }}" class="h-14 w-25" alt="LogoTurjoy" />
-            </a>
+<body>
 
-            <div class="flex space-x-8">
-                <ul class="flex space-x-8 font-medium">
+
+    <nav class="border-gray-200 bg-blue-500 dark:bg-gray-800 dark:border-gray-700"
+        style="background-color: #0A74DA; color: white;">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="{{ route('home') }}" class="flex items-center">
+                <img src="{{ asset('images/TurjoyLogoSi.png') }}" class="h-14 w-20 ml-8 mr-8" alt="LogoTurjoy" />
+            </a>
+            <div class="hidden w-full md:block md:w-auto" id="navbar-solid-bg">
+                <ul
+                    class="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700">
+
                     @auth
-                    <li>
-                        <a href="{{ route('logout') }}"
-                            class="hover:text-gray-200 hover:bg-gray-100 rounded px-3 py-2 transition">Cerrar sesión</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('upload') }}"
-                            class="hover:text-gray-200 hover:bg-gray-100 rounded px-3 py-2 transition">Subir rutas</a>
-                    </li>
+                        <li>
+                            <a href="{{ route('logout') }}"
+                                class="block py-2 pl-3 pr-4 text-white hover:text-gray-200 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Cerrar
+                                sesión</a>
+                        </li>
+
+                        <li>
+                            @if (Route::currentRouteName() !== 'menu')
+                                <a href="{{ route('menu') }}"
+                                    class="block py-2 pl-3 pr-4 text-white hover:text-gray-200 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Menú
+                                    Administrador</a>
+                            @endif
+                        </li>
                     @endauth
 
                     @guest
-                    <li>
-                        <a href="{{ route('login') }}"
-                            class="hover:text-gray-200 hover:bg-gray-100 rounded px-3 py-2 transition">Iniciar Sesión</a>
-                    </li>
+                        <li>
+                            <a href="{{ route('login') }}"
+                                class="block py-2 pl-3 pr-4 text-white hover:text-gray-200 rounded hover:bg-#333333 bg-#f4f4f4 md:border-0 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Iniciar
+                                Sesión</a>
+                        </li>
                     @endguest
+
                 </ul>
             </div>
         </div>
