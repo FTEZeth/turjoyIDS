@@ -11,21 +11,29 @@ const clearSelectDestination = () => {
     while (selectDestination.firstChild) {
         selectDestination.removeChild(selectDestination.firstChild);
     }
+    const option = document.createElement('option');
+    option.value = ''; //value vacio
+    option.text = 'Selecciona Destino';
+    option.selected = true;
+    selectDestination.appendChild(option);
 }
 
 const clearSelectSeats = () => {
     while (selectSeats.firstChild) {
         selectSeats.removeChild(selectSeats.firstChild);
     }
+    const option = document.createElement('option');
+    option.value = ''; //value vacio
+    option.text = 'Seleccione Asientos';
+    option.selected = true;
+    selectSeats.appendChild(option);
 }
 
 const addDestinationsToSelect = (destinations) => {
+    clearSelectSeats();
     clearSelectDestination();
-    const option = document.createElement('option');
-    option.value = ''; //value vacio
-    option.text = 'Selecciona un destino';
-    option.selected = true;
-    selectDestination.appendChild(option);
+    selectDestination.dispatchEvent(new Event('change'));
+    selectSeats.dispatchEvent(new Event('change'));
     destinations.forEach(destination => {
         const option = document.createElement('option');
         option.value = destination;
@@ -35,6 +43,7 @@ const addDestinationsToSelect = (destinations) => {
 }
 
 const addSeatsToSelect = (seats) => {
+    clearSelectSeats();
     if(seats === 0){
         //Poner mensaje de que no hay asientos disponibles. Lo que sigue es la sugerencia de copilot de como hacerlo, la cual utiliza sweetalert2
         /*
@@ -52,13 +61,8 @@ const addSeatsToSelect = (seats) => {
             }
           })
           */
-        }
-    clearSelectSeats();
-    const option = document.createElement('option');
-    option.value = ''; //value vacio
-    option.text = 'Seleccione asientos';
-    option.selected = true;
-    selectSeats.appendChild(option);
+    }
+
     for (let i = 1; i <= seats; i++) {
         const option = document.createElement('option');
         option.value = i;
@@ -81,6 +85,9 @@ const loadedDestinations = (e) => {
             .catch(error=>{
                 console.error('Hubo un error: ', error);
             })
+    } else {
+        clearSelectDestination();
+        clearSelectSeats();
     }
 }
 
@@ -123,6 +130,8 @@ const loadedSeats = (origin, destination, date) => {
             .catch(error=>{
                 console.error('Hubo un error: ', error);
             })
+    } else {
+        clearSelectSeats();
     }
 }
 

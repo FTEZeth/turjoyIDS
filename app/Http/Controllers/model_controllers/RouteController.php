@@ -199,8 +199,9 @@ class RouteController extends Controller{
     // Get the number of seats for the given route
     $seatCount = Route::where('origin', $origin)
                     ->where('destination', $destination)
-                    ->first()
-                    ->seat_quantity;
+                    ->first();
+
+    $seatCount = $seatCount->seat_quantity;
 
     // Get the sum of seats reserved on the given date for the given route
     $reservedSeats = Reservation::where('route_id', $routeId)
