@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\Auth\TravelController;
 use App\Http\Controllers\model_controllers\RouteController;
 /*
 |--------------------------------------------------------------------------
@@ -14,22 +15,13 @@ use App\Http\Controllers\model_controllers\RouteController;
 |
 */
 
-Route::get('/', function () { //vista de menú principal e inicio de la página
 
-    return view('welcome');
-})->name('home');
-
-Route::get('login', function () { //Vista de iniciar sesión
-
-    return view('auth.login');
-})->name('login');
-
-
-
-
-
-
-
+Route::get('/',[RouteController::class, 'homeIndex'])->name('home');
+Route::get('/get/origins', [RouteController::class, 'obtainOrigins']);
+Route::get('/get/destinations/{origin}', [RouteController::class, 'searchDestinations']);
+Route::get('/get/seats/{origin}/{destination}/{date}', [RouteController::class, 'seats']);
+Route::get('/check', [RouteController::class, 'checkRoute'])->name ('travels.check');
+Route::get('login', function () {return view('auth.login');} )->name('login');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('menu', function () { //Vista de menú de administrador

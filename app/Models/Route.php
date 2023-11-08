@@ -11,7 +11,7 @@ class Route extends Model{
     protected $fillable = [
         'origin',
         'destination',
-        'seat_count',
+        'seat_quantity',
         'base_rate',
     ];
 

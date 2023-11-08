@@ -4,10 +4,12 @@ namespace App\Http\Controllers\model_controllers;
 
 use App\Imports\RoutesImport;
 use App\Models\Route;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\F;
 
 class RouteController extends Controller{
     /**
@@ -69,14 +71,14 @@ class RouteController extends Controller{
 
                 if(isset($route)) {
                     $route->update([
-                        'seat_count' => $row['cantidad_de_asientos'],
+                        'seat_quantity' => $row['cantidad_de_asientos'],
                         'base_rate' => $row['tarifa_base'],
                     ]);
                 } else {
                     Route::create ([
                         'origin' => $origin,
                         'destination' => $destination,
-                        'seat_count' => $row['cantidad_de_asientos'],
+                        'seat_quantity' => $row['cantidad_de_asientos'],
                         'base_rate' => $row['tarifa_base'],
                     ]);
                 }
@@ -149,4 +151,68 @@ class RouteController extends Controller{
 
         $this->indexAddRoutes();
     }
+
+    public function homeIndex()
+    {
+
+        $routes = Route::get()->count();
+        return view('welcome', [
+            'countRoutes' => $routes,
+        ]);
+    }
+
+    //obtener los orígenes de la tabla routes
+    public function obtainOrigins()
+    {
+        $origins = Route::distinct()->orderBy('origin', 'asc')->pluck('origin');
+
+        return response()->json([
+            'origins' => $origins,
+        ]);
+    }
+    //obtener los destinos de la tabla routes
+    public function obtainDestinations()
+    {
+        $destinations = Route::distinct()->orderBy('destination', 'asc')->pluck('destination');
+
+        return response()->json([
+            'destinations' => $destinations,
+        ]);
+    }
+
+    public function searchDestinations($origin)
+    {
+        $destinations = Route::where('origin', $origin)->orderBy('destination', 'asc')->pluck('destination');
+
+        return response()->json([
+            'destination' => $destinations,
+        ]);
+    }
+
+    public function seats($origin, $destination, $date){
+
+    // Get the route ID
+    $routeId = Route::where('origin', $origin)
+                    ->where('destination', $destination)
+                    ->pluck('id');
+
+    // Get the number of seats for the given route
+    $seatCount = Route::where('origin', $origin)
+                    ->where('destination', $destination)
+                    ->first()
+                    ->seat_quantity;
+
+    // Get the sum of seats reserved on the given date for the given route
+    $reservedSeats = Reservation::where('route_id', $routeId)
+                                ->whereDate('date', $date)
+                                ->sum('seat_amount');
+
+    // Calculate the number of available seats
+    $availableSeats = $seatCount - $reservedSeats;
+
+    return response()->json([
+        'availableSeats' => $availableSeats,
+    ]);
+}
+
 }
