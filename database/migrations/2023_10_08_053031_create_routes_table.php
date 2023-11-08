@@ -16,7 +16,7 @@ return new class extends Migration{
             $table->timestamps();
             $table->string('origin');
             $table->string('destination');
-            $table->integer('seat_count');
+            $table->integer('seat_quantity');
             $table->integer('base_rate');
         });
     }

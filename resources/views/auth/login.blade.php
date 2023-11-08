@@ -4,6 +4,7 @@
     Iniciar Sesión
 @endsection
 
+
 @section('content')
     <div class="flex items-center justify-center h-screen">
         <div class="bg-gray-200 p-6 mx-auto rounded-lg lg:w-1/4" style="background-color: #eaeaea">
@@ -45,8 +46,7 @@
 
                 <div>
                     <input type="submit" value="Iniciar Sesión"
-                        class="text-white bg-green-500 hover:cursor-pointer hover:bg-emerald-800 font-medium rounded-lg text-sm w-full p-3 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800",
-                        style="background-color: #2ECC71;">
+                    class="text-white bg-green-500 hover:cursor-pointer hover:bg-emerald-800 font-medium rounded-lg text-sm w-full p-3 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800",   style="background-color: #2ECC71;">
                 </div>
             </form>
         </div>

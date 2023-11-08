@@ -6,7 +6,7 @@
 
 @section('content')
 
-    @if ($validRows || $invalidRows || $duplicatedRows)
+@if ($validRows || $invalidRows || $duplicatedRows)
 
         <div class="flex flex-1 flex-col gap-2">
             <div class="my-8 mx-auto">
@@ -21,10 +21,7 @@
                 </h3>
                 <div class="relative overflow-x-auto sm:rounded-lg mb-2">
                     <table class="w-1/2 mx-auto text-sm text-left text-gray-500 dark:text-gray-400">
-
-                        <thead
-                            class="text-xs text-gray-700 uppercase bg-green-600 dark:bg-gray-700 dark:text-gray-400"style="background-color: #a8e6cf">
-
+                        <thead class="text-xs text-gray-700 uppercase bg-green-600 dark:bg-gray-700 dark:text-gray-400"style="background-color: #a8e6cf">
                             <tr>
                                 <th scope="col" class="px-6 py-3 text-white font-bold" style="color: #333333">
                                     Origen
@@ -195,3 +192,4 @@
     </div>
     @endif
 @endsection
+
