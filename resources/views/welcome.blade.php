@@ -12,7 +12,7 @@
                 <!-- Dropdown for Origin -->
                 <div class="flex items-center space-x-2 flex-1">
                     <img src="images/autobus-escolar.png" alt="Origin icon" class="w-6 h-6 self-center">
-                    <select id="origins" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                    <select id="origins" name="origins" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                         <option selected value="">Seleccione Origen</option>
                     </select>
                 </div>
@@ -20,7 +20,7 @@
                 <!-- Dropdown for Destination -->
                 <div class="flex items-center space-x-2 flex-1">
                     <img src="images/destino.png" alt="Destination icon" class="w-6 h-6 self-center">
-                    <select id="destinations" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                    <select id="destinations" name="destinations" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                         <option selected value="">Seleccione Destino</option>
                     </select>
                 </div>
@@ -90,6 +90,7 @@
 
             console.log(dateFormatted);
             console.log(fecha);
+            console.log(form);
 
             e.preventDefault();
 

@@ -34,9 +34,13 @@ class ReservationController extends Controller{
             'date' => $request->date,
             'route_id' => $request->routeId,
         ]);
-        dd($reservation);
+
+
         return view ('client.order-success', [
-            'reservation' => $reservation
+            'reservation' => $reservation,
+            'origin' => $request->origins,
+            'destination' => $request->destinations,
+
         ]);
 
     }
@@ -72,7 +76,7 @@ class ReservationController extends Controller{
     public function generateReservationNumber(){
 
         do {
-            $letters = strtoupper(Str::random(4)); // Genera 4 letras aleatorias
+            $letters = randomString(4); // Genera 4 letras aleatorias
             $numbers = mt_rand(10, 99); // Genera 2 números aleatorios
 
             $code = $letters.$numbers;
