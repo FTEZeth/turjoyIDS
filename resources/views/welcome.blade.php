@@ -6,7 +6,6 @@
     @if ($countRoutes)
         <h1 class="text-4xl font-semibold mb-4 text-blue-600">Haga su reserva ahora!</h1>
         <form id="form" name="form" action="{{ route('reservationStore') }}" method="GET">
-
             <!-- Dropdowns -->
             <div class="flex items-center space-x-4 w-full">
                 <!-- Dropdown for Origin -->
@@ -47,8 +46,20 @@
                 </button>
             </div>
         </form>
+    @else
+        <div id="alert-additional-content-1" style="background-color: #ff8a80"  class="w-3/12 p-4 mb-4 text-white border border-white rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800" role="alert">
+            <div class="flex items-center">
+                <svg class="flex-shrink-0 w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                <h3 class="text-lg font-medium">por el momento no es posible realizar reservas, intente más tarde</h3>
+            </div>
+        </div>
 
-        <h1 class="text-2xl font-bold mt-12" style="color: #0A74DA">Hiciste una Reserva?</h1>
+    @endif
+
+        <h1 class="text-2xl font-bold mt-12" style="color: #0A74DA" >Hiciste una Reserva?</h1>
 
         <!-- Section for code entry -->
         <div class="mt-10 flex items-center justify-center w-full">
@@ -60,9 +71,6 @@
                 <button type="submit" class="ml-4 p-2 text-white rounded font-semibold" style="background-color: #2ECC71;">Buscar Reserva</button>
             </form>
         </div>
-    @else
-        <p>Mensaje de error.</p>
-    @endif
 
 </div>
 
