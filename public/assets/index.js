@@ -47,22 +47,17 @@ const addDestinationsToSelect = (destinations) => {
 const addSeatsToSelect = (seats) => {
     clearSelectSeats();
     if(seats === 0){
-        //Poner mensaje de que no hay asientos disponibles. Lo que sigue es la sugerencia de copilot de como hacerlo, la cual utiliza sweetalert2
-        /*
+
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
+            title: 'No hay servicios disponibles para la ruta seleccionada',
+            icon: 'error',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
           }).then((result) => {
             if (result.isConfirmed) {
               // User clicked 'Yes', proceed with your action
             }
           })
-          */
     }
 
     for (let i = 1; i <= seats; i++) {
@@ -131,6 +126,7 @@ const loadedSeats = (origin, destination, date) => {
                 routeId.value = data.route.id;
                 console.log(baseRate.value);
                 console.log(routeId.value);
+                console.log(seats);
 
                 addSeatsToSelect(seats);
             })
