@@ -213,6 +213,16 @@ class RouteController extends Controller{
     return response()->json([
         'availableSeats' => $availableSeats,
     ]);
-}
+    }
 
-}
+    public function searchReservation(Request $request){
+
+        $route_id = $request->input('');
+        $reservation = Route::where('', $route_id);
+
+        if ($reservation){
+            return response()->json('');
+        }else{
+            return response()->json('');
+        }
+    }
