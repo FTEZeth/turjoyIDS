@@ -192,19 +192,15 @@ class RouteController extends Controller{
     public function seats($origin, $destination, $date){
 
     // Get the route ID
-    $routeId = Route::where('origin', $origin)
-                    ->where('destination', $destination)
-                    ->pluck('id');
-
-    // Get the number of seats for the given route
-    $seatCount = Route::where('origin', $origin)
+    $route = Route::where('origin', $origin)
                     ->where('destination', $destination)
                     ->first();
 
-    $seatCount = $seatCount->seat_quantity;
+    // Get the number of seats for the given route
+    $seatCount = $route->seat_quantity;
 
     // Get the sum of seats reserved on the given date for the given route
-    $reservedSeats = Reservation::where('route_id', $routeId)
+    $reservedSeats = Reservation::where('route_id', $route->id)
                                 ->whereDate('date', $date)
                                 ->sum('seat_amount');
 
@@ -213,6 +209,7 @@ class RouteController extends Controller{
 
     return response()->json([
         'availableSeats' => $availableSeats,
+        'route' => $route
     ]);
 }
 

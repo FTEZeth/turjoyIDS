@@ -5,6 +5,7 @@ namespace App\Http\Controllers\model_controllers;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 class ReservationController extends Controller{
     /**
@@ -25,7 +26,19 @@ class ReservationController extends Controller{
      * Store a newly created resource in storage.
      */
     public function store(Request $request){
-        //
+
+        $reservation = Reservation::create([
+            'code' => $this->generateReservationNumber(),
+            'seat_amount' => $request->seats,
+            'total' => $request->baseRate,
+            'date' => $request->date,
+            'route_id' => $request->routeId,
+        ]);
+        dd($reservation);
+        return view ('client.order-success', [
+            'reservation' => $reservation
+        ]);
+
     }
 
     /**
@@ -54,5 +67,19 @@ class ReservationController extends Controller{
      */
     public function destroy(Reservation $reservation){
         //
+    }
+
+    public function generateReservationNumber(){
+
+        do {
+            $letters = strtoupper(Str::random(4)); // Genera 4 letras aleatorias
+            $numbers = mt_rand(10, 99); // Genera 2 números aleatorios
+
+            $code = $letters.$numbers;
+
+            $response = Reservation::where('code', $code)->first();
+        } while ($response);
+
+        return $code;
     }
 }

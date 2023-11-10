@@ -5,6 +5,8 @@ const selectDestination = document.getElementById('destinations');
 const selectDate = document.getElementById('date');
 const selectSeats = document.getElementById('seats');
 const createReservation = document.getElementById('createReservation');
+const baseRate = document.getElementById('baseRate');
+const routeId = document.getElementById('routeId');
 
 
 const clearSelectDestination = () => {
@@ -119,12 +121,17 @@ const loadedOrigins = (e) => {
 
 const loadedSeats = (origin, destination, date) => {
     if(origin && destination && date){
-        fetch(`/get/seats/${origin}/${destination}/${date}`)
+        fetch(`/get/route/${origin}/${destination}/${date}`)
             .then(response=>response.json())
             .then(data=>{
                 console.log(data);
                 console.log('funciona');
                 const seats = data.availableSeats;
+                baseRate.value = data.route.base_rate;
+                routeId.value = data.route.id;
+                console.log(baseRate.value);
+                console.log(routeId.value);
+
                 addSeatsToSelect(seats);
             })
             .catch(error=>{
@@ -145,6 +152,12 @@ const checkInputs = () => {
     if (originValue !== '' && destinationValue !== '' && dateValue !== '' && seatsValue !== '')  {
         createReservation.disabled = false;
         selectSeats.disabled = false;
+        baseRate.value = seatsValue * baseRate.value;
+        console.log(baseRate.value);
+        console.log(routeId.value);
+        console.log(dateValue);
+        console.log(selectDate.value);
+
     } else if (originValue !== '' && destinationValue !== '' && dateValue !== '') {
         selectSeats.disabled = false;
         createReservation.disabled = true;
@@ -153,6 +166,11 @@ const checkInputs = () => {
         selectSeats.disabled = true;
         createReservation.disabled = true;
     }
+}
+
+const getBaseRate = () => {
+    baseRate = selectSeats.value
+
 }
 
 
