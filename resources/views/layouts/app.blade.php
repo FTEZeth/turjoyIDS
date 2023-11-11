@@ -10,8 +10,6 @@
 </head>
 
 <body>
-
-
     <nav class="border-gray-200 bg-blue-500 dark:bg-gray-800 dark:border-gray-700"
         style="background-color: #0A74DA; color: white;">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
