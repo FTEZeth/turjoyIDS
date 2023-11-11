@@ -74,8 +74,10 @@
             <h2 class="text-2xl font-semibold mr-4" style="color: #0A74DA">Ingrese un código de reserva:</h2>
 
             <!-- Form -->
-            <form id="searchReservationForm" class="flex items-center">
-                <input type="text" class="p-2 border rounded text-gray-700 bg-white placeholder-gray-300 flex-grow"
+            <form id="searchReservationForm" class="flex items-center" action="{{ route('searchReservation') }}"
+                method="GET">
+                <input type="text" name="code"
+                    class="p-2 border rounded text-gray-700 bg-white placeholder-gray-300 flex-grow"
                     placeholder="Ingrese Código de reserva">
                 <button type="submit" class="ml-4 p-2 text-white rounded font-semibold"
                     style="background-color: #2ECC71;">Buscar Reserva</button>

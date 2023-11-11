@@ -102,7 +102,7 @@ class ReservationController extends Controller
         $messages = makeMessages();
         // Validar que se proporciona un código de reserva
         $this->validate($request, [
-            'codigo' => 'required'
+            'code' => 'required'
         ], $messages);
 
         // Obtener el código de reserva de la solicitud
@@ -110,19 +110,20 @@ class ReservationController extends Controller
 
         // Buscar la reserva por código
         $reservation = Reservation::where('code', $code)->first();
-        $route = Route::where('route_id', $reservation->route_id);
 
         // Validar si la reserva no existe
         if (!$reservation) {
             return back()->with('message', 'Debe proporcionar un codigo de reserva');
         }
 
-        // Reserva encontrada, puedes devolverla como respuesta
-        //route->origin, route->destination
-        return view()->json([
-            'codigo' => $reservation->$code,
-            'origen' => $route->origin,
-            'destino' => $route->destination,
+        $route = $reservation->route;
+
+        // Reserva encontrada, retornar la vista con datos
+        return view('client.order-success', [
+            'reservation' => $reservation,
+            'origin' => $route->origin,
+            'destination' => $route->destination,
         ]);
     }
+
 }

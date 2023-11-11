@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Reservation extends Model{
+class Reservation extends Model
+{
 
     use HasFactory;
     protected $fillable = [
@@ -16,7 +17,8 @@ class Reservation extends Model{
         'route_id',
     ];
 
-    public function route(){
-        return $this->belongsTo(Route::class, 'id_route');
+    public function route()
+    {
+        return $this->belongsTo(Route::class, 'route_id');
     }
 }

@@ -23,8 +23,10 @@ Route::get('/get/destinations/{origin}', [RouteController::class, 'searchDestina
 Route::get('/get/route/{origin}/{destination}/{date}', [RouteController::class, 'seats']);
 Route::get('/check', [RouteController::class, 'checkRoute'])->name('travels.check');
 Route::get('login', function () {
-    return view('auth.login'); })->name('login');
+    return view('auth.login');
+})->name('login');
 Route::get('/reservation', [ReservationController::class, 'store'])->name('reservationStore');
+Route::get('/get/reservation-by-code', [ReservationController::class, 'searchReservation'])->name('searchReservation');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('menu', function () { //Vista de menú de administrador
