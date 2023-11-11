@@ -191,7 +191,7 @@ class RouteController extends Controller{
 
     public function seats($origin, $destination, $date){
 
-    // Get the route ID
+    // Get the route for the given origin and destinations
     $route = Route::where('origin', $origin)
                     ->where('destination', $destination)
                     ->first();
