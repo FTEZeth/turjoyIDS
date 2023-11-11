@@ -114,6 +114,7 @@ const loadedOrigins = (e) => {
         })
 }
 
+
 const loadedSeats = (origin, destination, date) => {
     if(origin && destination && date){
         fetch(`/get/route/${origin}/${destination}/${date}`)
