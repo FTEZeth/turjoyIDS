@@ -5,27 +5,37 @@ const selectDestination = document.getElementById('destinations');
 const selectDate = document.getElementById('date');
 const selectSeats = document.getElementById('seats');
 const createReservation = document.getElementById('createReservation');
+const baseRate = document.getElementById('baseRate');
+const routeId = document.getElementById('routeId');
 
 
 const clearSelectDestination = () => {
     while (selectDestination.firstChild) {
         selectDestination.removeChild(selectDestination.firstChild);
     }
+    const option = document.createElement('option');
+    option.value = ''; //value vacio
+    option.text = 'Selecciona Destino';
+    option.selected = true;
+    selectDestination.appendChild(option);
 }
 
 const clearSelectSeats = () => {
     while (selectSeats.firstChild) {
         selectSeats.removeChild(selectSeats.firstChild);
     }
+    const option = document.createElement('option');
+    option.value = ''; //value vacio
+    option.text = 'Seleccione Asientos';
+    option.selected = true;
+    selectSeats.appendChild(option);
 }
 
 const addDestinationsToSelect = (destinations) => {
+    clearSelectSeats();
     clearSelectDestination();
-    const option = document.createElement('option');
-    option.value = ''; //value vacio
-    option.text = 'Selecciona un destino';
-    option.selected = true;
-    selectDestination.appendChild(option);
+    selectDestination.dispatchEvent(new Event('change'));
+    selectSeats.dispatchEvent(new Event('change'));
     destinations.forEach(destination => {
         const option = document.createElement('option');
         option.value = destination;
@@ -35,30 +45,21 @@ const addDestinationsToSelect = (destinations) => {
 }
 
 const addSeatsToSelect = (seats) => {
+    clearSelectSeats();
     if(seats === 0){
-        //Poner mensaje de que no hay asientos disponibles. Lo que sigue es la sugerencia de copilot de como hacerlo, la cual utiliza sweetalert2
-        /*
+
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
+            title: 'No hay servicios disponibles para la ruta seleccionada',
+            icon: 'error',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
           }).then((result) => {
             if (result.isConfirmed) {
               // User clicked 'Yes', proceed with your action
             }
           })
-          */
-        }
-    clearSelectSeats();
-    const option = document.createElement('option');
-    option.value = ''; //value vacio
-    option.text = 'Seleccione asientos';
-    option.selected = true;
-    selectSeats.appendChild(option);
+    }
+
     for (let i = 1; i <= seats; i++) {
         const option = document.createElement('option');
         option.value = i;
@@ -81,6 +82,9 @@ const loadedDestinations = (e) => {
             .catch(error=>{
                 console.error('Hubo un error: ', error);
             })
+    } else {
+        clearSelectDestination();
+        clearSelectSeats();
     }
 }
 
@@ -110,19 +114,28 @@ const loadedOrigins = (e) => {
         })
 }
 
+
 const loadedSeats = (origin, destination, date) => {
     if(origin && destination && date){
-        fetch(`/get/seats/${origin}/${destination}/${date}`)
+        fetch(`/get/route/${origin}/${destination}/${date}`)
             .then(response=>response.json())
             .then(data=>{
                 console.log(data);
                 console.log('funciona');
                 const seats = data.availableSeats;
+                baseRate.value = data.route.base_rate;
+                routeId.value = data.route.id;
+                console.log(baseRate.value);
+                console.log(routeId.value);
+                console.log(seats);
+
                 addSeatsToSelect(seats);
             })
             .catch(error=>{
                 console.error('Hubo un error: ', error);
             })
+    } else {
+        clearSelectSeats();
     }
 }
 
@@ -136,6 +149,12 @@ const checkInputs = () => {
     if (originValue !== '' && destinationValue !== '' && dateValue !== '' && seatsValue !== '')  {
         createReservation.disabled = false;
         selectSeats.disabled = false;
+        baseRate.value = seatsValue * baseRate.value;
+        console.log(baseRate.value);
+        console.log(routeId.value);
+        console.log(dateValue);
+        console.log(selectDate.value);
+
     } else if (originValue !== '' && destinationValue !== '' && dateValue !== '') {
         selectSeats.disabled = false;
         createReservation.disabled = true;
@@ -144,6 +163,11 @@ const checkInputs = () => {
         selectSeats.disabled = true;
         createReservation.disabled = true;
     }
+}
+
+const getBaseRate = () => {
+    baseRate = selectSeats.value
+
 }
 
 

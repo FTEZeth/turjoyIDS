@@ -14,7 +14,6 @@ class Reservation extends Model{
         'total',
         'date',
         'route_id',
-
     ];
 
     public function route(){
