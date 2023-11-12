@@ -100,6 +100,7 @@ class ReservationController extends Controller
     public function searchReservation(Request $request)
     {
         $messages = makeMessages();
+
         // Validar que se proporciona un código de reserva
         $this->validate($request, [
             'code' => 'required'
