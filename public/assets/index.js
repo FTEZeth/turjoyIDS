@@ -170,6 +170,21 @@ const getBaseRate = () => {
 
 }
 
+const checkDate = () => {
+    const dateValue = selectDate.value;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const date = new Date(dateValue);
+    date.setHours(0, 0, 0, 0);
+    console.log(today);
+    console.log(date);
+    if(date.getTime() >= today.getTime()){
+        return;
+    } else {
+        selectDate.value = '';
+    }
+}
+
 
 document.addEventListener('DOMContentLoaded', loadedOrigins);
 selectOrigin.addEventListener('change', loadedDestinations);
@@ -178,3 +193,5 @@ selectOrigin.addEventListener('change', checkInputs);
 selectDestination.addEventListener('change', checkInputs);
 selectDate.addEventListener('change', checkInputs);
 selectSeats.addEventListener('change', checkInputs);
+
+selectDate.addEventListener('change', checkDate);
