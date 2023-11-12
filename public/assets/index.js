@@ -7,6 +7,7 @@ const selectSeats = document.getElementById('seats');
 const createReservation = document.getElementById('createReservation');
 const baseRate = document.getElementById('baseRate');
 const routeId = document.getElementById('routeId');
+const searchReservationForm = document.getElementById('searchReservationForm');
 
 
 const clearSelectDestination = () => {
@@ -19,6 +20,7 @@ const clearSelectDestination = () => {
     option.selected = true;
     selectDestination.appendChild(option);
 }
+
 
 const clearSelectSeats = () => {
     while (selectSeats.firstChild) {
@@ -170,6 +172,29 @@ const getBaseRate = () => {
 
 }
 
+const showSearchError = () => {
+    // Nuevo bloque para mostrar el mensaje de error con animación grande
+    Swal.fire({
+
+        title: 'Error',
+        text: 'Por favor ingrese un código de reserva',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#0A74DA', // Color del botón OK
+        customClass: {
+            popup: 'animated tada' // Clase de animación de SweetAlert2
+        }
+    }).then((result) => {
+        // ... Puedes agregar lógica adicional si es necesario
+        if (result.isConfirmed) {
+            // Acción si se hace clic en OK
+        } else if (result.isDismissed) {
+            // Acción si se hace clic en Cancelar o se cierra el cuadro de diálogo
+        }
+    });
+}
+
+
 
 document.addEventListener('DOMContentLoaded', loadedOrigins);
 selectOrigin.addEventListener('change', loadedDestinations);
@@ -178,3 +203,12 @@ selectOrigin.addEventListener('change', checkInputs);
 selectDestination.addEventListener('change', checkInputs);
 selectDate.addEventListener('change', checkInputs);
 selectSeats.addEventListener('change', checkInputs);
+
+searchReservationForm.addEventListener('submit', (event) => {
+    const codeValue = document.getElementsByName('code')[0].value;
+    if (!codeValue) {
+        event.preventDefault(); // Evitar que el formulario se envíe
+        showSearchError();
+    }
+});
+
