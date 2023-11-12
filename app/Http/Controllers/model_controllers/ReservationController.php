@@ -103,7 +103,7 @@ class ReservationController extends Controller
 
         // Validar que se proporciona un código de reserva
         $this->validate($request, [
-            'code' => ['required']
+            'code' => 'required'
         ], $messages);
 
         // Obtener el código de reserva de la solicitud
@@ -114,11 +114,7 @@ class ReservationController extends Controller
 
         // Validar si la reserva no existe
         if (!$reservation) {
-            // Almacenar el código en la sesión para que esté disponible en la vista
-            session(['searchedCode' => $code]);
-
-            // Retornar a la vista anterior
-            return back();
+            return back()->with('message', 'Debe proporcionar un codigo de reserva');
         }
 
         $route = $reservation->route;

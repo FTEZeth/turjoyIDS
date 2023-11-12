@@ -73,6 +73,7 @@
         <div class="mt-10 flex items-center justify-center w-full">
             <h2 class="text-2xl font-semibold mr-4" style="color: #0A74DA">Ingrese un código de reserva:</h2>
 
+
             <form id="searchReservationForm" class="flex items-center" action="{{ route('searchReservation') }}" method="GET">
                 @php
                     $searchedCode = session('searchedCode');
@@ -93,18 +94,15 @@
                         @endif
                     </script>
 
-                    @endif
+                @endif
 
                 <input type="text" name="code"
                     class="p-2 border rounded text-gray-700 bg-white placeholder-gray-300 flex-grow"
                     placeholder="Ingrese Código de reserva">
                 <button type="submit" class="ml-4 p-2 text-white rounded font-semibold"
-                    style="background-color: #2ECC71;">Buscar Reserva
-                </button>
+                    style="background-color: #2ECC71;">Buscar Reserva</button>
             </form>
-
         </div>
-
     </div>
 @endsection
 @section('js')

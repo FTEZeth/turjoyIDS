@@ -11,12 +11,14 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\F;
 
-class RouteController extends Controller{
+class RouteController extends Controller
+{
     /**
      * Display a listing of the resource.
      */
 
-    public function indexAddRoutes() {
+    public function indexAddRoutes()
+    {
 
         //si las variables ya existen, las actualizo
         if (session('validRows') || session('invalidRows') || session('duplicatedRows')) {
@@ -38,17 +40,18 @@ class RouteController extends Controller{
 
     }
 
-    public function routeCheck(Request $request) {
+    public function routeCheck(Request $request)
+    {
 
         $messages = makeMessages();
 
         //validar características del archivo a subir
         $this->validate($request, [
-            'document' => ['required','mimes:xlsx' ,'min:6', 'max:5120'],
+            'document' => ['required', 'mimes:xlsx', 'min:6', 'max:5120'],
         ], $messages);
 
         //validar el archivo una vez subido
-        if( $request->hasFile('document')) {
+        if ($request->hasFile('document')) {
             $file = request()->file('document'); //la key 'document' debe ser el mismo nombre que en el frontend (min 20:30 RES001)
 
             $import = new RoutesImport();
@@ -69,13 +72,13 @@ class RouteController extends Controller{
                     ->where('destination', $destination) //si el destino es igual al que se entregó por excel
                     ->first();
 
-                if(isset($route)) {
+                if (isset($route)) {
                     $route->update([
                         'seat_quantity' => $row['cantidad_de_asientos'],
                         'base_rate' => $row['tarifa_base'],
                     ]);
                 } else {
-                    Route::create ([
+                    Route::create([
                         'origin' => $origin,
                         'destination' => $destination,
                         'seat_quantity' => $row['cantidad_de_asientos'],
@@ -96,7 +99,8 @@ class RouteController extends Controller{
         return redirect()->route('indexRoutes');
     }
 
-    public function indexRoutes(request $request){
+    public function indexRoutes(request $request)
+    {
 
         return view('admin_routes.index', [
             'validRows' => session('validRows'),
@@ -108,46 +112,53 @@ class RouteController extends Controller{
     /**
      * Show the form for creating a new resource.
      */
-    public function create(){
+    public function create()
+    {
         //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Route $route){
+    public function show(Route $route)
+    {
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Route $route){
+    public function edit(Route $route)
+    {
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Route $route){
+    public function update(Request $request, Route $route)
+    {
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Route $route){
+    public function destroy(Route $route)
+    {
         //
     }
 
-    public function index(){
+    public function index()
+    {
 
         $this->indexAddRoutes();
     }
@@ -189,28 +200,29 @@ class RouteController extends Controller{
         ]);
     }
 
-    public function seats($origin, $destination, $date){
+    public function seats($origin, $destination, $date)
+    {
 
-    // Get the route for the given origin and destinations
-    $route = Route::where('origin', $origin)
-                    ->where('destination', $destination)
-                    ->first();
+        // Get the route for the given origin and destinations
+        $route = Route::where('origin', $origin)
+            ->where('destination', $destination)
+            ->first();
 
-    // Get the number of seats for the given route
-    $seatCount = $route->seat_quantity;
+        // Get the number of seats for the given route
+        $seatCount = $route->seat_quantity;
 
-    // Get the sum of seats reserved on the given date for the given route
-    $reservedSeats = Reservation::where('route_id', $route->id)
-                                ->whereDate('date', $date)
-                                ->sum('seat_amount');
+        // Get the sum of seats reserved on the given date for the given route
+        $reservedSeats = Reservation::where('route_id', $route->id)
+            ->whereDate('date', $date)
+            ->sum('seat_amount');
 
-    // Calculate the number of available seats
-    $availableSeats = $seatCount - $reservedSeats;
+        // Calculate the number of available seats
+        $availableSeats = $seatCount - $reservedSeats;
 
-    return response()->json([
-        'availableSeats' => $availableSeats,
-        'route' => $route
-    ]);
-}
+        return response()->json([
+            'availableSeats' => $availableSeats,
+            'route' => $route
+        ]);
+    }
 
 }
