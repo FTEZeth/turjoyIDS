@@ -114,7 +114,12 @@ class ReservationController extends Controller
 
         // Validar si la reserva no existe
         if (!$reservation) {
-            return back()->with('message', 'Debe proporcionar un codigo de reserva');
+
+            // Almacenar el código en la sesión para que esté disponible en la vista
+            session(['searchedCode' => $code]);
+            // Retornar a la vista anterior
+            return back();
+
         }
 
         $route = $reservation->route;
