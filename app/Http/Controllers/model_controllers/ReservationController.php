@@ -100,7 +100,6 @@ class ReservationController extends Controller
     public function searchReservation(Request $request)
     {
         $messages = makeMessages();
-        $this->assertMatchesRegularExpression('/^[A-Z0-9]{6}$/', $request);
 
         // Validar que se proporciona un código de reserva
         $this->validate($request, [
@@ -132,5 +131,4 @@ class ReservationController extends Controller
             'destination' => $route->destination,
         ]);
     }
-
 }
