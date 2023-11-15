@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\model_controllers\RouteController;
 use App\Http\Controllers\model_controllers\ReservationController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
