@@ -147,6 +147,20 @@ const checkInputs = () => {
     const seatsValue = selectSeats.value;
 
     if (originValue !== '' && destinationValue !== '' && dateValue !== '' && seatsValue !== '')  {
+        if(!checkDate()){
+            Swal.fire({
+                title: 'La fecha seleccionada no es válida',
+                icon: 'error',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    selectSeats.disabled = true;
+                    createReservation.disabled = true;
+                    return;
+                }
+              })
+        }
         createReservation.disabled = false;
         selectSeats.disabled = false;
         baseRate.value = seatsValue * baseRate.value;
@@ -175,13 +189,16 @@ const checkDate = () => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const date = new Date(dateValue);
+    date.setDate(date.getDate() + 1);
     date.setHours(0, 0, 0, 0);
+    console.log(dateValue);
     console.log(today);
     console.log(date);
     if(date.getTime() >= today.getTime()){
-        return;
+        return true;
     } else {
         selectDate.value = '';
+        return false;
     }
 }
 
@@ -193,5 +210,3 @@ selectOrigin.addEventListener('change', checkInputs);
 selectDestination.addEventListener('change', checkInputs);
 selectDate.addEventListener('change', checkInputs);
 selectSeats.addEventListener('change', checkInputs);
-
-selectDate.addEventListener('change', checkDate);
