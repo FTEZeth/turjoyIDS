@@ -41,11 +41,10 @@ class ReservationController extends Controller
         ]);
 
 
-        return view('client.order-success', [
-            'reservation' => $reservation,
-            'origin' => $request->origins,
-            'destination' => $request->destinations,
-
+        return redirect('voucher')->with([
+        'reservation' => $reservation,
+        'origin' => $request->origins,
+        'destination' => $request->destinations,
         ]);
 
     }
@@ -53,9 +52,12 @@ class ReservationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Reservation $reservation)
-    {
-        //
+    public function showVoucher(Reservation $reservation){
+        return view('client.order-success', [
+            'reservation' => session('reservation'),
+            'origin' => session('origin'),
+            'destination' => session('destination'),
+        ]);
     }
 
     /**

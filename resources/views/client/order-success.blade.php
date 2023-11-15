@@ -40,7 +40,7 @@
                                 Ciudad de destino
                             </th>
                             <td class="px-6 py-4">
-                                {{ $destination}}
+                                {{ $destination }}
                             </td>
                         </tr>
                         <tr class="bg-cyan-100 border-b border-cyan-500">
@@ -49,7 +49,7 @@
                                 Día de la reserva
                             </th>
                             <td class="px-6 py-4">
-                                {{ $reservation->date }}
+                                {{ date('d/m/Y', (strtotime($reservation->date))) }}
                             </td>
                         </tr>
 
@@ -69,7 +69,7 @@
                                 Fecha de la compra
                             </th>
                             <td class="px-6 py-4">
-                                {{  $reservation->created_at }}
+                                {{  date('d/m/Y h:i:s A', (strtotime($reservation->created_at))) }}
                             </td>
                         </tr>
 
