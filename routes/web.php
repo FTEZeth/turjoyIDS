@@ -24,7 +24,7 @@ Route::get('/check', [RouteController::class, 'checkRoute'])->name('travels.chec
 Route::get('login', function () {return view('auth.login');})->name('login');
 Route::post('/reservation', [ReservationController::class, 'store'])->name('reservationStore');
 Route::get('/get/reservation-by-code', [ReservationController::class, 'searchReservation'])->name('searchReservation');
-Route::get('/voucher', [ReservationController::class, 'showVoucher'])->name('showVoucher');
+Route::get('/voucher', [ReservationController::class, 'showVoucher'])->name('showVoucher')->middleware('redirectOnRefresh');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('menu', function () {return view('admin_routes.menu');})->name('menu');//Vista de menú de administrador
