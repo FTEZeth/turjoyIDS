@@ -5,7 +5,7 @@
 <div class="mx-auto p-10 text-center" style="background-color: #FFFFFF;">
     @if ($countRoutes)
         <h1 class="text-4xl font-semibold mb-4 text-blue-600">Haga su reserva ahora!</h1>
-        <form id="form" name="form" action="{{ route('reservationStore') }}" method="GET">
+        <form id="form" name="form" action="{{ route('reservationStore') }}" method="POST">
             <!-- Dropdowns -->
             <div class="flex items-center space-x-4 w-full">
                 <!-- Dropdown for Origin -->
@@ -41,7 +41,7 @@
                 <input id="baseRate" name="baseRate" value="" hidden>
                 <input id="routeId" name="routeId" value="" hidden>
 
-                <button id="createReservation" name="createReservation" class="flex-initial h-10 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style="background-color: #2ECC71;">
+                <button id="createReservation" name="createReservation" class="flex-initial h-10 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style="background-color: #2ECC71;" type="submit">
                     Hacer Reserva
                 </button>
             </div>
