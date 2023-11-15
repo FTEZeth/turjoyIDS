@@ -6,6 +6,7 @@
     @if ($countRoutes)
         <h1 class="text-4xl font-semibold mb-4 text-blue-600">Haga su reserva ahora!</h1>
         <form id="form" name="form" action="{{ route('reservationStore') }}" method="POST">
+            @csrf
             <!-- Dropdowns -->
             <div class="flex items-center space-x-4 w-full">
                 <!-- Dropdown for Origin -->
