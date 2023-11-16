@@ -165,7 +165,7 @@ class RouteController extends Controller
 
     public function homeIndex()
     {
-
+        session()->forget('refreshed');
         $routes = Route::get()->count();
         return view('welcome', [
             'countRoutes' => $routes,

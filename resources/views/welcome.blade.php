@@ -1,9 +1,11 @@
 @extends('layouts.app')
 @section('content')
+
     <div class="mx-auto p-10 text-center" style="background-color: #FFFFFF;">
         @if ($countRoutes)
             <h1 class="text-4xl font-semibold mb-4 text-blue-600">Haga su reserva ahora!</h1>
-            <form id="form" name="form" action="{{ route('reservationStore') }}" method="GET">
+            <form id="form" name="form" action="{{ route('reservationStore') }}" method="POST">
+                @csrf
                 <!-- Dropdowns -->
                 <div class="flex items-center space-x-4 w-full">
                     <!-- Dropdown for Origin -->
@@ -46,7 +48,7 @@
 
                     <button id="createReservation" name="createReservation"
                         class="flex-initial h-10 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                        style="background-color: #2ECC71;">
+                        style="background-color: #2ECC71;" type="submit">
                         Hacer Reserva
                     </button>
                 </div>
@@ -122,7 +124,8 @@
             const datePicker = document.getElementById('date').value;
             const selectedSeat = document.getElementById('seats').value;
             const fecha = new Date(datePicker);
-            const dateFormatted = fecha.toLocaleDateString('es-ES', datePicker)
+            fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());
+            const dateFormatted = fecha.toLocaleDateString('es-CL', { year: 'numeric', month: '2-digit', day: '2-digit' })
 
             const baseRate = document.getElementById('baseRate').value;
 
@@ -136,7 +139,7 @@
                 Swal.fire({
                     title: "¿Desea continuar?",
                     text: "El total de la reserva entre " + selectedOrigin + " y " + selectedDestination +
-                        " para el día " + datePicker + " es de " + "$" + (baseRate * selectedSeat) +
+                        " para el día " + dateFormatted + " es de " + "$" + (baseRate * selectedSeat) +
                         ` (${selectedSeat} Asientos)`,
                     icon: "warning",
                     showCancelButton: true,

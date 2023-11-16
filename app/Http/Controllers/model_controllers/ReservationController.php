@@ -41,11 +41,10 @@ class ReservationController extends Controller
         ]);
 
 
-        return view('client.order-success', [
-            'reservation' => $reservation,
-            'origin' => $request->origins,
-            'destination' => $request->destinations,
-
+        return redirect('/voucher')->with([
+        'reservation' => $reservation,
+        'origin' => $request->origins,
+        'destination' => $request->destinations,
         ]);
 
     }
@@ -53,9 +52,19 @@ class ReservationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Reservation $reservation)
-    {
-        //
+    public function showVoucher(Reservation $reservation){
+        //dd(session('refreshed'));
+        if(session('reservation') != null && session('origin') != null && session('destination') != null){
+            //dd('entro al if');
+            return view('client.order-success', [
+                'reservation' => session('reservation'),
+                'origin' => session('origin'),
+                'destination' => session('destination'),
+            ]);
+        } else {
+            return redirect('/');
+        }
+
     }
 
     /**
@@ -114,12 +123,10 @@ class ReservationController extends Controller
 
         // Validar si la reserva no existe
         if (!$reservation) {
-
             // Almacenar el código en la sesión para que esté disponible en la vista
             session(['searchedCode' => $code]);
             // Retornar a la vista anterior
             return back();
-
         }
 
         $route = $reservation->route;
