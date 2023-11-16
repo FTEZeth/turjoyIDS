@@ -41,7 +41,7 @@ class ReservationController extends Controller
         ]);
 
 
-        return redirect('voucher')->with([
+        return redirect('/voucher')->with([
         'reservation' => $reservation,
         'origin' => $request->origins,
         'destination' => $request->destinations,
@@ -53,11 +53,18 @@ class ReservationController extends Controller
      * Display the specified resource.
      */
     public function showVoucher(Reservation $reservation){
-        return view('client.order-success', [
-            'reservation' => session('reservation'),
-            'origin' => session('origin'),
-            'destination' => session('destination'),
-        ]);
+        //dd(session('refreshed'));
+        if(session('reservation') != null && session('origin') != null && session('destination') != null){
+            //dd('entro al if');
+            return view('client.order-success', [
+                'reservation' => session('reservation'),
+                'origin' => session('origin'),
+                'destination' => session('destination'),
+            ]);
+        } else {
+            return redirect('/');
+        }
+
     }
 
     /**
