@@ -52,8 +52,7 @@
     <main>
         @yield('content')
     </main>
-@yield('js')
+    @yield('js')
 </body>
 
 </html>
-

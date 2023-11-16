@@ -138,5 +138,4 @@ class ReservationController extends Controller
             'destination' => $route->destination,
         ]);
     }
-
 }
