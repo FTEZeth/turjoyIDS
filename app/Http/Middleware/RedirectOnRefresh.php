@@ -16,10 +16,14 @@ class RedirectOnRefresh
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->session()->has('refreshed')) {
+            //dd('ENTRO AL IF');
+            //dd(session('refreshed'));
             $request->session()->forget('refreshed');
             return redirect('/');
         }
 
+        //dd('NO ENTRO AL IF');
+        //dd(session('refreshed'));
         $request->session()->put('refreshed', true);
 
         return $next($request);

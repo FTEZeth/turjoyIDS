@@ -24,6 +24,9 @@ Route::get('/get/route/{origin}/{destination}/{date}', [RouteController::class, 
 Route::get('/check', [RouteController::class, 'checkRoute'])->name('travels.check');
 Route::get('login', function () {return view('auth.login');})->name('login');
 Route::post('/reservation', [ReservationController::class, 'store'])->name('reservationStore');
+Route::get('/reservation', function() {return redirect('/');});
+
+
 Route::get('/get/reservation-by-code', [ReservationController::class, 'searchReservation'])->name('searchReservation');
 Route::get('/voucher', [ReservationController::class, 'showVoucher'])->name('showVoucher')->middleware('redirectOnRefresh');
 
