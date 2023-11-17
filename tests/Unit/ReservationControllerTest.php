@@ -6,13 +6,13 @@ use App\Models\Reservation;
 use App\Models\Route;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
+use App\Http\Controllers\model_controllers\ReservationController;
 
 class ReservationControllerTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public function testSearchReservationWithValidCode()
-    {
+    public function testSearchReservationWithValidCode(){
         $route = Route::create([
             'origin' => 'AAAAA',
             'destination' => 'BBBBB',
@@ -49,8 +49,7 @@ class ReservationControllerTest extends TestCase
         $response->assertViewHas('destination', $route->destination);
     }
 
-    public function testSearchReservationWithInvalidCode()
-    {
+    public function testSearchReservationWithInvalidCode(){
         // Call the searchReservation method with an invalid code
         $response = $this->get('/get/reservation-by-code', [
             'code' => 'AAAAAAA00000',
@@ -59,6 +58,36 @@ class ReservationControllerTest extends TestCase
         // Assert that the response has the correct status code and view
         $response->assertStatus(302);
         $response->assertRedirect('/');
+
+    }
+
+    public function testGenerateReservationNumber(){
+        //Create a reservation
+        $reservation = Reservation::create([
+            'code' => 'AAAA00',
+            'seat_amount' => 6,
+            'total' => 500,
+            'date' => '2023-11-16',
+            'route_id' => 1,
+        ]);
+
+        //Create a new ReservationController instance
+        $reservationControler = new ReservationController();
+
+        //Call the generateReservationNumber method
+        $newCode = $reservationControler->generateReservationNumber();
+
+        //Assert that the new code is not equal to the existing reservation code
+        $this->assertNotEquals($newCode, $reservation->code);
+
+        //Assert that the new code has the correct format
+        $this->assertMatchesRegularExpression('/^[A-Z]{4}[0-9]{2}$/', $newCode);
+
+        //Assert that the new code is unique
+        $this->assertNull(Reservation::where('code', $newCode)->first());
+
+
+
 
     }
 }
