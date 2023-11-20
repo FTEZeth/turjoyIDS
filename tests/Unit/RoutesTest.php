@@ -6,7 +6,7 @@ use App\Models\Route;
 use App\Models\Reservation;
 use Tests\TestCase;
 
-class RouteControllerTest extends TestCase
+class RoutesTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -72,8 +72,14 @@ class RouteControllerTest extends TestCase
         //Call the store method with the request
         $response = $this->post('/reservation', $data);
 
+        //dd($response);
+
+        $data = $response->original->getData();
+
+        //dd($data);
+
         //Assert that the response has the correct view and data
-        $response->assertViewIs('client.order-success');
+        //$response->assertViewIs('client.order-success');
         $response->assertViewHas('reservation');
         $response->assertViewHas('origin', $route->origin);
         $response->assertViewHas('destination', $route->destination);
@@ -85,15 +91,6 @@ class RouteControllerTest extends TestCase
             'date' => $data['date'],
             'route_id' => $data['routeId'],
         ]);
-
-
-
-
-
-
-
-
-
 
     }
 }

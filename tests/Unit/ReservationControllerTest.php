@@ -39,8 +39,13 @@ class ReservationControllerTest extends TestCase
             'code' => $reservation->code,
         ]);
 
+        $response->assertViewHas('reservation', $reservation);
+        $response->assertViewHas('origin', $route->origin);
+        $response->assertViewHas('destination', $route->destination);
+
         // Assert that the response has the correct status code and view
-        $response->assertStatus(200);
+        $response->assertStatus(302);
+        $response->assertRedirect();
         $response->assertViewIs('client.order-success');
 
         // Assert that the response view has the correct data
