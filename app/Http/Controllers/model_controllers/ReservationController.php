@@ -5,6 +5,7 @@ namespace App\Http\Controllers\model_controllers;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\model_controllers\RouteController;
 use App\Models\Route;
 use Illuminate\Support\Str;
 
@@ -31,6 +32,8 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
+
+        if($this->verifyRequest($request)){return redirect('/');}
 
         $reservation = Reservation::create([
             'code' => $this->generateReservationNumber(),
@@ -137,5 +140,30 @@ class ReservationController extends Controller
             'origin' => $route->origin,
             'destination' => $route->destination,
         ]);
+    }
+
+    public function verifyRequest(Request $request){
+
+        $routeTest = Route::where('origin', $request->origins)
+        ->where('destination', $request->destinations)
+        ->first();
+
+        if($routeTest == null){return true;}
+
+        $routeSeats = new RouteController();
+
+        $seatTest = $routeSeats->seats($request->origins, $request->destinations, $request->date);
+        $seatTest = $seatTest->getData();
+        $seatTest = $seatTest->availableSeats;
+
+        if($seatTest < $request->seats){return true;}
+
+        $currentDate = date('Y-m-d');
+        $currentDate = strtotime($currentDate);
+
+        if($request->date < $currentDate){return true;}
+
+        //if($request->baseRate != $routeTest->seat_quantity * )
+
     }
 }
