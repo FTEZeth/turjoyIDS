@@ -3,7 +3,7 @@
 
     <div class="mx-auto p-10 text-center" style="background-color: #FFFFFF;">
         @if ($countRoutes)
-            <h1 class="text-4xl font-semibold mb-4 text-blue-600">Haga su reserva ahora!</h1>
+            <h1 class="text-4xl font-semibold mb-4 text-blue-600">Haga su reserva ahora</h1>
             <form id="form" name="form" action="{{ route('reservationStore') }}" method="POST">
                 @csrf
                 <!-- Dropdowns -->
@@ -69,7 +69,7 @@
             </div>
         @endif
 
-        <h1 class="text-2xl font-bold mt-12" style="color: #0A74DA">Hiciste una Reserva?</h1>
+        <h1 class="text-2xl font-bold mt-12" style="color: #0A74DA">¿Hiciste una Reserva?</h1>
 
         <!-- Section for code entry -->
         <div class="mt-10 flex items-center justify-center w-full">
