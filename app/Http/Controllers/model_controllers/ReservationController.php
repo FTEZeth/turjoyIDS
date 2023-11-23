@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\model_controllers\RouteController;
 use App\Models\Route;
 use Illuminate\Support\Str;
+use Dompdf\Dompdf;
 
 class ReservationController extends Controller
 {
@@ -35,12 +36,16 @@ class ReservationController extends Controller
 
         if($this->verifyRequest($request)){return redirect('/');}
 
+        //$uri = generatePDF();
+
         $reservation = Reservation::create([
             'code' => $this->generateReservationNumber(),
             'seat_amount' => $request->seats,
             'total' => $request->baseRate,
             'date' => $request->date,
             'route_id' => $request->routeId,
+            //'pdf' => $uri,
+            //'payment_method ' => $request->paymentMethod,
         ]);
 
 
@@ -164,6 +169,12 @@ class ReservationController extends Controller
         if($request->date < $currentDate){return true;}
 
         //if($request->baseRate != $routeTest->seat_quantity * )
+
+    }
+
+    public function generatePDF(){
+        //logica que crea el pdf
+        //return $uri;
 
     }
 }
