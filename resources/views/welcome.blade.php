@@ -140,7 +140,7 @@
                 Swal.fire({
                     title: "¿Desea continuar?",
                     text: "El total de la reserva entre " + selectedOrigin + " y " + selectedDestination +
-                        " para el día " + dateFormatted + " es de " + "$" + (baseRate * selectedSeat) +
+                        " para el día " + dateFormatted + " es de " + "$" + (baseRate * selectedSeat).toLocaleString('de-DE') +
                         ` (${selectedSeat} Asientos)`,
                     icon: "warning",
                     showCancelButton: true,
