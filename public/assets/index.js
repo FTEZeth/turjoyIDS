@@ -54,7 +54,9 @@ const addSeatsToSelect = (seats) => {
             title: 'No hay servicios disponibles para la ruta seleccionada',
             icon: 'error',
             showCancelButton: true,
-            cancelButtonColor: '#d33',
+            showConfirmButton: false,
+            cancelButtonColor: '#ff8a80',
+            cancelButtonText: 'Volver a intentar',
           }).then((result) => {
             if (result.isConfirmed) {
               // User clicked 'Yes', proceed with your action
@@ -153,8 +155,11 @@ const checkInputs = () => {
             Swal.fire({
                 title: 'La fecha seleccionada no es válida',
                 icon: 'error',
+                showConfirmButton: false,
                 showCancelButton: true,
-                cancelButtonColor: '#d33',
+                cancelButtonColor: '#ff8a80',
+                confirmButtonColor: '#2ECC71',
+                cancelButtonText: 'Volever a intentar',
               }).then((result) => {
                 if (result.isConfirmed) {
                     selectSeats.disabled = true;
@@ -211,8 +216,8 @@ const showSearchError = () => {
         title: 'Error',
         text: 'Por favor ingrese un código de reserva',
         icon: 'error',
-        confirmButtonText: 'OK',
-        confirmButtonColor: '#0A74DA', // Color del botón OK
+        confirmButtonText: 'Volver a intentar',
+        confirmButtonColor: '#ff8a80', // Color del botón OK
         customClass: {
             popup: 'animated tada' // Clase de animación de SweetAlert2
         }

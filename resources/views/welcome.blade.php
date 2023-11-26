@@ -3,7 +3,7 @@
 
     <div class="mx-auto p-10 text-center" style="background-color: #FFFFFF;">
         @if ($countRoutes)
-            <h1 class="text-4xl font-semibold mb-4 text-blue-600">Haga su reserva ahora!</h1>
+            <h1 class="text-4xl font-semibold mb-4 text-blue-600">Haga su reserva ahora</h1>
             <form id="form" name="form" action="{{ route('reservationStore') }}" method="POST">
                 @csrf
                 <!-- Dropdowns -->
@@ -90,7 +90,8 @@
                                     title: 'Error',
                                     text: 'La reserva {{ $searchedCode }} no existe en sistema',
                                     icon: 'error',
-                                    confirmButtonColor: '#3490dc',
+                                    confirmButtonColor: '#ff8a80',
+                                    confirmButtonText: 'Volver a intentar',
                                 });
                             });
                         @endif
@@ -143,8 +144,8 @@
                         ` (${selectedSeat} Asientos)`,
                     icon: "warning",
                     showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
+                    confirmButtonColor: "#2ECC71",
+                    cancelButtonColor: "#ff8a80",
                     confirmButtonText: "Confirmar",
                     cancelButtonText: "Volver",
                 }).then((result) => {
