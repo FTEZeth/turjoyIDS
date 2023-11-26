@@ -163,11 +163,11 @@
     @else
         <link rel="stylesheet" href="app.css">
         <div class="flex flex-col flex-1 justify-center items-center my-6">
+            <div class="mb-12 mx-auto">
+                <a class="px-6 py-3 bg-red-500 hover:bg-red-700 transition-all text-white font-semibold rounded-lg",
+                    style="background-color: #FF6B6B" href="{{ route('home') }}">Volver </a>
+            </div>
 
-                <button class="lg:w-1/4 my-4 p-2 bg-green-400 rounded-sm text-white font-semibold" type="submit",
-                    style="background-color: #2ECC71">
-                    Importar rutas
-                </button>
             <form class ="flex flex-col items-center w-1/2" action = "{{ route('routeCheck') }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
@@ -192,11 +192,11 @@
                         {{ session('error') }}
                     </div>
                 @endif
-            <div class="mb-12 mx-auto">
-                <a class="px-6 py-3 bg-red-500 hover:bg-red-700 transition-all text-white font-semibold rounded-lg",
-                    style="background-color: #FF6B6B" href="{{ route('home') }}">Volver </a>
-            </div>
 
+                <button class="lg:w-1/4 my-4 p-2 bg-green-400 rounded-sm text-white font-semibold" type="submit",
+                    style="background-color: #2ECC71">
+                    Importar rutas
+                </button>
             </form>
         </div>
     @endif

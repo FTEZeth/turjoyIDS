@@ -47,10 +47,11 @@
                     <input id="routeId" name="routeId" value="" hidden>
 
                     <button id="createReservation" name="createReservation"
-                        class="flex-initial h-10 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                        style="background-color: #2ECC71;" type="submit">
-                        Hacer Reserva
+                    class="flex-initial h-10 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    style="background-color: #EAEAEA;" type="submit" disabled>
+                    Hacer Reserva
                     </button>
+
                 </div>
             </form>
         @else
@@ -79,7 +80,7 @@
             <form id="searchReservationForm" class="flex items-center" action="{{ route('searchReservation') }}" method="GET">
                 @php
                     $searchedCode = session('searchedCode');
-                    // Limpiar el código almacenado en la sesión después de mostrarlo
+                    // Cleans the code before shown
                     session()->forget('searchedCode');
                 @endphp
                 @if ($searchedCode)
@@ -156,4 +157,29 @@
             }
         });
     </script>
+    <!--This Script makes the "Hacer Reserva" button aviable when all selects are selected-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const selects = document.querySelectorAll('select');
+            const button = document.getElementById('createReservation');
+
+            const checkSelects = () => {
+                let allSelected = true;
+                selects.forEach(select => {
+                    if (select.value === '') {
+                        allSelected = false;
+                    }
+                });
+                button.disabled = !allSelected;
+                button.style.backgroundColor = allSelected ? '#2ECC71' : '#EAEAEA';
+            };
+
+            selects.forEach(select => {
+                select.addEventListener('change', checkSelects);
+            });
+
+            checkSelects(); // Para revisar el estado inicial de los selects
+        });
+    </script>
+
 @endsection
