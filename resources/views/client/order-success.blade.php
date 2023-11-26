@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-
-<div class="flex flex-col items-center justify-center h-screen">
-    <div class="w-1/3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+<div class="mx-auto p-10 text-center w-1/2">
+    <div class="w-7/8 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div class="bg-cyan-600 p-10 rounded-t-lg", style="background-color: #0A74DA;">
             <p class="text-xl text-white text-center">Tu reserva ha sido <br> <span class="font-bold text-2xl">realizada con
                     éxito</span></p>
@@ -79,7 +78,7 @@
                                 Total pagado
                             </th>
                             <td class="px-6 py-4">
-                                {{ $reservation->total }}
+                                {{ number_format((int)$reservation->total, 0, ',', '.') }} CLP
                             </td>
                         </tr>
                     </tbody>

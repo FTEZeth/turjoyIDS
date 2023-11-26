@@ -69,7 +69,7 @@
             </div>
         @endif
 
-        <h1 class="text-2xl font-bold mt-12" style="color: #0A74DA">Hiciste una Reserva?</h1>
+        <h1 class="text-2xl font-bold mt-12" style="color: #0A74DA">¿Hiciste una Reserva?</h1>
 
         <!-- Section for code entry -->
         <div class="mt-10 flex items-center justify-center w-full">
@@ -140,7 +140,7 @@
                 Swal.fire({
                     title: "¿Desea continuar?",
                     text: "El total de la reserva entre " + selectedOrigin + " y " + selectedDestination +
-                        " para el día " + dateFormatted + " es de " + "$" + (baseRate * selectedSeat) +
+                        " para el día " + dateFormatted + " es de " + "$" + (baseRate * selectedSeat).toLocaleString('de-DE') +
                         ` (${selectedSeat} Asientos)`,
                     icon: "warning",
                     showCancelButton: true,

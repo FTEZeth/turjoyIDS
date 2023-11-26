@@ -16,7 +16,7 @@ const clearSelectDestination = () => {
     }
     const option = document.createElement('option');
     option.value = ''; //value vacio
-    option.text = 'Selecciona Destino';
+    option.text = 'Seleccione Destino';
     option.selected = true;
     selectDestination.appendChild(option);
 }
