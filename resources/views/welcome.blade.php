@@ -1,11 +1,9 @@
 @extends('layouts.app')
 @section('content')
-
     <div class="mx-auto p-10 text-center" style="background-color: #FFFFFF;">
         @if ($countRoutes)
-            <h1 class="text-4xl font-semibold mb-4 text-blue-600">Haga su reserva ahora</h1>
-            <form id="form" name="form" action="{{ route('reservationStore') }}" method="POST">
-                @csrf
+            <h1 class="text-4xl font-semibold mb-4 text-blue-600">Haga su reserva ahora!</h1>
+            <form id="form" name="form" action="{{ route('reservationStore') }}" method="GET">
                 <!-- Dropdowns -->
                 <div class="flex items-center space-x-4 w-full">
                     <!-- Dropdown for Origin -->
@@ -47,11 +45,10 @@
                     <input id="routeId" name="routeId" value="" hidden>
 
                     <button id="createReservation" name="createReservation"
-                    class="flex-initial h-10 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    style="background-color: #EAEAEA;" type="submit" disabled>
-                    Hacer Reserva
+                        class="flex-initial h-10 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        style="background-color: #2ECC71;">
+                        Hacer Reserva
                     </button>
-
                 </div>
             </form>
         @else
@@ -71,7 +68,7 @@
 
         @endif
 
-        <h1 class="text-2xl font-bold mt-12" style="color: #0A74DA">¿Hiciste una Reserva?</h1>
+        <h1 class="text-2xl font-bold mt-12" style="color: #0A74DA">Hiciste una Reserva?</h1>
 
         <!-- Section for code entry -->
         <div class="mt-10 flex items-center justify-center w-full">
@@ -81,7 +78,7 @@
             <form id="searchReservationForm" class="flex items-center" action="{{ route('searchReservation') }}" method="GET">
                 @php
                     $searchedCode = session('searchedCode');
-                    // Cleans the code before shown
+                    // Limpiar el código almacenado en la sesión después de mostrarlo
                     session()->forget('searchedCode');
                 @endphp
                 @if ($searchedCode)
@@ -92,8 +89,7 @@
                                     title: 'Error',
                                     text: 'La reserva {{ $searchedCode }} no existe en sistema',
                                     icon: 'error',
-                                    confirmButtonColor: '#ff8a80',
-                                    confirmButtonText: 'Volver a intentar',
+                                    confirmButtonColor: '#3490dc',
                                 });
                             });
                         @endif
@@ -127,8 +123,7 @@
             const datePicker = document.getElementById('date').value;
             const selectedSeat = document.getElementById('seats').value;
             const fecha = new Date(datePicker);
-            fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());
-            const dateFormatted = fecha.toLocaleDateString('es-CL', { year: 'numeric', month: '2-digit', day: '2-digit' })
+            const dateFormatted = fecha.toLocaleDateString('es-ES', datePicker)
 
             const baseRate = document.getElementById('baseRate').value;
 
@@ -142,12 +137,12 @@
                 Swal.fire({
                     title: "¿Desea continuar?",
                     text: "El total de la reserva entre " + selectedOrigin + " y " + selectedDestination +
-                        " para el día " + dateFormatted + " es de " + "$" + (baseRate * selectedSeat).toLocaleString('de-DE') +
+                        " para el día " + datePicker + " es de " + "$" + (baseRate * selectedSeat) +
                         ` (${selectedSeat} Asientos)`,
                     icon: "warning",
                     showCancelButton: true,
-                    confirmButtonColor: "#2ECC71",
-                    cancelButtonColor: "#ff8a80",
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
                     confirmButtonText: "Confirmar",
                     cancelButtonText: "Volver",
                 }).then((result) => {
@@ -158,29 +153,4 @@
             }
         });
     </script>
-    <!--This Script makes the "Hacer Reserva" button aviable when all selects are selected-->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const selects = document.querySelectorAll('select');
-            const button = document.getElementById('createReservation');
-
-            const checkSelects = () => {
-                let allSelected = true;
-                selects.forEach(select => {
-                    if (select.value === '') {
-                        allSelected = false;
-                    }
-                });
-                button.disabled = !allSelected;
-                button.style.backgroundColor = allSelected ? '#2ECC71' : '#EAEAEA';
-            };
-
-            selects.forEach(select => {
-                select.addEventListener('change', checkSelects);
-            });
-
-            checkSelects(); // Para revisar el estado inicial de los selects
-        });
-    </script>
-
 @endsection
