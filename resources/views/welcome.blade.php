@@ -52,19 +52,20 @@
                 </div>
             </form>
         @else
-            <div id="alert-additional-content-1" style="background-color: #ff8a80"
-                class="w-3/12 p-4 mb-4 text-white border border-white rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800"
-                role="alert">
-                <div class="flex items-center">
-                    <svg class="flex-shrink-0 w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                    </svg>
-                    <span class="sr-only">Info</span>
-                    <h3 class="text-lg font-medium">por el momento no es posible realizar reservas, intente más tarde</h3>
-                </div>
-            </div>
+        <div id="alert-additional-content-1" style="background-color: #ff8a80; width: 50%; margin: auto;"
+        class="p-4 mb-4 text-white border border-white rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800"
+        role="alert">
+        <div class="flex items-center justify-center">
+            <svg class="flex-shrink-0 w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor" viewBox="0 0 20 20">
+                <path
+                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span class="sr-only">Info</span>
+            <h3 class="text-lg font-medium text-center">Por el momento no es posible realizar reservas. Intente más tarde.</h3>
+        </div>
+    </div>
+
         @endif
 
         <h1 class="text-2xl font-bold mt-12" style="color: #0A74DA">Hiciste una Reserva?</h1>
