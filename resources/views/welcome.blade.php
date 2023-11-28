@@ -1,9 +1,11 @@
 @extends('layouts.app')
 @section('content')
+
     <div class="mx-auto p-10 text-center" style="background-color: #FFFFFF;">
         @if ($countRoutes)
-            <h1 class="text-4xl font-semibold mb-4 text-blue-600">Haga su reserva ahora!</h1>
-            <form id="form" name="form" action="{{ route('reservationStore') }}" method="GET">
+            <h1 class="text-4xl font-semibold mb-4 text-blue-600">Haga su reserva ahora</h1>
+            <form id="form" name="form" action="{{ route('reservationStore') }}" method="POST">
+                @csrf
                 <!-- Dropdowns -->
                 <div class="flex items-center space-x-4 w-full">
                     <!-- Dropdown for Origin -->
@@ -46,29 +48,28 @@
 
                     <button id="createReservation" name="createReservation"
                         class="flex-initial h-10 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                        style="background-color: #2ECC71;">
+                        style="background-color: #EAEAEA;" type="submit" disabled>
                         Hacer Reserva
                     </button>
                 </div>
             </form>
         @else
-        <div id="alert-additional-content-1" style="background-color: #ff8a80; width: 50%; margin: auto;"
-        class="p-4 mb-4 text-white border border-white rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800"
-        role="alert">
-        <div class="flex items-center justify-center">
-            <svg class="flex-shrink-0 w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor" viewBox="0 0 20 20">
-                <path
-                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-            </svg>
-            <span class="sr-only">Info</span>
-            <h3 class="text-lg font-medium text-center">Por el momento no es posible realizar reservas. Intente más tarde.</h3>
+            <div id="alert-additional-content-1" style="background-color: #ff8a80; width: 50%; margin: auto;"
+            class="p-4 mb-4 text-white border border-white rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800"
+            role="alert">
+            <div class="flex items-center justify-center">
+                <svg class="flex-shrink-0 w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <h3 class="text-lg font-medium text-center">Por el momento no es posible realizar reservas. Intente más tarde.</h3>
+            </div>
         </div>
-    </div>
-
         @endif
 
-        <h1 class="text-2xl font-bold mt-12" style="color: #0A74DA">Hiciste una Reserva?</h1>
+        <h1 class="text-2xl font-bold mt-12" style="color: #0A74DA">¿Hiciste una Reserva?</h1>
 
         <!-- Section for code entry -->
         <div class="mt-10 flex items-center justify-center w-full">
@@ -89,7 +90,8 @@
                                     title: 'Error',
                                     text: 'La reserva {{ $searchedCode }} no existe en sistema',
                                     icon: 'error',
-                                    confirmButtonColor: '#3490dc',
+                                    confirmButtonColor: '#ff8a80',
+                                    confirmButtonText: 'Volver a intentar',
                                 });
                             });
                         @endif
@@ -123,7 +125,8 @@
             const datePicker = document.getElementById('date').value;
             const selectedSeat = document.getElementById('seats').value;
             const fecha = new Date(datePicker);
-            const dateFormatted = fecha.toLocaleDateString('es-ES', datePicker)
+            fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());
+            const dateFormatted = fecha.toLocaleDateString('es-CL', { year: 'numeric', month: '2-digit', day: '2-digit' })
 
             const baseRate = document.getElementById('baseRate').value;
 
@@ -137,12 +140,12 @@
                 Swal.fire({
                     title: "¿Desea continuar?",
                     text: "El total de la reserva entre " + selectedOrigin + " y " + selectedDestination +
-                        " para el día " + datePicker + " es de " + "$" + (baseRate * selectedSeat) +
+                        " para el día " + dateFormatted + " es de " + "$" + (baseRate * selectedSeat).toLocaleString('de-DE') +
                         ` (${selectedSeat} Asientos)`,
                     icon: "warning",
                     showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
+                    confirmButtonColor: "#2ECC71",
+                    cancelButtonColor: "#ff8a80",
                     confirmButtonText: "Confirmar",
                     cancelButtonText: "Volver",
                 }).then((result) => {
@@ -151,6 +154,27 @@
                     }
                 });
             }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const selects = document.querySelectorAll('select');
+            const button = document.getElementById('createReservation');
+            const checkSelects = () => {
+                let allSelected = true;
+                selects.forEach(select => {
+                    if (select.value === '') {
+                        allSelected = false;
+                    }
+                });
+                button.disabled = !allSelected;
+                button.style.backgroundColor = allSelected ? '#2ECC71' : '#EAEAEA';
+            };
+            selects.forEach(select => {
+                select.addEventListener('change', checkSelects);
+            });
+            checkSelects(); // Para revisar el estado inicial de los selects
         });
     </script>
 @endsection
