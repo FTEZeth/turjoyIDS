@@ -5,8 +5,10 @@ namespace App\Http\Controllers\model_controllers;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\model_controllers\RouteController;
 use App\Models\Route;
 use Illuminate\Support\Str;
+use Dompdf\Dompdf;
 
 class ReservationController extends Controller
 {
@@ -32,20 +34,25 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
 
+        if($this->verifyRequest($request)){return redirect('/');}
+
+        //$uri = generatePDF();
+
         $reservation = Reservation::create([
             'code' => $this->generateReservationNumber(),
             'seat_amount' => $request->seats,
             'total' => $request->baseRate,
             'date' => $request->date,
             'route_id' => $request->routeId,
+            //'pdf' => $uri,
+            //'payment_method ' => $request->paymentMethod,
         ]);
 
 
-        return view('client.order-success', [
-            'reservation' => $reservation,
-            'origin' => $request->origins,
-            'destination' => $request->destinations,
-
+        return redirect('/voucher')->with([
+        'reservation' => $reservation,
+        'origin' => $request->origins,
+        'destination' => $request->destinations,
         ]);
 
     }
@@ -53,9 +60,19 @@ class ReservationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Reservation $reservation)
-    {
-        //
+    public function showVoucher(Reservation $reservation){
+        //dd(session('refreshed'));
+        if(session('reservation') != null && session('origin') != null && session('destination') != null){
+            //dd('entro al if');
+            return view('client.order-success', [
+                'reservation' => session('reservation'),
+                'origin' => session('origin'),
+                'destination' => session('destination'),
+            ]);
+        } else {
+            return redirect('/');
+        }
+
     }
 
     /**
@@ -130,4 +147,34 @@ class ReservationController extends Controller
         ]);
     }
 
+    public function verifyRequest(Request $request){
+
+        $routeTest = Route::where('origin', $request->origins)
+        ->where('destination', $request->destinations)
+        ->first();
+
+        if($routeTest == null){return true;}
+
+        $routeSeats = new RouteController();
+
+        $seatTest = $routeSeats->seats($request->origins, $request->destinations, $request->date);
+        $seatTest = $seatTest->getData();
+        $seatTest = $seatTest->availableSeats;
+
+        if($seatTest < $request->seats){return true;}
+
+        $currentDate = date('Y-m-d');
+        $currentDate = strtotime($currentDate);
+
+        if($request->date < $currentDate){return true;}
+
+        //if($request->baseRate != $routeTest->seat_quantity * )
+
+    }
+
+    public function generatePDF(){
+        //logica que crea el pdf
+        //return $uri;
+
+    }
 }

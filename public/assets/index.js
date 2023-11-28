@@ -16,7 +16,7 @@ const clearSelectDestination = () => {
     }
     const option = document.createElement('option');
     option.value = ''; //value vacio
-    option.text = 'Selecciona Destino';
+    option.text = 'Seleccione Destino';
     option.selected = true;
     selectDestination.appendChild(option);
 }
@@ -149,6 +149,20 @@ const checkInputs = () => {
     const seatsValue = selectSeats.value;
 
     if (originValue !== '' && destinationValue !== '' && dateValue !== '' && seatsValue !== '')  {
+        if(!checkDate()){
+            Swal.fire({
+                title: 'La fecha seleccionada no es válida',
+                icon: 'error',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    selectSeats.disabled = true;
+                    createReservation.disabled = true;
+                    return;
+                }
+              })
+        }
         createReservation.disabled = false;
         selectSeats.disabled = false;
         baseRate.value = seatsValue * baseRate.value;
@@ -170,6 +184,24 @@ const checkInputs = () => {
 const getBaseRate = () => {
     baseRate = selectSeats.value
 
+}
+
+const checkDate = () => {
+    const dateValue = selectDate.value;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const date = new Date(dateValue);
+    date.setDate(date.getDate() + 1);
+    date.setHours(0, 0, 0, 0);
+    console.log(dateValue);
+    console.log(today);
+    console.log(date);
+    if(date.getTime() >= today.getTime()){
+        return true;
+    } else {
+        selectDate.value = '';
+        return false;
+    }
 }
 
 const showSearchError = () => {

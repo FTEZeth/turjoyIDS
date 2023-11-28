@@ -1,11 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-
-<div class="flex flex-col items-center justify-center h-screen">
-    <div class="w-1/3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+<div class="mx-auto p-10 text-center w-1/2">
+    <div class="w-7/8 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div class="bg-cyan-600 p-10 rounded-t-lg", style="background-color: #0A74DA;">
-            <p class="text-xl text-white text-center">Tu pago ha sido <br> <span class="font-bold text-2xl">realizado con
+            <p class="text-xl text-white text-center">Tu reserva ha sido <br> <span class="font-bold text-2xl">realizada con
                     éxito</span></p>
         </div>
         <div class="flex flex-col p-5">
@@ -40,7 +39,7 @@
                                 Ciudad de destino
                             </th>
                             <td class="px-6 py-4">
-                                {{ $destination}}
+                                {{ $destination }}
                             </td>
                         </tr>
                         <tr class="bg-cyan-100 border-b border-cyan-500">
@@ -49,7 +48,7 @@
                                 Día de la reserva
                             </th>
                             <td class="px-6 py-4">
-                                {{ $reservation->date }}
+                                {{ date('d/m/Y', (strtotime($reservation->date))) }}
                             </td>
                         </tr>
 
@@ -69,7 +68,7 @@
                                 Fecha de la compra
                             </th>
                             <td class="px-6 py-4">
-                                {{  $reservation->created_at }}
+                                {{  date('d/m/Y h:i:s A', (strtotime($reservation->created_at))) }}
                             </td>
                         </tr>
 
@@ -79,7 +78,7 @@
                                 Total pagado
                             </th>
                             <td class="px-6 py-4">
-                                {{ $reservation->total }}
+                                {{ number_format((int)$reservation->total, 0, ',', '.') }} CLP
                             </td>
                         </tr>
                     </tbody>
@@ -89,16 +88,16 @@
 
         <div class="flex items-center justify-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
 
-            <a href="{{ route('home') }}" type="button"
-                class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                Finalizar
-            </a>
-
-            <a href="#" type="button"
-                class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                Finalizar>
-
-            </a>
+            <div class="flex items-center justify-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <a href="{{ route('home') }}" type="button"
+                    class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                    Finalizar
+                </a>
+                <a href="#" type="button"
+                    class="text-gray-900 bg-gray-300 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-500 dark:hover:bg-gray-600 dark:focus:ring-gray-800">
+                    Descargar
+                </a>
+            </div>
         </div>
     </div>
 </div>
