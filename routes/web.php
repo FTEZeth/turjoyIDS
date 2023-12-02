@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/upload', [RouteController::class, 'routeCheck'])->name('routeCheck'); //botón de subir archivo
     Route::get('/result/route', [RouteController::class, 'indexRoutes'])->name('indexRoutes'); //Resultados de rutas
     Route::get('logout', [AuthController::class, 'logout'])->name('logout'); //Botón de cerrar sesión y dirigir al menú principal
+    Route::get('/reservation-report', [ReservationController::class, 'reportIndex'])->name('reservationReport'); //Vista de reporte de reservas
 });
 
 Route::post('login', [AuthController::class, 'login'])->name('authLogin'); //Botón de iniciar sesión

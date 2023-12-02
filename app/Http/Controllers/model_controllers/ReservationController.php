@@ -177,4 +177,11 @@ class ReservationController extends Controller
         //return $uri;
 
     }
+
+    public function reportIndex(){
+        $reservations = Reservation::all();
+        return view('XXXX PONER NOMBRE DE LA VISTA XXXX', [
+            'reservations' => $reservations,
+        ]);
+    }
 }
