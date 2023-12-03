@@ -184,4 +184,23 @@ class ReservationController extends Controller
             'reservations' => $reservations,
         ]);
     }
+
+    public function searchToDate(Request $request){
+        $messages = makeMessages();
+
+        // Validar que se proporciona un código de reserva
+        $this->validate($request, [
+            'initDate' => ['required', 'date'],
+            'finishDate' => ['required', 'date']
+        ], $messages);
+
+        $initDate = $request->initDate;
+        $finishDate = $request->finishDate;
+
+        //Validar que la fecha inicial sea menor a la fecha final
+
+        $reservation = Reservation::whereBetween('date', [$initDate, $finishDate])->get();
+
+
+    }
 }
