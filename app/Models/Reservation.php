@@ -16,7 +16,7 @@ class Reservation extends Model
         'date',
         'route_id',
         //'pdf',
-        //'payment_method',
+        'payment_method',
     ];
 
     public function route()

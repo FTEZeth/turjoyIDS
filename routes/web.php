@@ -27,6 +27,8 @@ Route::post('/reservation', [ReservationController::class, 'store'])->name('rese
 Route::get('/reservation', function() {return redirect('/');});
 
 
+
+
 Route::get('/get/reservation-by-code', [ReservationController::class, 'searchReservation'])->name('searchReservation');
 Route::get('/voucher', [ReservationController::class, 'showVoucher'])->name('showVoucher')->middleware('redirectOnRefresh');
 

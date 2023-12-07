@@ -34,6 +34,9 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
 
+
+
+
         if($this->verifyRequest($request)){return redirect('/');}
 
         //$uri = generatePDF();
@@ -45,9 +48,19 @@ class ReservationController extends Controller
             'date' => $request->date,
             'route_id' => $request->routeId,
             //'pdf' => $uri,
-            //'payment_method ' => $request->paymentMethod,
+            'payment_method' => $request->paymentMethod,
         ]);
 
+        /*
+        $messages = makeMessages();
+        $this->validate($request, [
+            'seat_amount' => ['required'],
+            'total' => ['required'],
+            'date' => ['required'],
+            'route_id' => ['required'],
+            'payment_method' => ['required'],
+        ], $messages);
+        */
 
         return redirect('/voucher')->with([
         'reservation' => $reservation,
@@ -147,6 +160,8 @@ class ReservationController extends Controller
         ]);
     }
 
+    //Agregar validaciones
+
     public function verifyRequest(Request $request){
 
         $routeTest = Route::where('origin', $request->origins)
@@ -176,5 +191,13 @@ class ReservationController extends Controller
         //logica que crea el pdf
         //return $uri;
 
+    }
+    public function paymentMethodSelection(Request $request)
+    {
+        $payment_method = $request->input('paymentMethod');
+
+        // Perm any necessary logic based on the selected payment method
+        return $payment_method;
+        // Return a response or redirect to another page
     }
 }

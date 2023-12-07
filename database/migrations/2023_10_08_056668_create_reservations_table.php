@@ -20,7 +20,7 @@ return new class extends Migration{
             $table->foreignId('route_id')->constrained('routes');
             $table->timestamps();
             //$table->string('pdf');
-            //$table->string('payment_method');
+            $table->string('payment_method');
         });
     }
 

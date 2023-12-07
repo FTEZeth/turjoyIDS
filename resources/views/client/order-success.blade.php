@@ -81,6 +81,15 @@
                                 {{ number_format((int)$reservation->total, 0, ',', '.') }} CLP
                             </td>
                         </tr>
+
+                        <tr class="bg-cyan-100 border-b border-cyan-500">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                Medio de pago
+                            </th>
+                            <td class="px-6 py-4">
+                                {{ $reservation->payment_method }}
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

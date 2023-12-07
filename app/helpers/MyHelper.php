@@ -12,7 +12,14 @@ function makeMessages()
         'document.required' => 'el campo archivo es requerido',
         'document.mimes' => 'el archivo seleccionado no es Excel con extensión xlsx',
         'document.min' => 'el archivo excel esta vacio',
-        'document.max' => 'el tamaño máximo del archivo a cargar no puede superar los 5 megabytes'
+        'document.max' => 'el tamaño máximo del archivo a cargar no puede superar los 5 megabytes',
+        /*
+        'seat.required' => 'debe ingresar la cantidad de asientos',
+        'total.required' => 'debe ingresar el total a pagar',
+        'date.required' => 'debe ingresar la fecha de la reserva',
+        'route_id.required' => 'debe ingresar la ruta de la reserva',
+        'payment_method.required' => 'debe ingresar el método de pago'
+        */
     ];
 
     return $messages;
