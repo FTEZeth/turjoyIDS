@@ -34,7 +34,9 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
 
-        if($this->verifyRequest($request)){return redirect('/');}
+        if ($this->verifyRequest($request)) {
+            return redirect('/');
+        }
 
         //$uri = generatePDF();
 
@@ -50,9 +52,9 @@ class ReservationController extends Controller
 
 
         return redirect('/voucher')->with([
-        'reservation' => $reservation,
-        'origin' => $request->origins,
-        'destination' => $request->destinations,
+            'reservation' => $reservation,
+            'origin' => $request->origins,
+            'destination' => $request->destinations,
         ]);
 
     }
@@ -60,9 +62,10 @@ class ReservationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function showVoucher(Reservation $reservation){
+    public function showVoucher(Reservation $reservation)
+    {
         //dd(session('refreshed'));
-        if(session('reservation') != null && session('origin') != null && session('destination') != null){
+        if (session('reservation') != null && session('origin') != null && session('destination') != null) {
             //dd('entro al if');
             return view('client.order-success', [
                 'reservation' => session('reservation'),
@@ -147,13 +150,16 @@ class ReservationController extends Controller
         ]);
     }
 
-    public function verifyRequest(Request $request){
+    public function verifyRequest(Request $request)
+    {
 
         $routeTest = Route::where('origin', $request->origins)
-        ->where('destination', $request->destinations)
-        ->first();
+            ->where('destination', $request->destinations)
+            ->first();
 
-        if($routeTest == null){return true;}
+        if ($routeTest == null) {
+            return true;
+        }
 
         $routeSeats = new RouteController();
 
@@ -161,31 +167,38 @@ class ReservationController extends Controller
         $seatTest = $seatTest->getData();
         $seatTest = $seatTest->availableSeats;
 
-        if($seatTest < $request->seats){return true;}
+        if ($seatTest < $request->seats) {
+            return true;
+        }
 
         $currentDate = date('Y-m-d');
         $currentDate = strtotime($currentDate);
 
-        if($request->date < $currentDate){return true;}
+        if ($request->date < $currentDate) {
+            return true;
+        }
 
         //if($request->baseRate != $routeTest->seat_quantity * )
 
     }
 
-    public function generatePDF(){
+    public function generatePDF()
+    {
         //logica que crea el pdf
         //return $uri;
 
     }
 
-    public function reportIndex(){
+    public function reportIndex()
+    {
         $reservations = Reservation::all();
-        return view('XXXX PONER NOMBRE DE LA VISTA XXXX', [
+        return view('admin_routes.report', [
             'reservations' => $reservations,
         ]);
     }
 
-    public function searchToDate(Request $request){
+    public function searchToDate(Request $request)
+    {
         $messages = makeMessages();
 
         // Validar que se proporciona un código de reserva
