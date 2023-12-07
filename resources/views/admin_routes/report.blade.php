@@ -31,6 +31,33 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($reservations as $ticket)
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ $ticket->code }}
+                        </th>
+                        <td class="px-6 py-4">
+                            {{ date('d/m/Y h:i:s', strtotime($ticket->created_at)) }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ date('d/m/Y', strtotime($ticket->date)) }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $ticket->travelDates->origin }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $ticket->travelDates->destination }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $ticket->seat }}
+                        </td>
+                        <td class="px-6 py-4">
+                            ${{ number_format($ticket->total, 0, '', '.') }}
+                        </td>
+
+                    </tr>
+                @endforeach
+            </tbody>
         </table>
     </div>
 @endsection
