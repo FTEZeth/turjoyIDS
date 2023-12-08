@@ -9,7 +9,7 @@ return new class extends Migration{
      * Run the migrations.
      */
 
-    public function up(): void{
+     public function up(): void{
 
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
@@ -19,7 +19,7 @@ return new class extends Migration{
             $table->timestamp('date');
             $table->foreignId('route_id')->constrained('routes');
             $table->timestamps();
-            //$table->string('pdf');
+            $table->string('pdf')->default(''); // Añadir el valor por defecto aquí
             $table->string('payment_method');
         });
     }

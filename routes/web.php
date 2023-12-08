@@ -41,3 +41,4 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::post('login', [AuthController::class, 'login'])->name('authLogin'); //Botón de iniciar sesión
+Route::get('download-pdf/{id}', [ReservationController::class, 'downloadPDF'])->name('pdf.download');

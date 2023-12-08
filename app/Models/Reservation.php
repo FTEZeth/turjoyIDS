@@ -15,7 +15,7 @@ class Reservation extends Model
         'total',
         'date',
         'route_id',
-        //'pdf',
+        'pdf',
         'payment_method',
     ];
 

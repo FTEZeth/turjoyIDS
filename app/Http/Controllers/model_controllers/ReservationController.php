@@ -9,6 +9,7 @@ use App\Http\Controllers\model_controllers\RouteController;
 use App\Models\Route;
 use Illuminate\Support\Str;
 use Dompdf\Dompdf;
+use Illuminate\Support\Facades\Storage;
 
 class ReservationController extends Controller
 {
@@ -33,13 +34,9 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-
-
-
-
-        if($this->verifyRequest($request)){return redirect('/');}
-
-        //$uri = generatePDF();
+        if ($this->verifyRequest($request)) {
+            return redirect('/');
+        }
 
         $reservation = Reservation::create([
             'code' => $this->generateReservationNumber(),
@@ -47,27 +44,21 @@ class ReservationController extends Controller
             'total' => $request->baseRate,
             'date' => $request->date,
             'route_id' => $request->routeId,
-            //'pdf' => $uri,
             'payment_method' => $request->paymentMethod,
         ]);
 
-        /*
-        $messages = makeMessages();
-        $this->validate($request, [
-            'seat_amount' => ['required'],
-            'total' => ['required'],
-            'date' => ['required'],
-            'route_id' => ['required'],
-            'payment_method' => ['required'],
-        ], $messages);
-        */
+        // Obtener el URI del PDF
+        $uri = $this->generatePDF($reservation->id); // Usamos el ID de la reserva
 
+        // Actualizar el campo 'pdf' de la reserva con el URI del PDF generado
+        $reservation->update(['pdf' => $uri]);
+
+        // Retornar a la vista con las variables requeridas
         return redirect('/voucher')->with([
-        'reservation' => $reservation,
-        'origin' => $request->origins,
-        'destination' => $request->destinations,
+            'reservation' => $reservation,
+            'origin' => $request->origins,
+            'destination' => $request->destinations,
         ]);
-
     }
 
     /**
@@ -85,7 +76,6 @@ class ReservationController extends Controller
         } else {
             return redirect('/');
         }
-
     }
 
     /**
@@ -187,11 +177,46 @@ class ReservationController extends Controller
 
     }
 
-    public function generatePDF(){
-        //logica que crea el pdf
-        //return $uri;
+    public function generatePDF($id)
+    {
+        $reservation = Reservation::findOrFail($id);
 
+        // Crear una instancia de Dompdf
+        $domPDF = new Dompdf();
+
+        $data = [
+            'reservation' => $reservation,
+            'date' => date('d-m-Y'),
+        ];
+
+        // Renderizar la vista 'client.order-success' con los datos proporcionados
+        $view_html = view('client.pdf', $data)->render();
+        $domPDF->loadHtml($view_html);
+        $domPDF->setPaper('A4', 'portrait');
+        $domPDF->render();
+
+        // Generar nombre de archivo aleatorio
+        $filename = 'user_'.Str::random(10).'.pdf';
+
+        // Guardar el PDF en la carpeta public
+        $path = 'pdfs\\'.$filename;
+        Storage::disk('public')->put($path, $domPDF->output());
+
+        // Devolver el URI del archivo PDF
+        return $path;
     }
+
+    public function downloadPDF($id)
+{
+    $reservation = Reservation::findOrFail($id);
+
+    $path = storage_path('app/public/' . $reservation->pdf);
+    $filename = 'reservation_' . $reservation->code . '.pdf';
+    $mimeType = Storage::mimeType($path);
+
+    return response()->download($path, $filename, ['Content-Type' => $mimeType]);
+}
+
     public function paymentMethodSelection(Request $request)
     {
         $payment_method = $request->input('paymentMethod');
