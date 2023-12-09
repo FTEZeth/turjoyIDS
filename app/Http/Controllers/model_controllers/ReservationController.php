@@ -235,7 +235,7 @@ class ReservationController extends Controller
 
     public function reportIndex()
     {
-        $reservations = Reservation::all();
+        $reservations = Reservation::orderBy('date', 'asc')->get();
         return view('admin_routes.report', [
             'reservations' => $reservations,
         ]);
@@ -256,7 +256,7 @@ class ReservationController extends Controller
 
         //Validar que la fecha inicial sea menor a la fecha final
 
-        $reservation = Reservation::whereBetween('date', [$initDate, $finishDate])->get();
+        $reservation = Reservation::whereBetween('date', [$initDate, $finishDate])->orderBy('date', 'asc')->get();
 
         if ($reservation->count() === 0) {
             return back()->with('message', 'no se encontraron reservas dentro del rango seleccionado');

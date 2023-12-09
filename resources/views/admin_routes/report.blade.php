@@ -127,7 +127,7 @@
                                 ${{ number_format($ticket->total, 0, '', '.') }}
                             </td>
                             <td class="px-6 py-4">
-                                ${{ $ticket->payment_method }}
+                                {{ $ticket->payment_method }}
                             </td>
 
                         </tr>
