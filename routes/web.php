@@ -31,6 +31,8 @@ Route::get('/reservation', function () {
 });
 
 
+
+
 Route::get('/get/reservation-by-code', [ReservationController::class, 'searchReservation'])->name('searchReservation');
 Route::get('/voucher', [ReservationController::class, 'showVoucher'])->name('showVoucher')->middleware('redirectOnRefresh');
 
@@ -47,3 +49,4 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::post('login', [AuthController::class, 'login'])->name('authLogin'); //Botón de iniciar sesión
+Route::get('download-pdf/{id}', [ReservationController::class, 'downloadPDF'])->name('pdf.download');

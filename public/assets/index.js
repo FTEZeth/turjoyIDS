@@ -180,6 +180,7 @@ const checkInputs = () => {
         baseRate.value = 0;
         loadedSeats(originValue, destinationValue, dateValue);
     } else {
+        baseRate.value = '0';
         selectSeats.disabled = true;
         createReservation.disabled = true;
         baseRate.value = 0;

@@ -18,6 +18,13 @@ function makeMessages()
         'finishDate.required' => 'el campo fecha de término es requerido',
         'finishDate.date' => 'el campo fecha de término debe ser una fecha válida',
         'finishDate' => 'la fecha de inicio a consultar no puede ser mayor que la fecha de término de la consulta',
+        /*
+        'seat.required' => 'debe ingresar la cantidad de asientos',
+        'total.required' => 'debe ingresar el total a pagar',
+        'date.required' => 'debe ingresar la fecha de la reserva',
+        'route_id.required' => 'debe ingresar la ruta de la reserva',
+        'payment_method.required' => 'debe ingresar el método de pago'
+        */
     ];
 
     return $messages;
