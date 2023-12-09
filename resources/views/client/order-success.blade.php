@@ -78,7 +78,16 @@
                                 Total pagado
                             </th>
                             <td class="px-6 py-4">
-                                {{ number_format((int)$reservation->total, 0, ',', '.') }} CLP
+                                ${{ number_format((int)$reservation->total, 0, ',', '.') }} CLP
+                            </td>
+                        </tr>
+
+                        <tr class="bg-cyan-100 border-b border-cyan-500">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                Medio de pago
+                            </th>
+                            <td class="px-6 py-4">
+                                {{ $reservation->payment_method }}
                             </td>
                         </tr>
                     </tbody>
@@ -93,8 +102,8 @@
                     class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                     Finalizar
                 </a>
-                <a href="#" type="button"
-                    class="text-gray-900 bg-gray-300 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-500 dark:hover:bg-gray-600 dark:focus:ring-gray-800">
+                <a href="{{ route('pdf.download', ['id' => $reservation->id]) }}" type="button"
+                    class="text-white bg-gray-300 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-500 dark:hover:bg-gray-600 dark:focus:ring-gray-800", style="background-color: #2ECC71">
                     Descargar
                 </a>
             </div>

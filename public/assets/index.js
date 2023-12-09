@@ -174,8 +174,10 @@ const checkInputs = () => {
     } else if (originValue !== '' && destinationValue !== '' && dateValue !== '') {
         selectSeats.disabled = false;
         createReservation.disabled = true;
+        baseRate.value = '0';
         loadedSeats(originValue, destinationValue, dateValue);
     } else {
+        baseRate.value = '0';
         selectSeats.disabled = true;
         createReservation.disabled = true;
     }
