@@ -5,7 +5,7 @@
 
     @if ($reservations->count() > 0)
         <div class="flex justify-center gap-4">
-            <a href="{{ route('report-ticket.index') }}"
+            <a href="{{ route('reservationReport') }}"
                 class="bg-yellow-300 transition-all my-auto py-4 px-4 text-white rounded-lg">
                 <svg class="w-5 h-5 hover:animate-spin text-gray-800 dark:text-white" aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
@@ -44,7 +44,8 @@
                     </div>
 
                     <button type="submit"
-                        class="bg-green-500 hover:bg-green-700 transition-all py-2 px-4 text-white rounded-lg">
+                        class="text-white bg-green-500 hover:cursor-pointer hover:bg-emerald-800 font-medium rounded-lg text-sm w-full p-3 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800",
+                        style="background-color: #2ECC71;">
                         Buscar
                     </button>
                 </div>
@@ -53,17 +54,23 @@
 
         <div class="max-w-sm mx-auto">
             @error('initDate')
-                <p class="bg-red-400 font-semibold text-lg text-red-800 p-2 my-2 rounded-lg">{{ $message }}</p>
+                <p class="bg-red-400 text-gray-200 font-semibold my-4 text-lg text-center text-white px-4 py-3 rounded-lg"
+                    style="background-color: #ff8a80" style="color: #ffffff">
+                    {{ $message }}</p>
             @enderror
 
             @if (session('message'))
-                <p class="bg-red-500 text-white my-2 rounded-xl text-sm text-center p-2">
+                <p class="bg-red-400 text-gray-200 font-semibold my-4 text-lg text-center text-white px-4 py-3 rounded-lg"
+                    style="background-color: #ff8a80" style="color: #ffffff">
                     {{ session('message') }}</p>
             @endif
             @error('finishDate')
-                <p class="bg-red-400 font-semibold text-lg text-red-800 p-2 my-2 rounded-lg">{{ $message }}</p>
+                <p class="bg-red-400 text-gray-200 font-semibold my-4 text-lg text-center text-white px-4 py-3 rounded-lg"
+                    style="background-color: #ff8a80" style="color: #ffffff">
+                    {{ $message }}</p>
             @enderror
         </div>
+
         <div class="relative overflow-x-auto">
             <table class="w-10/12 mx-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -89,6 +96,9 @@
                         <th scope="col" class="px-6 py-3">
                             Valor total
                         </th>
+                        <th scope="col" class="px-6 py-3">
+                            Metodo de pago
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -105,16 +115,19 @@
                                 {{ date('d/m/Y', strtotime($ticket->date)) }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $ticket->travelDates->origin }}
+                                {{ $ticket->route->origin }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $ticket->travelDates->destination }}
+                                {{ $ticket->route->destination }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $ticket->seat }}
+                                {{ $ticket->seat_amount }}
                             </td>
                             <td class="px-6 py-4">
                                 ${{ number_format($ticket->total, 0, '', '.') }}
+                            </td>
+                            <td class="px-6 py-4">
+                                ${{ ticket->payment_method }}
                             </td>
 
                         </tr>
@@ -124,10 +137,9 @@
         </div>
         @if ($reservations)
             <div class="flex justify-center items-center mx-auto my-8">
-                {{ $reservations->links('pagination::tailwind') }}
             </div>
         @endif
     @else
-        <p>no hay reservas en sistema</p>
+        <p class="my-6 font-bold text-center text-3xl uppercase">No hay reservas en sistema</p>
     @endif
 @endsection

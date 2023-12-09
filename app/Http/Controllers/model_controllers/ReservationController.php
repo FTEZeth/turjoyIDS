@@ -204,7 +204,7 @@ class ReservationController extends Controller
         // Validar que se proporciona un código de reserva
         $this->validate($request, [
             'initDate' => ['required', 'date'],
-            'finishDate' => ['required', 'date']
+            'finishDate' => ['required', 'date', 'after:initDate']
         ], $messages);
 
         $initDate = $request->initDate;
@@ -214,6 +214,12 @@ class ReservationController extends Controller
 
         $reservation = Reservation::whereBetween('date', [$initDate, $finishDate])->get();
 
+        if ($reservation->count() === 0) {
+            return back()->with('message', 'no se encontraron reservas dentro del rango seleccionado');
+        }
 
+        return view('admin_routes.report', [
+            'reservations' => $reservation,
+        ]);
     }
 }
