@@ -78,7 +78,7 @@
                                 Total pagado
                             </th>
                             <td class="px-6 py-4">
-                                {{ number_format((int)$reservation->total, 0, ',', '.') }} CLP
+                                ${{ number_format((int)$reservation->total, 0, ',', '.') }} CLP
                             </td>
                         </tr>
 
