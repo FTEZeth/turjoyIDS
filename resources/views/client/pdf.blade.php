@@ -90,7 +90,7 @@
                         </tr>
                         <tr>
                             <th scope="row">Total pagado</th>
-                            <td>{{ number_format((int)$reservation->total, 0, ',', '.') }} CLP</td>
+                            <td>${{ number_format((int)$reservation->total, 0, ',', '.') }} CLP</td>
                         </tr>
                         <tr>
                             <th scope="row">Medio de pago</th>
