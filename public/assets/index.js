@@ -6,6 +6,7 @@ const selectDate = document.getElementById('date');
 const selectSeats = document.getElementById('seats');
 const createReservation = document.getElementById('createReservation');
 const baseRate = document.getElementById('baseRate');
+let baseRateAux = 0;
 const routeId = document.getElementById('routeId');
 const searchReservationForm = document.getElementById('searchReservationForm');
 
@@ -123,11 +124,12 @@ const loadedSeats = (origin, destination, date) => {
             .then(response=>response.json())
             .then(data=>{
                 console.log(data);
-                console.log('funciona');
+                console.log('funciona fetch para asientos');
+                baseRateAux = 0;
                 const seats = data.availableSeats;
-                baseRate.value = data.route.base_rate;
+                baseRateAux = data.route.base_rate;
                 routeId.value = data.route.id;
-                console.log(baseRate.value);
+                console.log(baseRateAux);
                 console.log(routeId.value);
                 console.log(seats);
 
@@ -165,8 +167,9 @@ const checkInputs = () => {
         }
         createReservation.disabled = false;
         selectSeats.disabled = false;
-        baseRate.value = seatsValue * baseRate.value;
+        baseRate.value = seatsValue * baseRateAux;
         console.log(baseRate.value);
+        console.log(baseRateAux);
         console.log(routeId.value);
         console.log(dateValue);
         console.log(selectDate.value);
@@ -174,12 +177,13 @@ const checkInputs = () => {
     } else if (originValue !== '' && destinationValue !== '' && dateValue !== '') {
         selectSeats.disabled = false;
         createReservation.disabled = true;
-        baseRate.value = '0';
+        baseRate.value = 0;
         loadedSeats(originValue, destinationValue, dateValue);
     } else {
         baseRate.value = '0';
         selectSeats.disabled = true;
         createReservation.disabled = true;
+        baseRate.value = 0;
     }
 }
 

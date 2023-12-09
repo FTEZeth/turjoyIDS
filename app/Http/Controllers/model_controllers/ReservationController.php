@@ -34,6 +34,7 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
+
         if ($this->verifyRequest($request)) {
             return redirect('/');
         }
@@ -64,9 +65,10 @@ class ReservationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function showVoucher(Reservation $reservation){
+    public function showVoucher(Reservation $reservation)
+    {
         //dd(session('refreshed'));
-        if(session('reservation') != null && session('origin') != null && session('destination') != null){
+        if (session('reservation') != null && session('origin') != null && session('destination') != null) {
             //dd('entro al if');
             return view('client.order-success', [
                 'reservation' => session('reservation'),
@@ -150,15 +152,16 @@ class ReservationController extends Controller
         ]);
     }
 
-    //Agregar validaciones
-
-    public function verifyRequest(Request $request){
+    public function verifyRequest(Request $request)
+    {
 
         $routeTest = Route::where('origin', $request->origins)
-        ->where('destination', $request->destinations)
-        ->first();
+            ->where('destination', $request->destinations)
+            ->first();
 
-        if($routeTest == null){return true;}
+        if ($routeTest == null) {
+            return true;
+        }
 
         $routeSeats = new RouteController();
 
@@ -166,12 +169,16 @@ class ReservationController extends Controller
         $seatTest = $seatTest->getData();
         $seatTest = $seatTest->availableSeats;
 
-        if($seatTest < $request->seats){return true;}
+        if ($seatTest < $request->seats) {
+            return true;
+        }
 
         $currentDate = date('Y-m-d');
         $currentDate = strtotime($currentDate);
 
-        if($request->date < $currentDate){return true;}
+        if ($request->date < $currentDate) {
+            return true;
+        }
 
         //if($request->baseRate != $routeTest->seat_quantity * )
 
@@ -224,5 +231,39 @@ class ReservationController extends Controller
         // Perm any necessary logic based on the selected payment method
         return $payment_method;
         // Return a response or redirect to another page
+    }
+
+    public function reportIndex()
+    {
+        $reservations = Reservation::all();
+        return view('admin_routes.report', [
+            'reservations' => $reservations,
+        ]);
+    }
+
+    public function searchToDate(Request $request)
+    {
+        $messages = makeMessages();
+
+        // Validar que se proporciona un código de reserva
+        $this->validate($request, [
+            'initDate' => ['required', 'date'],
+            'finishDate' => ['required', 'date', 'after:initDate']
+        ], $messages);
+
+        $initDate = $request->initDate;
+        $finishDate = $request->finishDate;
+
+        //Validar que la fecha inicial sea menor a la fecha final
+
+        $reservation = Reservation::whereBetween('date', [$initDate, $finishDate])->get();
+
+        if ($reservation->count() === 0) {
+            return back()->with('message', 'no se encontraron reservas dentro del rango seleccionado');
+        }
+
+        return view('admin_routes.report', [
+            'reservations' => $reservation,
+        ]);
     }
 }

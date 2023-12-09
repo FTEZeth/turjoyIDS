@@ -13,6 +13,11 @@ function makeMessages()
         'document.mimes' => 'el archivo seleccionado no es Excel con extensión xlsx',
         'document.min' => 'el archivo excel esta vacio',
         'document.max' => 'el tamaño máximo del archivo a cargar no puede superar los 5 megabytes',
+        'initDate.required' => 'el campo fecha de inicio es requerido',
+        'initDate.date' => 'el campo fecha de inicio debe ser una fecha válida',
+        'finishDate.required' => 'el campo fecha de término es requerido',
+        'finishDate.date' => 'el campo fecha de término debe ser una fecha válida',
+        'finishDate' => 'la fecha de inicio a consultar no puede ser mayor que la fecha de término de la consulta',
         /*
         'seat.required' => 'debe ingresar la cantidad de asientos',
         'total.required' => 'debe ingresar el total a pagar',
