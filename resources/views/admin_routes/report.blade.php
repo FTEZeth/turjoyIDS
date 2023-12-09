@@ -140,6 +140,6 @@
             </div>
         @endif
     @else
-        <p class="my-6 font-bold text-center text-3xl uppercase">No hay reservas en sistema</p>
+        <p class="my-6 font-bold text-center text-3xl uppercase">no hay reservas en sistema</p>
     @endif
 @endsection
