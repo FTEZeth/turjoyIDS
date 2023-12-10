@@ -37,28 +37,19 @@ class RoutesImport implements ToCollection, WithHeadingRow {
             if ($this->hasDuplicateOriginDestination($origin, $destination)) {
                 $this->duplicatedRows[] = $row;
             } else {
-                //limpiar campo de tarifa base
-                if (isset($row['tarifa_base'])) {
+                //validar campos
+                if ($this->validateFields($row)) {
                     $tarifaBase = $row['tarifa_base'];
 
-                    // Utilizar una expresión regular para eliminar todos los caracteres que no sean dígitos
+                    // Eliminar caracteres del entero
                     $tarifaBase = str_replace(['$', ',', '.'], '', $tarifaBase);
 
-                    // Convertir la cadena resultante a un número entero
-                    try {
-
-                        $tarifaBase = (int)$tarifaBase;
-
-                    } catch (\Exception $e) {
-                        $this->invalidRows[] = $row;
-                        continue;
-                    }
+                    // Convertir a entero
+                    $tarifaBase = (int)$tarifaBase;
 
                     // Asignar el valor limpio de tarifa base de nuevo a la fila
                     $row['tarifa_base'] = $tarifaBase;
-                }
-                //validar nombres de campos y que sean numéricos y requeridos
-                if (isset($row['origen']) && isset($row['destino']) && isset($row['cantidad_de_asientos']) && isset ($row['tarifa_base']) && is_numeric($row['cantidad_de_asientos']) && is_numeric($row['tarifa_base']) &&$row['cantidad_de_asientos'] > 0 && $row['tarifa_base'] > 0) {
+
                     $this->validRows[] = $row;
                     //registra la combinación de origen y destino
                     $this->existingOriginsDestinations[] = $origin . '-' . $destination;
@@ -97,4 +88,78 @@ class RoutesImport implements ToCollection, WithHeadingRow {
             //
         ]);
     }
+
+    public function validateFields($row){
+        $origin = '';
+        $destination = '';
+
+        //validar campo de origen
+        if(isset($row['origen'])){
+            $origin = $row['origen'];
+            if(!preg_match('/^[\p{L}\',.\s]{1,250}$/u',$origin)){
+                return false;
+            }
+
+        } else {
+            return false;
+        }
+
+        //validar campo de destino
+        if(isset($row['destino'])){
+            $destination = $row['destino'];
+            if(!preg_match('/^[\p{L}\',.\s]{1,250}$/u',$destination)){
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+        if($origin == $destination){
+            return false;
+        }
+
+        //validar campo de tarifa base
+        if (isset($row['tarifa_base'])) {
+            $tarifaBase = $row['tarifa_base'];
+
+            // Eliminar caracteres del entero
+            $tarifaBase = str_replace(['$', ',', '.'], '', $tarifaBase);
+
+            // Validar que sea un entero
+            if(!is_numeric($tarifaBase)){
+                return false;
+            }
+            // Convertir a entero
+            $tarifaBase = (int)$tarifaBase;
+
+            if($tarifaBase <= 0){
+                return false;
+            }
+
+        } else {
+            return false;
+        }
+
+        //validar campo de cantidad de asientos
+        if (isset($row['cantidad_de_asientos'])) {
+            $cantidadDeAsientos = $row['cantidad_de_asientos'];
+            // Validar que sea un entero
+            if(!is_numeric($cantidadDeAsientos)){
+                return false;
+            }
+            // Convertir a entero
+            $cantidadDeAsientos = (int)$cantidadDeAsientos;
+
+            if($cantidadDeAsientos <= 0){
+                return false;
+            }
+
+        } else {
+            return false;
+        }
+
+        return true;
+
+    }
+
 }
