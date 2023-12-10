@@ -48,13 +48,13 @@ class ReservationController extends Controller
             'payment_method' => $request->paymentMethod,
         ]);
 
-        // Obtener el URI del PDF
+        // obtains the route of the reservation
         $uri = $this->generatePDF($reservation->id); // Usamos el ID de la reserva
 
-        // Actualizar el campo 'pdf' de la reserva con el URI del PDF generado
+        // Updates the 'pdf' field of the reservation
         $reservation->update(['pdf' => $uri]);
 
-        // Retornar a la vista con las variables requeridas
+        // Returns the reservation to the view
         return redirect('/voucher')->with([
             'reservation' => $reservation,
             'origin' => $request->origins,
@@ -144,7 +144,7 @@ class ReservationController extends Controller
 
         $route = $reservation->route;
 
-        // Reserva encontrada, retornar la vista con datos
+        // Reserve found, return to the view
         return view('client.order-success', [
             'reservation' => $reservation,
             'origin' => $route->origin,
@@ -152,6 +152,7 @@ class ReservationController extends Controller
         ]);
     }
 
+    // Function to verify if the request is valid
     public function verifyRequest(Request $request)
     {
 
@@ -188,7 +189,7 @@ class ReservationController extends Controller
     {
         $reservation = Reservation::findOrFail($id);
 
-        // Crear una instancia de Dompdf
+        // create instance of Dompdf
         $domPDF = new Dompdf();
 
         $data = [
@@ -196,20 +197,20 @@ class ReservationController extends Controller
             'date' => date('d-m-Y'),
         ];
 
-        // Renderizar la vista 'client.order-success' con los datos proporcionados
+        // Render view Order-success
         $view_html = view('client.pdf', $data)->render();
         $domPDF->loadHtml($view_html);
         $domPDF->setPaper('A4', 'portrait');
         $domPDF->render();
 
-        // Generar nombre de archivo aleatorio
+        // Generates random name for the file
         $filename = 'user_'.Str::random(10).'.pdf';
 
-        // Guardar el PDF en la carpeta public
+        // Saves the file in the public folder
         $path = 'pdfs\\'.$filename;
         Storage::disk('public')->put($path, $domPDF->output());
 
-        // Devolver el URI del archivo PDF
+        //Returns the path of the file
         return $path;
     }
 
@@ -245,7 +246,7 @@ class ReservationController extends Controller
     {
         $messages = makeMessages();
 
-        // Validar que se proporciona un código de reserva
+        // Validates that the dates are provided
         $this->validate($request, [
             'initDate' => ['required', 'date'],
             'finishDate' => ['required', 'date', 'after:initDate']
@@ -254,7 +255,7 @@ class ReservationController extends Controller
         $initDate = $request->initDate;
         $finishDate = $request->finishDate;
 
-        //Validar que la fecha inicial sea menor a la fecha final
+        //Validates that the dates are not greater than the current date
 
         $reservation = Reservation::whereBetween('date', [$initDate, $finishDate])->orderBy('date', 'asc')->get();
 
