@@ -11,29 +11,32 @@ const routeId = document.getElementById('routeId');
 const searchReservationForm = document.getElementById('searchReservationForm');
 
 
+// Function to clear and reset the 'Destination' dropdown options.
 const clearSelectDestination = () => {
     while (selectDestination.firstChild) {
         selectDestination.removeChild(selectDestination.firstChild);
     }
     const option = document.createElement('option');
-    option.value = ''; //value vacio
+    option.value = '';
     option.text = 'Seleccione Destino';
     option.selected = true;
     selectDestination.appendChild(option);
 }
 
 
+// Function to clear and reset the 'Seats' dropdown options.
 const clearSelectSeats = () => {
     while (selectSeats.firstChild) {
         selectSeats.removeChild(selectSeats.firstChild);
     }
     const option = document.createElement('option');
-    option.value = ''; //value vacio
+    option.value = '';
     option.text = 'Seleccione Asientos';
     option.selected = true;
     selectSeats.appendChild(option);
 }
 
+// Function to add destination options to the dropdown based on fetched data.
 const addDestinationsToSelect = (destinations) => {
     clearSelectSeats();
     clearSelectDestination();
@@ -47,20 +50,21 @@ const addDestinationsToSelect = (destinations) => {
     });
 }
 
+// Function to add seat options to the dropdown or show an error if no seats are available.
 const addSeatsToSelect = (seats) => {
     clearSelectSeats();
-    if(seats === 0){
-
+    if (seats === 0) {
         Swal.fire({
-            title: 'No hay servicios disponibles para la ruta seleccionada',
+            title: 'No hay servicios disponibles para la ruta seleccionada, por favor seleccione otra fecha',
             icon: 'error',
-            showCancelButton: true,
-            cancelButtonColor: '#d33',
-          }).then((result) => {
+            confirmButtonColor: '#ff8a80',
+            cconfirmButtontext: 'Volver',
+            showCancelButton: false,
+        }).then((result) => {
             if (result.isConfirmed) {
-              // User clicked 'Yes', proceed with your action
+                // User clicked 'Yes', proceed with your action
             }
-          })
+        })
     }
 
     for (let i = 1; i <= seats; i++) {
@@ -72,17 +76,18 @@ const addSeatsToSelect = (seats) => {
 }
 
 
+// Function to fetch and load destinations based on the selected origin.
 const loadedDestinations = (e) => {
     const currentValue = selectOrigin.value;
     if (currentValue) {
         fetch(`/get/destinations/${currentValue}`)
-            .then(response=>response.json())
-            .then(data=>{
+            .then(response => response.json())
+            .then(data => {
                 const destinations = data.destination;
                 console.log(destinations);
                 addDestinationsToSelect(destinations);
             })
-            .catch(error=>{
+            .catch(error => {
                 console.error('Hubo un error: ', error);
             })
     } else {
@@ -91,6 +96,7 @@ const loadedDestinations = (e) => {
     }
 }
 
+// Function to add origin options to the 'Origin' dropdown based on fetched data.
 const addOriginsToSelect = (origins) => {
     origins.forEach(origin => {
         const option = document.createElement('option');
@@ -100,7 +106,7 @@ const addOriginsToSelect = (origins) => {
     });
 }
 
-
+// Function to fetch and load origins when the page is loaded.
 const loadedOrigins = (e) => {
     selectSeats.disabled = true;
     createReservation.disabled = true;
@@ -117,7 +123,7 @@ const loadedOrigins = (e) => {
         })
 }
 
-
+// Function to fetch and load available seats and update form state based on selected origin, destination, and date.
 const loadedSeats = (origin, destination, date) => {
     if(origin && destination && date){
         fetch(`/get/route/${origin}/${destination}/${date}`)
@@ -156,7 +162,9 @@ const checkInputs = () => {
                 title: 'La fecha seleccionada no es válida',
                 icon: 'error',
                 showCancelButton: true,
-                cancelButtonColor: '#d33',
+                cancelButtontext: 'Volver',
+                cancelButtonColor: '#ff8a80',
+                showconfirmButton: false,
               }).then((result) => {
                 if (result.isConfirmed) {
                     selectSeats.disabled = true;
