@@ -36,7 +36,7 @@ class ReservationController extends Controller
     {
 
         if ($this->verifyRequest($request)) {
-            return redirect('/');
+            return back()->with('message', 'La solicitud no es válida');
         }
 
         $reservation = Reservation::create([
@@ -155,34 +155,51 @@ class ReservationController extends Controller
     // Function to verify if the request is valid
     public function verifyRequest(Request $request)
     {
+        try{
+            $routeTest = Route::where('origin', $request->origins)
+                ->where('destination', $request->destinations)
+                ->first();
 
-        $routeTest = Route::where('origin', $request->origins)
-            ->where('destination', $request->destinations)
-            ->first();
+            if ($routeTest == null) {
+                //dd('entro al if');
+                return true;
+            }
 
-        if ($routeTest == null) {
+            $routeSeats = new RouteController();
+
+            $seatTest = $routeSeats->seats($request->origins, $request->destinations, $request->date);
+            $seatTest = $seatTest->getData();
+            $seatTest = $seatTest->availableSeats;
+
+            if ($seatTest < $request->seats) {
+                //dd('entro al if');
+                return true;
+            }
+
+            $currentDate = date('Y-m-d');
+            $currentDate = strtotime($currentDate);
+
+            if ($request->date < $currentDate) {
+                //dd('entro al if');
+                return true;
+            }
+
+            if((int)$request->baseRate != (int)$routeTest->base_rate * (int)$request->seats){
+                //dd($request->baseRate, $routeTest->base_rate, $request->seats, (int)$request->baseRate != (int)$routeTest->base_rate * (int)$request->seats);
+                return true;
+            }
+
+            if($request->paymentMethod != 'Transferencia' && $request->paymentMethod != 'Debito' && $request->paymentMethod != 'Credito' && $request->paymentMethod != 'Efectivo'){
+                //dd('entro al if');
+                return true;
+            }
+
+        }catch(\Exception $e){
+            //dd('entro al catch');
             return true;
         }
-
-        $routeSeats = new RouteController();
-
-        $seatTest = $routeSeats->seats($request->origins, $request->destinations, $request->date);
-        $seatTest = $seatTest->getData();
-        $seatTest = $seatTest->availableSeats;
-
-        if ($seatTest < $request->seats) {
-            return true;
-        }
-
-        $currentDate = date('Y-m-d');
-        $currentDate = strtotime($currentDate);
-
-        if ($request->date < $currentDate) {
-            return true;
-        }
-
-        //if($request->baseRate != $routeTest->seat_quantity * )
-
+        //dd('no entro a nada');
+        return false;
     }
 
     public function generatePDF($id)
