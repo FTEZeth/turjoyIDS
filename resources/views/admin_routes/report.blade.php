@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3 class="my-6 font-bold text-center text-3xl uppercase">Reservas del sistema turjoy</h3>
+    <h3 class="my-6 font-bold text-center text-3xl uppercase" style="color: #333333">Reservas del sistema turjoy</h3>
 
     @if ($reservations->count() > 0)
         <div class="flex justify-center gap-4">
@@ -140,6 +140,11 @@
             </div>
         @endif
     @else
-        <p class="my-6 font-bold text-center text-3xl uppercase">No hay reservas en sistema</p>
+        <p class="my-6 font-bold text-center text-3xl uppercase"style="color: #333333">No hay reservas en sistema</p>
     @endif
+
+    <div class="flex justify-center items-center mx-auto my-8">
+        <a class="px-6 py-3 bg-red-500 hover:bg-red-700 transition-all text-white font-semibold rounded-lg",
+            style="background-color: #FF6B6B" href="{{ route('menu') }}">Volver </a>
+    </div>
 @endsection
