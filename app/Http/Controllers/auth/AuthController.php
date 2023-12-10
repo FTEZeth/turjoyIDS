@@ -10,20 +10,20 @@ class AuthController extends Controller{
 
         $messages = makeMessages();
 
-        // Validar los campos ingresados
+        // To validate the data
         $this->validate($request, [
             'email' => ['required'],
             'password' => ['required']
         ], $messages);
 
-        // Intentar autenticar al usuario
+        // To check if the user exists
         if (!auth()->attempt($request->only('email', 'password'), $request->remember)) {
             return back()->with('message', 'usuario no registrado o contraseña incorrecta');
         }
 
         return redirect()->route('menu');
     }
-
+    //To check if the user is logged in and redirect to the menu
     public function logout(){
 
         auth()->logout();

@@ -13,7 +13,7 @@
                 <a class="px-6 py-3 bg-green-500 hover:bg-green-700 transition-all text-white font-semibold rounded-lg",
                     style="background-color: #2ECC71;" href="{{ route('upload') }}">Volver a cargar rutas</a>
             </div>
-
+            <!-- if routes satisfies the asked, then add them -->
             @if (count($validRows) > 0)
                 <h3 class="text-2xl text-black font-semibold uppercase text-center" style="color: #333333">Listado de viajes
                     agregados

@@ -127,7 +127,7 @@
                                 ${{ number_format($ticket->total, 0, '', '.') }}
                             </td>
                             <td class="px-6 py-4">
-                                ${{ $ticket->payment_method }}
+                                {{ $ticket->payment_method }}
                             </td>
 
                         </tr>
@@ -140,7 +140,7 @@
             </div>
         @endif
     @else
-        <p class="my-6 font-bold text-center text-3xl uppercase"style="color: #333333">No hay reservas en sistema</p>
+        <p class="my-6 font-bold text-center text-3xl uppercase"style="color: #333333">no hay reservas en sistema</p>
     @endif
 
     <div class="flex justify-center items-center mx-auto my-8">

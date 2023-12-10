@@ -1,5 +1,5 @@
 <?php
-
+//This function is used to show mesaages in the view if there is an error
 function makeMessages()
 {
 
@@ -30,6 +30,7 @@ function makeMessages()
     return $messages;
 }
 
+//this function creates a random string
 function randomString($length)
 {
     $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';

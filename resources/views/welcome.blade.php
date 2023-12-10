@@ -18,6 +18,7 @@
                     </div>
 
                     <!-- Dropdown for Paymethood -->
+
                     <div class="flex items-center space-x-2 flex-1">
                         <img src="images/payment.png" alt="Payment icon" class="w-6 h-6 self-center">
                         <select id="paymentMethod" name="paymentMethod"
@@ -126,12 +127,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        // Aqui va nuestro script de sweetalert
+        // This script triggers a confirmation dialog when all reservation fields (origin, destination, date, seat, and rate) are selected.
         const button = document.getElementById("createReservation");
         const form = document.getElementById("form");
 
         button.addEventListener('click', (e) => {
-            // Informacion Reserva
             const selectedOrigin = document.getElementById('origins').value;
             const selectedDestination = document.getElementById('destinations').value;
 
@@ -148,6 +148,9 @@
             console.log(form);
 
             e.preventDefault();
+// This code triggers a confirmation dialog when all reservation fields (origin, destination, date, seat, and rate) are selected.
+// It displays a summary with the reservation details and cost, and offers 'Confirm' and 'Return' options.
+// On confirming, the reservation form is submitted; otherwise, the action is cancelled.
 
             if (selectedOrigin && selectedDestination && datePicker && selectedSeat && baseRate) {
                 Swal.fire({
@@ -171,6 +174,10 @@
     </script>
 
     <script>
+    // This script enables the 'createReservation' button only when all dropdowns are selected.
+    // It checks the selection state of each dropdown and updates the button's enabled status and background color.
+    // The button is activated (green) when all fields are filled, otherwise it remains disabled (grey).
+
         document.addEventListener('DOMContentLoaded', function () {
             const selects = document.querySelectorAll('select');
             const button = document.getElementById('createReservation');
@@ -188,6 +195,46 @@
                 select.addEventListener('change', checkSelects);
             });
             checkSelects(); // Para revisar el estado inicial de los selects
+        });
+    </script>
+    <script>
+        // This script enables the 'paymentMethod' dropdown only when all dropdowns are selected.
+        document.addEventListener('DOMContentLoaded', function () {
+            const selects = document.querySelectorAll('select');
+            const dateInput = document.getElementById('date');
+            const paymentMethodSelect = document.getElementById('paymentMethod');
+            const button = document.getElementById('createReservation');
+
+            // Inicialmente, deshabilita el dropdown de método de pago
+            paymentMethodSelect.disabled = true;
+
+            const checkSelects = () => {
+                let allSelected = true;
+                selects.forEach(select => {
+                    // Asegúrate de que no estás incluyendo el select de método de pago en esta verificación
+                    if (select.id !== 'paymentMethod' && select.value === '') {
+                        allSelected = false;
+                    }
+                });
+                //verify that the date is not empty
+                if (dateInput.value === '') {
+                    allSelected = false;
+                }
+
+                // if all selects are selected, enable the payment method select
+                paymentMethodSelect.disabled = !allSelected;
+
+                // update the button's enabled status and background color
+                button.disabled = !allSelected || paymentMethodSelect.value === '';
+                button.style.backgroundColor = (allSelected && paymentMethodSelect.value !== '') ? '#2ECC71' : '#EAEAEA';
+            };
+
+            selects.forEach(select => {
+                select.addEventListener('change', checkSelects);
+            });
+            dateInput.addEventListener('change', checkSelects);
+
+            checkSelects(); // check initial state of selects
         });
     </script>
 @endsection
