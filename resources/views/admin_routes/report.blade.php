@@ -145,6 +145,7 @@
 
     <div class="flex justify-center items-center mx-auto my-8">
         <a class="px-6 py-3 bg-red-500 hover:bg-red-700 transition-all text-white font-semibold rounded-lg",
-            style="background-color: #FF6B6B" href="{{ route('menu') }}">Volver </a>
+            style="background-color: #FF6B6B" href="{{ route('menu') }}" data-tooltip="Vuelve al menú de administrador"
+            data-flow="bottom">Volver </a>
     </div>
 @endsection

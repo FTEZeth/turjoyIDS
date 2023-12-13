@@ -164,8 +164,9 @@
         <link rel="stylesheet" href="app.css">
         <div class="flex flex-col flex-1 justify-center items-center my-6">
             <div class="mb-12 mx-auto">
-                <a class="px-6 py-3 bg-red-500 hover:bg-red-700 transition-all text-white font-semibold rounded-lg",
-                    style="background-color: #FF6B6B" href="{{ route('home') }}">Volver </a>
+                <a class="px-6 py-3 bg-red-500 hover:bg-red-700 transition-all text-white font-semibold rounded-lg"
+                    style="background-color: #FF6B6B" href="{{ route('home') }}"
+                    data-tooltip="Vuelve al menú de administrador" data-flow="right">Volver </a>
             </div>
 
             <form class ="flex flex-col items-center w-1/2" action = "{{ route('routeCheck') }}" method="POST"
