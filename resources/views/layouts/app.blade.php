@@ -13,8 +13,10 @@
     <nav class="border-gray-200 bg-blue-500 dark:bg-gray-800 dark:border-gray-700"
         style="background-color: #0A74DA; color: white;">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-            <a href="{{ route('home') }}" class="flex items-center">
-                <img src="{{ asset('images/logoTurjoyCambioCliente.png') }}" class="h-14 w-25 ml-8 mr-8" alt="LogoTurjoy" />
+            <a href="{{ route('home') }}" class="flex items-center" data-tooltip="Vuelve a la página principal"
+                data-flow="bottom">
+                <img src="{{ asset('images/logoTurjoyCambioCliente.png') }}" class="h-14 w-25 ml-8 mr-8"
+                    alt="LogoTurjoy" />
             </a>
             <div class="hidden w-full md:block md:w-auto" id="navbar-solid-bg">
                 <ul
