@@ -8,7 +8,8 @@
                 <!-- Dropdowns -->
                 <div class="flex items-center space-x-4 w-full">
                     <!-- Dropdown for Origin -->
-                    <div class="flex items-center space-x-2 flex-1">
+                    <div class="flex items-center space-x-2 flex-1" data-tooltip="Seleccione ciudad de origen"
+                        data-flow="bottom">
                         <img src="images/autobus-escolar.png" alt="Origin icon" class="w-6 h-6 self-center">
                         <select id="origins" name="origins"
                             class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
@@ -18,7 +19,8 @@
 
                     <!-- Dropdown for Paymethood -->
 
-                    <div class="flex items-center space-x-2 flex-1">
+                    <div class="flex items-center space-x-2 flex-1" data-tooltip="Seleccione método de pago"
+                        data-flow="bottom">
                         <img src="images/payment.png" alt="Payment icon" class="w-6 h-6 self-center">
                         <select id="paymentMethod" name="paymentMethod"
                             class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
@@ -30,7 +32,8 @@
                         </select>
                     </div>
                     <!-- Dropdown for Destination -->
-                    <div class="flex items-center space-x-2 flex-1">
+                    <div class="flex items-center space-x-2 flex-1" data-tooltip="Seleccione ciudad de destino"
+                        data-flow="bottom">
                         <img src="images/destino.png" alt="Destination icon" class="w-6 h-6 self-center">
                         <select id="destinations" name="destinations"
                             class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
@@ -39,7 +42,8 @@
                     </div>
 
                     <!-- Dropdown for Date -->
-                    <div class="flex items-center space-x-2 flex-1">
+                    <div class="flex items-center space-x-2 flex-1" data-tooltip="Seleccione fecha de la reserva"
+                        data-flow="bottom">
                         <img src="images/calendar-days.png" alt="Date icon" class="w-6 h-6 self-center">
                         <input type="date" id="date" name="date" min="{{ date('Y-m-d', strtotime('+0 day')) }}"
                             max="2023-12-31"
