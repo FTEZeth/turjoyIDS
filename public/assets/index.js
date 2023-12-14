@@ -26,6 +26,7 @@ const clearSelectDestination = () => {
 
 // Function to clear and reset the 'Seats' dropdown options.
 const clearSelectSeats = () => {
+    console.log('entra a clearSelectSeats');
     while (selectSeats.firstChild) {
         selectSeats.removeChild(selectSeats.firstChild);
     }
@@ -38,6 +39,7 @@ const clearSelectSeats = () => {
 
 // Function to add destination options to the dropdown based on fetched data.
 const addDestinationsToSelect = (destinations) => {
+    console.log('entra a addDestinationsToSelect');
     clearSelectSeats();
     clearSelectDestination();
     selectDestination.dispatchEvent(new Event('change'));
@@ -52,39 +54,43 @@ const addDestinationsToSelect = (destinations) => {
 
 // Function to add seat options to the dropdown or show an error if no seats are available.
 const addSeatsToSelect = (seats) => {
+    console.log('entra a addSeatsToSelect');
     clearSelectSeats();
+    console.log('hay asientos?');
     if (seats === 0) {
+        console.log('no hay asientos');
         Swal.fire({
             title: 'No hay servicios disponibles para la ruta seleccionada, por favor seleccione otra fecha',
             icon: 'error',
             confirmButtonColor: '#ff8a80',
-            cconfirmButtontext: 'Volver',
             showCancelButton: false,
         }).then((result) => {
             if (result.isConfirmed) {
                 // User clicked 'Yes', proceed with your action
             }
         })
-    }
+    } else {
+        console.log('hay asientos');
 
-    for (let i = 1; i <= seats; i++) {
-        const option = document.createElement('option');
-        option.value = i;
-        option.text = i;
-        selectSeats.appendChild(option);
+        for (let i = 1; i <= seats; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.text = i;
+            selectSeats.appendChild(option);
+        }
     }
 }
 
 
 // Function to fetch and load destinations based on the selected origin.
 const loadedDestinations = (e) => {
+    console.log('entra a loadedDestinations');
     const currentValue = selectOrigin.value;
     if (currentValue) {
         fetch(`/get/destinations/${currentValue}`)
             .then(response => response.json())
             .then(data => {
                 const destinations = data.destination;
-                console.log(destinations);
                 addDestinationsToSelect(destinations);
             })
             .catch(error => {
@@ -98,6 +104,7 @@ const loadedDestinations = (e) => {
 
 // Function to add origin options to the 'Origin' dropdown based on fetched data.
 const addOriginsToSelect = (origins) => {
+    console.log('entra a addOriginsToSelect');
     origins.forEach(origin => {
         const option = document.createElement('option');
         option.value = origin;
@@ -108,13 +115,12 @@ const addOriginsToSelect = (origins) => {
 
 // Function to fetch and load origins when the page is loaded.
 const loadedOrigins = (e) => {
+    console.log('entra a loadedOrigins');
     selectSeats.disabled = true;
     createReservation.disabled = true;
     fetch('/get/origins')
         .then(response=>response.json())
         .then(data=>{
-            console.log(data);
-            console.log('funciona');
             const origins = data.origins;
             addOriginsToSelect(origins);
         })
@@ -125,19 +131,20 @@ const loadedOrigins = (e) => {
 
 // Function to fetch and load available seats and update form state based on selected origin, destination, and date.
 const loadedSeats = (origin, destination, date) => {
+    console.log('entra a loadedSeats');
+    console.log('origen: ', origin, 'destino', destination, 'fecha', date);
     if(origin && destination && date){
+        console.log('entra a if de loadedSeats');
         fetch(`/get/route/${origin}/${destination}/${date}`)
             .then(response=>response.json())
             .then(data=>{
+                console.log('entra a fetch');
                 console.log(data);
-                console.log('funciona fetch para asientos');
                 baseRateAux = 0;
                 const seats = data.availableSeats;
                 baseRateAux = data.route.base_rate;
                 routeId.value = data.route.id;
-                console.log(baseRateAux);
-                console.log(routeId.value);
-                console.log(seats);
+                console.log('baseRateAux: ', baseRateAux);
 
                 addSeatsToSelect(seats);
             })
@@ -145,19 +152,28 @@ const loadedSeats = (origin, destination, date) => {
                 console.error('Hubo un error: ', error);
             })
     } else {
+        console.log('entra a else de loadedSeats');
         clearSelectSeats();
     }
 }
 
 
-const checkInputs = () => {
+const checkInputs = (event) => {
+
+    console.log('Triggered by:', event.target.id);
+    console.log('entra a checkInputs');
+
     const originValue = selectOrigin.value;
     const destinationValue = selectDestination.value;
     const dateValue = selectDate.value;
     const seatsValue = selectSeats.value;
 
+    console.log('Esta seleccionado or, dest, fecha y seats?');
     if (originValue !== '' && destinationValue !== '' && dateValue !== '' && seatsValue !== '')  {
+        console.log('Si');
+        console.log('es la fecha valida?')
         if(!checkDate()){
+            console.log('No');
             Swal.fire({
                 title: 'La fecha seleccionada no es válida',
                 icon: 'error',
@@ -173,21 +189,28 @@ const checkInputs = () => {
                 }
               })
         }
+        if(event.target.id === 'destinations'){
+            loadedSeats(originValue, destinationValue, dateValue);
+            selectSeats.disabled = false;
+            return;
+        }
+        console.log('Si');
+        console.log('cambio precio');
         createReservation.disabled = false;
         selectSeats.disabled = false;
+        console.log('baseRateAux:', baseRateAux)
         baseRate.value = seatsValue * baseRateAux;
-        console.log(baseRate.value);
-        console.log(baseRateAux);
-        console.log(routeId.value);
-        console.log(dateValue);
-        console.log(selectDate.value);
 
     } else if (originValue !== '' && destinationValue !== '' && dateValue !== '') {
+        console.log('Solo falta seleccionar asientos');
+        console.log('habilito asientos y reseteo baseRate')
         selectSeats.disabled = false;
         createReservation.disabled = true;
         baseRate.value = 0;
         loadedSeats(originValue, destinationValue, dateValue);
     } else {
+        console.log('No');
+        console.log('deshabilito asientos y reseteo baseRate');
         baseRate.value = '0';
         selectSeats.disabled = true;
         createReservation.disabled = true;
@@ -207,9 +230,6 @@ const checkDate = () => {
     const date = new Date(dateValue);
     date.setDate(date.getDate() + 1);
     date.setHours(0, 0, 0, 0);
-    console.log(dateValue);
-    console.log(today);
-    console.log(date);
     if(date.getTime() >= today.getTime()){
         return true;
     } else {
