@@ -3,6 +3,11 @@
     <div class="mx-auto p-10 text-center" style="background-color: #FFFFFF;">
         @if ($countRoutes)
             <h1 class="text-4xl font-semibold mb-4 text-blue-600">Haga su reserva ahora</h1>
+            @if(session('message'))
+                <p class="bg-red-400 text-gray-200 font-semibold my-4 text-lg text-center text-white px-4 py-3 rounded-lg"
+                style="background-color: #ff8a80" style="color: #ffffff">
+                {{ session('message') }}</p>
+            @endif
             <form id="form" name="form" action="{{ route('reservationStore') }}" method="POST">
                 @csrf
                 <!-- Dropdowns -->
