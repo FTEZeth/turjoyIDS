@@ -1,10 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+    <!-- Title -->
     <h3 class="my-6 font-bold text-center text-3xl uppercase" style="color: #333333">Reservas del sistema turjoy</h3>
 
+    <!-- If there are reservations -->
     @if ($reservations->count() > 0)
         <div class="flex justify-center gap-4">
+            <!-- Refresh routes table button -->
             <a href="{{ route('reservationReport') }}"
                 class="bg-yellow-300 transition-all my-auto py-4 px-4 text-white rounded-lg" style="background-color: #0A74DA">
                 <svg class="w-5 h-5 hover:animate-spin text-gray-800 dark:text-white" aria-hidden="true"
@@ -13,7 +16,7 @@
                         d="M16 1v5h-5M2 19v-5h5m10-4a8 8 0 0 1-14.947 3.97M1 10a8 8 0 0 1 14.947-3.97" />
                 </svg>
             </a>
-
+            <!-- Search by date -->
             <form action="{{ route('searchToDate') }}" method="GET">
                 @csrf
                 <div class="flex justify-center gap-4 my-4">

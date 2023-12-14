@@ -3,6 +3,7 @@
 
 <head>
     <title>Comprobante de Reserva</title>
+    <!-- Styles -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,43 +56,56 @@
 </head>
 
 <body>
+    <!-- Container -->
     <div class="container">
+        <!-- Card -->
         <div class="card">
+            <!-- Header -->
             <div class="header">
                 <p>Tu reserva ha sido realizada con éxito</p>
             </div>
-
+            <!-- Content -->
             <div class="content">
+                <!-- Table containing the data of the reservation -->
                 <table>
+                    <!-- Body of the table-->
                     <tbody>
+                        <!-- Reservation code -->
                         <tr>
                             <th scope="row">Código de reserva</th>
                             <td>{{ $reservation->code }}</td>
                         </tr>
+                        <!-- Reservation origin -->
                         <tr>
                             <th scope="row">Ciudad de origen</th>
                             <td>{{ $reservation->route->origin }}</td>
                         </tr>
+                        <!-- Reservation destination -->
                         <tr>
                             <th scope="row">Ciudad de destino</th>
                             <td>{{ $reservation->route->destination }}</td>
                         </tr>
+                        <!-- Reservation date -->
                         <tr>
                             <th scope="row">Día de la reserva</th>
                             <td>{{ date('d/m/Y', strtotime($reservation->date)) }}</td>
                         </tr>
+                        <!-- Reservation seat amount -->
                         <tr>
                             <th scope="row">Cantidad de asientos</th>
                             <td>{{ $reservation->seat_amount }}</td>
                         </tr>
+                        <!-- Reservation date of purchase -->
                         <tr>
                             <th scope="row">Fecha de la compra</th>
                             <td>{{ date('d/m/Y h:i:s A', strtotime($reservation->created_at)) }}</td>
                         </tr>
+                        <!-- Reservation total -->
                         <tr>
                             <th scope="row">Total pagado</th>
                             <td>${{ number_format((int)$reservation->total, 0, ',', '.') }} CLP</td>
                         </tr>
+                        <!-- Reservation payment method -->
                         <tr>
                             <th scope="row">Medio de pago</th>
                             <td>{{ $reservation->payment_method }}</td>

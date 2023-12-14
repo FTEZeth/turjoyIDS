@@ -3,11 +3,14 @@
     <div class="mx-auto p-10 text-center" style="background-color: #FFFFFF;">
         @if ($countRoutes)
             <h1 class="text-4xl font-semibold mb-4 text-blue-600">Haga su reserva ahora</h1>
+            <!-- Conditional for error message -->
             @if(session('message'))
                 <p class="bg-red-400 text-gray-200 font-semibold my-4 text-lg text-center text-white px-4 py-3 rounded-lg"
                 style="background-color: #ff8a80" style="color: #ffffff">
                 {{ session('message') }}</p>
             @endif
+
+            <!-- Reservation form -->
             <form id="form" name="form" action="{{ route('reservationStore') }}" method="POST">
                 @csrf
                 <!-- Dropdowns -->
@@ -21,9 +24,7 @@
                             <option selected value="">Seleccione Origen</option>
                         </select>
                     </div>
-
                     <!-- Dropdown for Paymethood -->
-
                     <div class="flex items-center space-x-2 flex-1" data-tooltip="Seleccione método de pago"
                         data-flow="bottom">
                         <img src="images/payment.png" alt="Payment icon" class="w-6 h-6 self-center">
@@ -45,16 +46,13 @@
                             <option selected value="">Seleccione Destino</option>
                         </select>
                     </div>
-
                     <!-- Dropdown for Date -->
                     <div class="flex items-center space-x-2 flex-1" data-tooltip="Seleccione fecha de la reserva"
                         data-flow="bottom">
                         <img src="images/calendar-days.png" alt="Date icon" class="w-6 h-6 self-center">
                         <input type="date" id="date" name="date" min="{{ date('Y-m-d', strtotime('+0 day')) }}"
-                            max="2023-12-31"
                             class="block w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                     </div>
-
                     <!-- Dropdown for Seats -->
                     <div class="flex items-center space-x-2 flex-1" data-tooltip="Seleccione la cantidad de asientos"
                         data-flow="bottom">
@@ -64,11 +62,11 @@
                             <option selected value="">Seleccione Asientos</option>
                         </select>
                     </div>
-
-
+                    <!-- Hidden fields -->
                     <input id="baseRate" name="baseRate" value="" hidden>
                     <input id="routeId" name="routeId" value="" hidden>
 
+                    <!-- Make reservation button -->
                     <button id="createReservation" name="createReservation"
                         class="flex-initial h-10 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         style="background-color: #EAEAEA;" type="submit" disabled>
@@ -77,6 +75,7 @@
                 </div>
             </form>
         @else
+            <!-- Alert for no routes available -->
             <div id="alert-additional-content-1" style="background-color: #ff8a80; width: 50%; margin: auto;"
                 class="p-4 mb-4 text-white border border-white rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800"
                 role="alert">
@@ -98,8 +97,7 @@
         <!-- Section for code entry -->
         <div class="mt-10 flex items-center justify-center w-full">
             <h2 class="text-2xl font-semibold mr-4" style="color: #0A74DA">Ingrese un código de reserva:</h2>
-
-
+            <!-- Search reservation form -->
             <form id="searchReservationForm" class="flex items-center" action="{{ route('searchReservation') }}"
                 method="GET">
                 @php
@@ -122,10 +120,11 @@
                         @endif
                     </script>
                 @endif
-
+                <!-- Input for code entry -->
                 <input type="text" name="code"
                     class="p-2 border rounded text-gray-700 bg-white placeholder-gray-300 flex-grow"
                     placeholder="Ingrese Código de reserva">
+                <!-- Search button -->
                 <button type="submit" class="ml-4 p-2 text-white rounded font-semibold"
                     style="background-color: #2ECC71;">Buscar Reserva</button>
             </form>
