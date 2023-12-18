@@ -236,7 +236,7 @@ class ReservationController extends Controller
     $reservation = Reservation::findOrFail($id);
 
     $path = storage_path('app/public/' . $reservation->pdf);
-    $filename = 'reservation_' . $reservation->code . '.pdf';
+    $filename = $reservation->code . '.pdf';
     $mimeType = Storage::mimeType($path);
 
     return response()->download($path, $filename, ['Content-Type' => $mimeType]);
