@@ -266,7 +266,7 @@ class ReservationController extends Controller
         // Validates that the dates are provided
         $this->validate($request, [
             'initDate' => ['required', 'date'],
-            'finishDate' => ['required', 'date', 'after:initDate']
+            'finishDate' => ['required', 'date', 'after_or_equal:initDate']
         ], $messages);
 
         $initDate = $request->initDate;
